@@ -10,8 +10,7 @@ export default defineConfig({
       key: './certs/private.key',
       cert: './certs/certificate.crt'
     },
-    host: true,
-    port: 8443
+    host: true
   },
   resolve: {
     alias: {
