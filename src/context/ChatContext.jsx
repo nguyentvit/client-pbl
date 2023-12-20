@@ -263,15 +263,12 @@ export const ChatContextProvider = ({ children, user }) => {
       peer.on('stream', (currentStream) => {
         userVideo.current.srcObject = currentStream;
       })
-      // socket.on('callaccepted', (signal) => {
-      //   peer.signal(signal);
-      // })
-      if (signal) {
+      socket.on('callaccepted', (signal) => {
         peer.signal(signal);
-      }
+      })
       connectionRef.current = peer;
     }
-  }, [success, stream, signal]) 
+  }, [success, stream]) 
 
 
   const rejectCallFunc = (data) => {
