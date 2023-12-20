@@ -274,7 +274,7 @@ export const ChatContextProvider = ({ children, user }) => {
 
   const handleCallAccepted = (signal) => {
     // Thực hiện xử lý khi có tín hiệu chấp nhận cuộc gọi
-    if (signal) {
+    if (signal && peer) {
       peer.signal(signal);
     }
     
