@@ -41,6 +41,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const [callAccepted, setCallAccepted] = useState(false);
   const [callData, setCallData] = useState({})
   const [receiveCall, setReceiveCall] = useState(false);
+  const [signal, setSignal] = useState(null);
 
 
 
@@ -262,12 +263,15 @@ export const ChatContextProvider = ({ children, user }) => {
       peer.on('stream', (currentStream) => {
         userVideo.current.srcObject = currentStream;
       })
-      socket.on('callaccepted', (signal) => {
+      // socket.on('callaccepted', (signal) => {
+      //   peer.signal(signal);
+      // })
+      if (signal) {
         peer.signal(signal);
-      })
+      }
       connectionRef.current = peer;
     }
-  }, [success, stream]) 
+  }, [success, stream, signal]) 
 
 
   const rejectCallFunc = (data) => {
@@ -324,6 +328,16 @@ export const ChatContextProvider = ({ children, user }) => {
       setRejectCall(false);
     })
   }, [call, socket])
+
+  useEffect(() => {
+    if (socket === null ) return;
+    socket.on("callaccepted", (signal) => {
+      setSignal(signal);
+    }
+    )
+  }, [signal, socket])
+
+
 
   useEffect(() => {
     if (socket === null) return;
