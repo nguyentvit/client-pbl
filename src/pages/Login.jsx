@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import "./Login.css"; 
+import "./login.css"; 
 
 const Login = () => {
   const {
