@@ -6,8 +6,12 @@ import mkcert from'vite-plugin-mkcert'
 export default defineConfig({
   plugins: [mkcert(), react()],
   server: {
+    https: {
+      key: './certs/private.key',
+      cert: './certs/certificate.crt'
+    },
     host: true,
-    port: 80
+    port: 8443
   },
   resolve: {
     alias: {
