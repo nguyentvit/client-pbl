@@ -408,7 +408,8 @@ export const ChatContextProvider = ({ children, user }) => {
         rejectCall,
         myVideo,
         acceptCallFunc,
-        data
+        data,
+        callAccepted
       }}
     >
       {children}
