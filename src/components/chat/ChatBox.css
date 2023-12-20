@@ -1,0 +1,33 @@
+/* ChatBox.css */
+.chat-box {
+    background: linear-gradient(90deg, #e3fae6 0%, #dee9fd 80%);
+  }
+  
+  .chat-header {
+    background:linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%);
+  }
+  
+  .message.self.align-self-end.flex-grow-0 {
+    color: white; /* Màu chữ */
+    background: linear-gradient(90deg, #00d2ff 0%, #535fe7 100%); /* Màu nền */
+  }
+  
+  .message.align-self-start.flex-grow-0 {
+    background: linear-gradient(90deg, #e69bb4 0%, #f1c972 100%);
+  }
+
+  .user-card {
+    border: 1px solid #ccc; /* Màu và độ rộng của khung */
+    border-radius: 8px; /* Độ cong của các góc */
+    padding: 10px; /* Khoảng cách giữa nội dung và khung */
+    background-color: #f9f9f9; /* Màu nền */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+  }
+  
+  /* Thiết lập định dạng cho các phần tử bên trong user-card */
+  .user-card img {
+    border-radius: 50%; /* Để hình ảnh tròn */
+  }
+  .user-card .text-content {
+    flex: 1; /* Chia tỷ lệ không gian cho phần nội dung văn bản */
+  }

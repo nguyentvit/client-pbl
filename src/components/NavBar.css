@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300&display=swap');
+.mb-4 h2 {
+
+  font-family: 'Pacifico', cursive;
+  margin-top: 10px;
+  font-weight: 10px;
+}
+.link-light { 
+    margin-right: 3rem;
+    text-decoration: none;
+    color: white !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.mb-4{
+    background-color: #6DB9EF;
+    /* background-image: linear-gradient(160deg, #11b3db 10%, #11b3db 100%); */
+    
+}
+.navbar-menu-container {
+  display: none;
+}
+.navbar-links-container a {
+  margin-right: 3rem;
+  text-decoration: none;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}

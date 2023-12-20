@@ -1,0 +1,29 @@
+.profile-box {
+    position: absolute;
+    width: 200px;
+    top: 45px; /* Điều chỉnh vị trí theo cần thiết */
+     /* Điều chỉnh vị trí theo cần thiết */
+    background-color: rgb(90, 236, 252);
+    color: white;
+    z-index: 10;
+    border-radius: 5px;
+    height: 200px;
+
+  }
+  .profile-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center; 
+  }
+  .Username {
+    margin-right: 100px; /* Căn chỉnh username theo trục dọc */
+  }
+  
+.profile-icon {
+    margin-right: 10px; /* Khoảng cách giữa icon và username */
+  }
+  .profile-context
+  {
+    text-align: center;
+    margin-top: 50px;
+}
