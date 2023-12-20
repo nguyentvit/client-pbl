@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import "./Login.css";
+import "./login.css";
 import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import Loginimg from "../img/register.jpg";
