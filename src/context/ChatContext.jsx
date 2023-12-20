@@ -49,7 +49,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const connectionRef = useRef();
 
   useEffect(() => {
-    const newSocket = openSocket("wss://192.168.1.2:3030");
+    const newSocket = openSocket(`${baseUrl}`);
     setSocket(newSocket);
 
     return () => {
