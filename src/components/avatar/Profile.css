@@ -1,14 +1,13 @@
 .profile-box {
     position: absolute;
-    width: 200px;
     top: 45px; /* Điều chỉnh vị trí theo cần thiết */
      /* Điều chỉnh vị trí theo cần thiết */
-    background-color: rgb(90, 236, 252);
-    color: white;
-    z-index: 10;
-    border-radius: 5px;
-    height: 200px;
-
+     background-color: #d0f6ff;
+     border-radius: 7px;
+     color: #1b2121;
+     width: 230px;
+     height: 150px;
+     margin-top: 9px;
   }
   .profile-dropdown {
     position: relative;
@@ -24,6 +23,12 @@
   }
   .profile-context
   {
-    text-align: center;
-    margin-top: 50px;
+    padding: 20px;
+    line-Height: 2.3rem;
+    margin-bottom: 10px;
+}
+.logout,.profile_title,.setting_title 
+{
+  text-decoration: none;
+  color: black;
 }

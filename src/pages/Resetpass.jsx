@@ -3,8 +3,8 @@ import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import "./Login.css"; 
-import Loginimg from "../img/home2.png";
-const Login = () => {
+import ResetPass from "../img/resetpass.jpg";
+const Forgetpass = () => {
   const {
     loginUser,
     loginError,
@@ -18,11 +18,11 @@ const Login = () => {
     
     <Form onSubmit={loginUser} className="login-form">
       {/* <div className=""> */}
-      <img src={Loginimg } alt="" style={{width :"400px" , height: "400px", marginRight: "140px", marginTop: "30px"}}/>
+      <img src={ResetPass } alt="" style={{width :"600px" , height: "650px", marginRight: "140px", marginTop: "-40px"}}/>
       <Row className="login-container">
         <Col xs="6">
           <Stack gap={3}>
-            <h2>Login</h2>
+            <h2>Reset Password</h2>
             <p>Hey, Enter your details to get sign in to your account</p>
             <Form.Control
             className="username-input"
@@ -36,29 +36,30 @@ const Login = () => {
             <Form.Control
             className="username-input"
               type="password"
-              placeholder="Password"
+              placeholder="New Password"
               onChange={(e) =>
                 updateLoginInfo({ ...loginInfo, password: e.target.value })
               }
             />
-            <Link to="/forgetpass" className="forget_pass">
-            Forget Password?
-                </Link>
-            
+              <Form.Control
+            className="username-input"
+              type="password"
+              placeholder="Confirm Password"
+              onChange={(e) =>
+                updateLoginInfo({ ...loginInfo, password: e.target.value })
+              }
+            />
+             
             <Button variant="primary" type="submit" className="login">
-              {isLoginLoading ? "Getting you in..." : "Login"}
-            
+              {isLoginLoading ? "Getting you in..." : "Reset"}
+             
             </Button>
             {loginError?.error && (
               <Alert variant="danger">
                 <p>{loginError?.message}</p>
               </Alert>
             )}
-            <div className="title-register">
-            <p>Don't have an account? </p>
-            <Link to="/register" className="register">Register</Link>
-            
-            </div>
+           
           </Stack>
         </Col>
       </Row>
@@ -67,4 +68,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Forgetpass;

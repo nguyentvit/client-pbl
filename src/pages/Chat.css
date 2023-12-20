@@ -1,0 +1,18 @@
+.container
+{
+    
+}
+.userchat_containers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgb(186, 245, 245) 0%, #dae5f9 150%);
+  margin-left: -150px;
+  max-height: 650px;
+  overflow-y: auto;
+
+}
+

@@ -12,6 +12,7 @@ import { ChatContextProvider } from "./context/ChatContext";
 // import {Mainpage} from "./pages/Mainpage";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Forgetpass from "./pages/Resetpass";
 import Footer from "./pages/Footer";
 import "./App.css";
 
@@ -35,10 +36,10 @@ function App() {
 
       <Container className="text-secondary" style={{maxWidth: '500vw'}}>
         <Routes>
-          <Route
+          {/* <Route
             path="/login1"
             element={user ? <Chat token={token} /> : <Login />}
-          />
+          /> */}
 
           <Route
             path="/register"
@@ -51,8 +52,12 @@ function App() {
           />
 
           <Route path="*" element={<Mainpage />} />
+          <Route path = "/about" element={<About />} />
+          <Route path = "/footer" element={<Footer />} />
+          <Route path = "/forgetpass" element={<Forgetpass />} />
+        
         </Routes>
-      </Container>
+      </Container>  
     </ChatContextProvider>
   );
 }

@@ -4,16 +4,17 @@ import avatar from "../../assets/avatar.svg"
 import "./ChatBox.css"
 import { useContext } from "react";
 import { ChatContext } from "../../context/ChatContext";
+
 const UserChat = ({chat, user}) => {
     const { recipientUser } = useFetchRecipientUser(chat, user);
     const {onlineUsers} = useContext(ChatContext);
 
     const isOnline = onlineUsers?.some((user) => user?.userId === recipientUser?.user?._id);
 
-    return  <Stack direction="horizontal" gap={3} className="user-card align-items-center p-2 justify-content-between" role="button">
+    return  <Stack direction="horizontal"  className="user-card " role="button">
         <div className="d-flex">
             <div className="me-2">
-                <img src={avatar} height="35px"/>
+                <img src={avatar} />
             </div>
             <div className="text-content">
                 <div className="name">{recipientUser?.user.name}</div>

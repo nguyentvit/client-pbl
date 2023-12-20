@@ -253,13 +253,6 @@ export const ChatContextProvider = ({ children, user }) => {
   }
 
   useEffect(() => {
-    if (socket === null) return;
-    socket.on('callaccepted', (signal) => {
-      setReceiveCall(true);
-    })
-  }, [receiveCall])
-
-  useEffect(() => {
     if (success && stream) {
       if (socket === null) return;
       const peer = new Peer({initiator: true, trickle: false, stream});
@@ -274,7 +267,7 @@ export const ChatContextProvider = ({ children, user }) => {
       })
       connectionRef.current = peer;
     }
-  }, [success, stream, receiveCall]) 
+  }, [success, stream]) 
 
 
   const rejectCallFunc = (data) => {

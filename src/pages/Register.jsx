@@ -1,35 +1,77 @@
 import { useContext } from "react";
-import "./login.css"; 
+import "./Login.css";
 import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
-
+import Loginimg from "../img/register.jpg";
 const Register = () => {
-    const {registerInfo, updateRegisterInfo, registerUser, registerError, isRegisterLoading} = useContext(AuthContext);
-    return (<>
-    <Form onSubmit={registerUser} className="login-form" >
-        <Row  className="login-container">
-            <Col xs="6">
+  const {
+    registerInfo,
+    updateRegisterInfo,
+    registerUser,
+    registerError,
+    isRegisterLoading,
+  } = useContext(AuthContext);
+  return (
+    <>
+      <Form onSubmit={registerUser} className="login-form">
+        <img
+          src={Loginimg}
+          alt=""
+          style={{
+            width: "550px",
+            height: "350px",
+            marginRight: "50px",
+            marginTop: "30px",
+          }}
+        />
+
+        <Row className="login-container">
+          <Col xs="6">
             <Stack gap={3}>
-            <h2>Register</h2>
+              <h2>Register</h2>
 
-            <Form.Control type="text" placeholder="Name" onChange={(e) => updateRegisterInfo({...registerInfo, name: e.target.value})}/>
-            <Form.Control type="email" placeholder="Email" onChange={(e) => updateRegisterInfo({...registerInfo, email: e.target.value})}/>
-            <Form.Control type="password" placeholder="Password" onChange={(e) => updateRegisterInfo({...registerInfo, password: e.target.value})}/>
-            <Button variant="primary" type="submit">
+              <Form.Control
+                className="username-input"
+                type="text"
+                placeholder="Name"
+                onChange={(e) =>
+                  updateRegisterInfo({ ...registerInfo, name: e.target.value })
+                }
+              />
+              <Form.Control
+                className="username-input"
+                type="email"
+                placeholder="Email"
+                onChange={(e) =>
+                  updateRegisterInfo({ ...registerInfo, email: e.target.value })
+                }
+              />
+              <Form.Control
+                className="username-input"
+                type="password"
+                placeholder="Password"
+                onChange={(e) =>
+                  updateRegisterInfo({
+                    ...registerInfo,
+                    password: e.target.value,
+                  })
+                }
+              />
+              <Button variant="primary" type="submit" className="login">
                 {isRegisterLoading ? "Creating your account" : "Register"}
-            </Button>
+              </Button>
 
-            {
-                registerError?.error && 
+              {registerError?.error && (
                 <Alert variant="danger">
-                <p>{registerError?.message}</p>
-            </Alert>
-            }
+                  <p>{registerError?.message}</p>
+                </Alert>
+              )}
             </Stack>
-            </Col>
+          </Col>
         </Row>
-    </Form>
-    </>);
-}
- 
+      </Form>
+    </>
+  );
+};
+
 export default Register;

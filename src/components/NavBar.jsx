@@ -1,74 +1,91 @@
-import { useContext } from "react";
+import { useContext ,  useRef, useEffect, useState } from "react";
 import { Container, Nav, Navbar, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../components/NavBar.css";
-import logoImg from '../img/logo.png';
-import Notification from "./chat/Notification";
+import logoImg from "../img/logo.png";
+import Notification from "./chat/notification";
 import Profile from "./avatar/Profile";
 
-
 const NavBar = () => {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   //const Menus = ["profile", "Your apps", "Settings", "Logout"];
+  const [isOpenNotification, setIsOpenNotification] = useState(false);
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
+  const notificationRef = useRef(null);
+  const profileRef = useRef(null);
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(e.target) &&
+        profileRef.current &&
+        !profileRef.current.contains(e.target)
+      ) {
+        setIsOpenNotification(false);
+        setIsOpenProfile(false);
+      }
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
   return (
     <Navbar className="mb-4" style={{ height: "3.75rem" }}>
-     
       <Container>
-      
-        <h2>
         <img src={logoImg} alt="Logo" />
-          <Link to="/" className="link-light text-decoration-none">
-             LiveTalk
-          </Link>
-        </h2>
+
+        <Link to="/" className="header_logo ">
+          LiveTalk
+        </Link>
+
         {/* {user && (
           <>
             <span className="text-warning">Logged in as {user?.name}</span>
           </>
         )} */}
-         <Nav>
-          
-          <div className="navbar-links-container">
-        <a href="">Home</a>
-        <a href="">About</a>
-        <a href="">Contact</a>
-          </div>
+        <Nav>
           <Stack direction="horizontal" gap={3}>
-            {user && (
-              <>
+          {user && (
+          <>
+            <div ref={notificationRef}>
               <Notification />
+            </div>
+            <div ref={profileRef}>
               <Profile />
-                {/* <Link
-                  onClick={() => logoutUser()}
-                  to="/login"
-                  className="link-light text-decoration-none"
-                >
-                  Logout
-                </Link> */}
-              </>
-            )}
+            </div>
+          </>
+        )}
             {!user && (
               <>
-              <div className="navbar-links-container"> 
-                <Link to="/login" className="link-light text-decoration-none">
-                  Login
-                </Link>
-                
-                <Link
-                  to="/register"
-                  className="link-light text-decoration-none"
-                >
-                  Register
-                </Link>
+                <div className="navbar-links-container">
+                  <Link to="/" className="navbar-links-container">
+                    Home
+                  </Link>
+                  <Link to="/about" className="navbar-links-container">
+                    About
+                  </Link>
+                  <Link to="/contact" className="navbar-links-container">
+                    Contact
+                  </Link>
                 </div>
-                
+                <div className="navbar-links-container">
+                  <Link to="/login" className="navbar-links-container">
+                    Login
+                  </Link>
+
+                  <Link to="/register" className="navbar-links-container">
+                    Register
+                  </Link>
+                </div>
               </>
             )}
           </Stack>
         </Nav>
       </Container>
-      
     </Navbar>
   );
 };

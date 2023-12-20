@@ -1,33 +1,80 @@
 /* ChatBox.css */
 .chat-box {
-    background: linear-gradient(90deg, #e3fae6 0%, #dee9fd 80%);
-  }
-  
-  .chat-header {
-    background:linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%);
-  }
-  
-  .message.self.align-self-end.flex-grow-0 {
-    color: white; /* Màu chữ */
-    background: linear-gradient(90deg, #00d2ff 0%, #535fe7 100%); /* Màu nền */
-  }
-  
-  .message.align-self-start.flex-grow-0 {
-    background: linear-gradient(90deg, #e69bb4 0%, #f1c972 100%);
-  }
+   
+  background-color: #FFDEE9;
+background-Image: linear-gradient(0deg, #fbe9ef 0%, #9dfffa 69%, #1b2121 100%);
+width: 100vh;
+height: 1000px;
+}
 
-  .user-card {
-    border: 1px solid #ccc; /* Màu và độ rộng của khung */
-    border-radius: 8px; /* Độ cong của các góc */
-    padding: 10px; /* Khoảng cách giữa nội dung và khung */
-    background-color: #f9f9f9; /* Màu nền */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
-  }
-  
-  /* Thiết lập định dạng cho các phần tử bên trong user-card */
-  .user-card img {
-    border-radius: 50%; /* Để hình ảnh tròn */
-  }
-  .user-card .text-content {
-    flex: 1; /* Chia tỷ lệ không gian cho phần nội dung văn bản */
-  }
+.chat-box .chat-header {
+/* background:linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%); */
+background: rgb(181, 248, 248);
+border: solid 0.4px #c8d5d5;
+}
+
+.message.self.align-self-end.flex-grow-0 {
+color: white; /* Màu chữ */
+background: linear-gradient(90deg, #00d2ff 0%, #535fe7 100%); /* Màu nền */
+}
+
+.message.align-self-start.flex-grow-0 {
+background-color: #67a6ef;
+/* background: linear-gradient(90deg, #ebbdcd 0%, #f1ecdf 100%); */
+}
+
+.user-card {
+border: 1px solid #ccc; /* Màu và độ rộng của khung */
+border-radius: 8px; /* Độ cong của các góc */
+/* Khoảng cách giữa nội dung và khung */
+background-color: #f9f9f9; /* Màu nền */
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+width: 100px;
+height: 80px;
+gap: 30px;
+
+}
+
+/* Thiết lập định dạng cho các phần tử bên trong user-card */
+.user-card img {
+border-radius: 50%; /* Để hình ảnh tròn */
+width: 50px;
+height: 50px;
+margin-left: 9px;
+}
+.user-card .text-content {
+flex: 1; /* Chia tỷ lệ không gian cho phần nội dung văn bản */
+}
+
+.search-input
+{
+border-radius: 0.5rem;
+width: 23.6rem;
+height: 2rem;
+border: 1px solid #ccc;
+}
+.userchat_header
+{
+display: flex;
+gap: 17rem;
+}
+.userchat_header h4{
+color: black;
+}
+.userchat_header .new_chat
+{
+border-radius: 100%;
+width: 40px;
+height: 40px;
+}
+.notifications .notifications-box
+{
+background-color: #d0f6ff;
+border-radius: 10px;
+color: #1b2121;
+width: 230px;
+max-height: 300px;
+ overflow-y: auto;
+
+margin-right: 12px;
+}
