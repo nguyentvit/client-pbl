@@ -39,6 +39,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const [success, setSuccess] = useState(false);
   const [data, setData] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
+  const [callData, setCallData] = useState({})
 
 
 
@@ -301,6 +302,20 @@ export const ChatContextProvider = ({ children, user }) => {
   }, [callAccepted])
 
   useEffect(() => {
+    if (callAccepted && stream) {
+      const peer = new Peer({initiator: false, trickle: false, stream});
+      peer.on('signal', (signal) => {
+        socket.emit('answercall', {signal, id: call.data.from})
+      })
+      peer.on('stream', (currentStream) => {
+        userVideo.current.srcObject = currentStream;
+      })
+
+      peer.signal(call.signal);
+    }
+  }, [callAccepted, socket, stream])
+
+  useEffect(() => {
     if (socket === null) return;
     socket.on("getcall", (data) => {
       setCall({received: true, data:data.data, signal: data.signalData});
@@ -409,7 +424,8 @@ export const ChatContextProvider = ({ children, user }) => {
         myVideo,
         acceptCallFunc,
         data,
-        callAccepted
+        callAccepted,
+        userVideo
       }}
     >
       {children}

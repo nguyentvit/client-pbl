@@ -9,7 +9,7 @@ import "./ChatBox.css";
 
 const ChatBox = () => {
   const { user, token } = useContext(AuthContext);
-  const { currentChat, messages, isMessagesLoading, sendTextMessage, sendCall, call, rejectCallFunc, rejectCall, myVideo, acceptCallFunc, data, callAccepted } =
+  const { currentChat, messages, isMessagesLoading, sendTextMessage, sendCall, call, rejectCallFunc, rejectCall, myVideo, acceptCallFunc, data, callAccepted, userVideo } =
     useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
@@ -17,6 +17,9 @@ const ChatBox = () => {
   console.log("call:", call);
 
   console.log("data:", data);
+
+  console.log("myvideo", myVideo);
+  console.log("uservideo", userVideo);
 
 
   const handleCall = () => {
@@ -78,6 +81,7 @@ const ChatBox = () => {
         {callAccepted && (
           <div>
           <video playsInline muted autoPlay ref={myVideo}></video>
+          <video playsInline muted autoPlay ref={userVideo}></video>
         </div>
         )}
 
