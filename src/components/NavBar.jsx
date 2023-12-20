@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../components/NavBar.css";
 import logoImg from "../img/logo.png";
-import Notification from "./chat/notification";
+import Notification from "./chat/Notification.jsx";
 import Profile from "./avatar/Profile";
 
 const NavBar = () => {
