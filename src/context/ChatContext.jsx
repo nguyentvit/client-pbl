@@ -335,6 +335,14 @@ export const ChatContextProvider = ({ children, user }) => {
     })
   }, [socket, rejectCall])
 
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("callaccepted", signal => {
+      setSignal(signal);
+      console.log("signal", signal)
+    })
+  }, [socket])
+
   // useEffect(() => {
   //   if (socket === null) return;
   //   if (callAccepted && stream) {
