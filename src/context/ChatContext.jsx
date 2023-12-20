@@ -264,10 +264,10 @@ export const ChatContextProvider = ({ children, user }) => {
       newPeer.on('stream', (currentStream) => {
         userVideo.current.srcObject = currentStream;
       })
-      newPeer.on('callaccepted', (signal) => {
-        peer.signal(signal);
-      })
-      connectionRef.current = newPeer;
+      // newPeer.on('callaccepted', (signal) => {
+      //   peer.signal(signal);
+      // })
+      // connectionRef.current = newPeer;
       setPeer(newPeer);
     }
   }, [success, stream]) 
@@ -276,6 +276,7 @@ export const ChatContextProvider = ({ children, user }) => {
     // Thực hiện xử lý khi có tín hiệu chấp nhận cuộc gọi
     if (signal && peer) {
       peer.signal(signal);
+      connectionRef.current = peer;
     }
     
   }
