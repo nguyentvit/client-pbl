@@ -40,7 +40,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const [data, setData] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
   const [callData, setCallData] = useState({})
-  const [receiveCall, setReceiveCall] = useState(false);
+  const [receiveCall, setReceiveCall] = useState({});
   const [signal, setSignal] = useState(null);
   const [peer, setPeer] = useState(null);
 
@@ -272,32 +272,15 @@ export const ChatContextProvider = ({ children, user }) => {
     }
   }, [success, stream]) 
 
-  const handleCallAccepted = (signal) => {
-    // Thực hiện xử lý khi có tín hiệu chấp nhận cuộc gọi
-    if (signal && peer) {
+  useEffect(() => {
+    if (receiveCall.signal && peer) {
       peer.on('stream', (currentStream) => {
         userVideo.current.srcObject = currentStream;
       })
-      peer.signal(signal);
+      peer.signal(receiveCall.signal);
       connectionRef.current = peer;
-      // peer.signal(signal);
-      // connectionRef.current = peer;
     }
-    
-  }
-  
-  useEffect(() => {
-    if (socket === null) return;
-    if (peer) {
-      socket.on("callaccepted", handleCallAccepted);
-    }
-
-    return () => {
-      if (socket) {
-        socket.off("callaccepted", handleCallAccepted)
-      }
-    }
-  }, [socket])
+  }, [receiveCall, peer])
 
 
   const rejectCallFunc = (data) => {
@@ -354,6 +337,13 @@ export const ChatContextProvider = ({ children, user }) => {
       setRejectCall(false);
     })
   }, [call, socket])
+
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("callaccepted", (signal) => {
+      setReceiveCall(signal);
+    })
+  }, [socket, receiveCall])
 
 
 
