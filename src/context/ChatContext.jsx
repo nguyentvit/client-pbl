@@ -261,13 +261,13 @@ export const ChatContextProvider = ({ children, user }) => {
       newPeer.on('signal', (signal) => {
         socket.emit("sendcall", {data, signalData: signal});
       })
-      // newPeer.on('stream', (currentStream) => {
-      //   userVideo.current.srcObject = currentStream;
-      // })
-      // newPeer.on('callaccepted', (signal) => {
-      //   peer.signal(signal);
-      // })
-      // connectionRef.current = newPeer;
+      newPeer.on('stream', (currentStream) => {
+        userVideo.current.srcObject = currentStream;
+      })
+      newPeer.on('callaccepted', (signal) => {
+        peer.signal(signal);
+      })
+      connectionRef.current = newPeer;
       setPeer(newPeer);
     }
   }, [success, stream]) 
@@ -338,12 +338,12 @@ export const ChatContextProvider = ({ children, user }) => {
     })
   }, [call, socket])
 
-  useEffect(() => {
-    if (socket === null) return;
-    socket.on("callaccepted", (signal) => {
-      setReceiveCall(signal);
-    })
-  }, [socket, receiveCall])
+  // useEffect(() => {
+  //   if (socket === null) return;
+  //   socket.on("callaccepted", (signal) => {
+  //     setReceiveCall(signal);
+  //   })
+  // }, [socket, receiveCall])
 
 
 
