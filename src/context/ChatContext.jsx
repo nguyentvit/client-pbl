@@ -260,6 +260,9 @@ export const ChatContextProvider = ({ children, user }) => {
       const newPeer = new Peer({initiator: true, trickle: false, stream});
       newPeer.on('signal', (signal) => {
         socket.emit("sendcall", {data, signalData: signal});
+        console.log("signal", signal);
+        console.log("stream", stream);
+        console.log("newPeer", newPeer);
       })
       newPeer.on('stream', (currentStream) => {
         userVideo.current.srcObject = currentStream;
