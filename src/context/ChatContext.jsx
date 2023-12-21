@@ -260,17 +260,14 @@ export const ChatContextProvider = ({ children, user }) => {
       const newPeer = new Peer({initiator: true, trickle: false, stream});
       newPeer.on('signal', (signal) => {
         socket.emit("sendcall", {data, signalData: signal});
-        console.log("signal", signal);
-        console.log("stream", stream);
-        console.log("newPeer", newPeer);
       })
-      newPeer.on('stream', (currentStream) => {
-        userVideo.current.srcObject = currentStream;
-      })
-      newPeer.on('callaccepted', (signal) => {
-        peer.signal(signal);
-      })
-      connectionRef.current = newPeer;
+      // newPeer.on('stream', (currentStream) => {
+      //   userVideo.current.srcObject = currentStream;
+      // })
+      // newPeer.on('callaccepted', (signal) => {
+      //   peer.signal(signal);
+      // })
+      // connectionRef.current = newPeer;
       setPeer(newPeer);
     }
   }, [success, stream]) 
@@ -278,6 +275,11 @@ export const ChatContextProvider = ({ children, user }) => {
   const handleCallAccepted = (signal) => {
     // Thực hiện xử lý khi có tín hiệu chấp nhận cuộc gọi
     if (signal && peer) {
+      peer.on('stream', (currentStream) => {
+        userVideo.current.srcObject = currentStream;
+      })
+      peer.signal(signal);
+      connectionRef.current = peer;
       // peer.signal(signal);
       // connectionRef.current = peer;
     }
@@ -286,7 +288,9 @@ export const ChatContextProvider = ({ children, user }) => {
   
   useEffect(() => {
     if (socket === null) return;
-    socket.on("callaccepted", handleCallAccepted)
+    if (peer) {
+      socket.on("callaccepted", handleCallAccepted);
+    }
 
     return () => {
       if (socket) {
