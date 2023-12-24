@@ -316,7 +316,7 @@ export const ChatContextProvider = ({ children, user }) => {
       })
 
       socket.on("callaccepted", (signal) => {
-        setCallAccepted(true);
+        //setCallAccepted(true);
         peer.signal(signal);
       })
 
