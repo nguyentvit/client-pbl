@@ -414,10 +414,28 @@ useEffect(() => {
     })
   }, [call, socket])
 
-  const leaveCall = () => {
+  // const leaveCall = () => {
+  //   setCallEnded(true);
+  //   socket.emit("leaveCall", {id:})
+  //   connectionRef.current.destroy();
+  // }
+
+  //  gui tu choi
+  const leaveCall = (data) => {
+    if (socket === null) return;
+    socket.emit("leaveCall", data);
     setCallEnded(true);
     connectionRef.current.destroy();
   }
+
+// nhan tu choi
+useEffect(() => {
+  if (socket === null) return;
+  socket.on("leaveCall", (data) => {
+    setCallEnded(true);
+    connectionRef.current.destroy();
+  })
+}, [socket, callEnded])
 
 
 

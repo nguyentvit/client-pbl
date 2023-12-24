@@ -54,6 +54,10 @@ const ChatBox = () => {
     rejectCallFunc({ id: call.data.from });
   };
 
+  const handleLeave = () => {
+    leaveCall({id: call.data.from});
+  }
+
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -109,7 +113,7 @@ const ChatBox = () => {
               fill="currentColor"
               className="bi bi-telephone-x-fill"
               viewBox="0 0 16 16"
-              onClick={leaveCall}
+              onClick={handleLeave}
             >
               <path
                 fillRule="evenodd"
@@ -129,7 +133,7 @@ const ChatBox = () => {
               fill="currentColor"
               className="bi bi-telephone-x-fill"
               viewBox="0 0 16 16"
-              onClick={leaveCall}
+              onClick={handleLeave}
             >
               <path
                 fillRule="evenodd"
