@@ -7,9 +7,30 @@
     box-sizing: border-box;
     /* font-family: "Reem Kufi", sans-serif !important; */
   }
+  /* Ví dụ về responsive design cho một phần tử */
+.element {
+  width: 100%; /* Chiều rộng tương đối */
+  max-width: 500px; /* Chiều rộng tối đa */
+  margin: 0 auto; /* Canh chỉnh giữa trang */
+}
+
+/* Sử dụng media queries để điều chỉnh style dựa trên kích thước màn hình */
+@media (max-width: 768px) {
+  .element {
+    font-size: 14px; /* Điều chỉnh font size cho màn hình nhỏ hơn */
+  }
+}
+
+@media (min-width: 1200px) {
+  .element {
+    padding: 20px; /* Thêm padding cho màn hình lớn hơn */
+  }
+}
+
   img {
     max-width: 100%;
     height: auto;
+    display: block;
   }
   .App {
     min-height: 100vh;
@@ -20,7 +41,7 @@
   body {
     max-width: 100%;
     overflow-x: hidden;
-    background-color: white;
+    background-color:#EEFEFF;
   }
   
   
@@ -64,14 +85,15 @@
   .home-banner-container {
     position: relative;
     display: flex;
+    flex-direction: column;
     padding-top: 3rem;
   }
   .home-bannerImage-container {
     position: absolute;
     top: 30px;
-    margin-left: 850px;
-    width: 900px;
-    height: 1000px;
+    margin-left: 850px;   
+    max-width: 100%;
+    height:auto;
   }
   .home-image-section {
     max-width: 600px;
@@ -123,7 +145,7 @@
 
   /* about section*/
   .about-section-container {
-    margin-top: 18rem;
+    margin-top: 14rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -136,7 +158,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-left: 150px;
+    margin-left: 190px;
 
 }
 
@@ -164,7 +186,7 @@
   justify-content: space-between;
 }
 .content-container-item h6{
-  margin-top: 15px;}
+  margin-top: 10px;}
   .about-background-image-container {
     position: absolute;
     margin-top: 100px;
