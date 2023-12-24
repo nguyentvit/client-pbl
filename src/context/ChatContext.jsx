@@ -271,15 +271,15 @@ export const ChatContextProvider = ({ children, user }) => {
     }
   }, [success, stream]) 
 
-  useEffect(() => {
-    if (receiveCall.signal && peer) {
-      peer.on('stream', (currentStream) => {
-        userVideo.current.srcObject = currentStream;
-      })
-      peer.signal(receiveCall.signal);
-      connectionRef.current = peer;
-    }
-  }, [receiveCall, peer])
+  // useEffect(() => {
+  //   if (receiveCall.signal && peer) {
+  //     peer.on('stream', (currentStream) => {
+  //       userVideo.current.srcObject = currentStream;
+  //     })
+  //     peer.signal(receiveCall.signal);
+  //     connectionRef.current = peer;
+  //   }
+  // }, [receiveCall, peer])
 
 
   const rejectCallFunc = (data) => {
