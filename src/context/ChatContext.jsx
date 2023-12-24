@@ -350,8 +350,7 @@ useEffect(() => {
 
   // lay stream
   useEffect(() => {
-    console.log("callAccepted:", callAccepted);
-    if (callAccepted) {
+    if (callAccepted && call.received) {
       navigator.mediaDevices.getUserMedia({video: true, audio: true})
         .then((currentStream) => {
           setStream(currentStream);
@@ -368,7 +367,7 @@ useEffect(() => {
         setStream(null);
       }
     }
-  }, [callAccepted])
+  }, [callAccepted, socket])
 
   useEffect(() => {
     if (callAccepted && stream && call.received) {
