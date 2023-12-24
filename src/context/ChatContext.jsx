@@ -43,6 +43,9 @@ export const ChatContextProvider = ({ children, user }) => {
   const [receiveCall, setReceiveCall] = useState({});
   const [signal, setSignal] = useState(null);
   const [peer, setPeer] = useState(null);
+  const [localStream, setLocalStream] = useState(null);
+  const [remoteStream, setRemoteStream] = useState(null);
+  const [peerConnection, setPeerConnection] = useState(null);
 
 
 
@@ -50,7 +53,8 @@ export const ChatContextProvider = ({ children, user }) => {
   const [stream, setStream] = useState(null);
   const myVideo = useRef();
   const userVideo = useRef();
-  const connectionRef = useRef();
+  const localVideoRef = useRef();
+  const remoteVideoRef = useRef();
 
   useEffect(() => {
     const newSocket = openSocket(`${baseUrl}`);
@@ -239,12 +243,6 @@ export const ChatContextProvider = ({ children, user }) => {
     setNotifications(mNotifications)
   })
 
-  // const sendCall = (data) => {
-  //   if (socket === null) return;
-  //   socket.emit("sendcall", {data, stream});
-  //   setCall({sended: true})
-  //   setRejectCall(false);
-  // }
 
   //test
   const sendCall = (data) => {
@@ -254,32 +252,128 @@ export const ChatContextProvider = ({ children, user }) => {
     setRejectCall(false);
   }
 
-  useEffect(() => {
-    if (success && stream) {
-      if (socket === null) return;
-      const peer = new Peer({initiator: true, trickle: false, stream});
-      peer.on('signal', (signal) => {
-        socket.emit("sendcall", {data, signalData: signal});
-      })
-      peer.on('stream', (currentStream) => {
-        userVideo.current.srcObject = currentStream;
-      })
-      socket.on('callaccepted', (signal) => {
-        peer.signal(signal);
-      })
-      connectionRef.current = peer;
-    }
-  }, [success, stream]) 
-
   // useEffect(() => {
-  //   if (receiveCall.signal && peer) {
-  //     peer.on('stream', (currentStream) => {
-  //       userVideo.current.srcObject = currentStream;
-  //     })
-  //     peer.signal(receiveCall.signal);
-  //     connectionRef.current = peer;
+  //   if (socket === null) return;
+  //   if (success) {
+  //     const startWebRtc = async () => {
+  //       try {
+  //         navigator.mediaDevices.getUserMedia({video: true, audio: true})
+  //       .then((currentStream) => {
+  //         setLocalStream(currentStream);
+  //         localVideoRef.current.srcObject = localStream;
+
+  //         const peerConnection = new RTCPeerConnection();
+  //         localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+  //         socket.on("message", async (message) => {
+  //           if (message.type === 'offer' || message.type === 'answer') {
+  //             const remoteDescription = new RTCSessionDescription(message);
+  //             await peerConnection.setRemoteDescription(remoteDescription);
+
+  //             if (message.type === 'offer') {
+  //               // Create an answer
+  //               const answer = await peerConnection.createAnswer();
+  //               await peerConnection.setLocalDescription(answer);
+  
+  //               // Send the answer to the other peer
+  //               socket.emit('message', answer);
+  //             }
+  //           } else if (message.type === 'candidate') {
+  //             const candidate = new RTCIceCandidate(message.candidate);
+  //             await peerConnection.addIceCandidate(candidate);
+  //           }
+  //         })
+  //         const offer = await peerConnection.createOffer();
+  //         await peerConnection.setLocalDescription(offer);
+          
+  //       })
+  //       } catch (error) {
+  //         console.error('Error starting WebRTC:', error);
+  //       }
+  //       startWebRtc();
+        
+  //     }
   //   }
-  // }, [receiveCall, peer])
+  // }, [success, socket]) 
+
+
+  useEffect(() => {
+    if (socket === null || !success) return;
+    const startWebRTC = async () => {
+      try {
+        // Get local video stream
+        const localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        localVideoRef.current.srcObject = localStream;
+
+        // Create RTCPeerConnection
+        const peerConnection = new RTCPeerConnection();
+        setPeerConnection(peerConnection);
+
+        // Add local stream to peer connection
+        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+        // Create socket.io connection
+
+        // Listen for signaling messages
+        socket.on('message', async (message) => {
+          if (message.type === 'offer' || message.type === 'answer') {
+            const remoteDescription = new RTCSessionDescription(message);
+            await peerConnection.setRemoteDescription(remoteDescription);
+
+            if (message.type === 'offer') {
+              // Create an answer
+              const answer = await peerConnection.createAnswer();
+              await peerConnection.setLocalDescription(answer);
+
+              // Send the answer to the other peer
+              socket.emit('message', answer);
+            }
+          } else if (message.type === 'candidate') {
+            // Add ICE candidate received from the other peer
+            const candidate = new RTCIceCandidate(message.candidate);
+            await peerConnection.addIceCandidate(candidate);
+          }
+        });
+
+        // Send an offer to the other peer
+        const offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
+
+        // Send the offer to the other peer
+        socket.emit('message', offer);
+
+        // Listen for ICE candidates and send them to the other peer
+        peerConnection.onicecandidate = (event) => {
+          if (event.candidate) {
+            socket.emit('message', { type: 'candidate', candidate: event.candidate });
+          }
+        };
+
+        // Handle remote stream
+        peerConnection.ontrack = (event) => {
+          setRemoteStream(event.streams[0])
+          remoteVideoRef.current.srcObject = remoteStream;
+        };
+      } catch (error) {
+        console.error('Error starting WebRTC:', error);
+      }
+    };
+
+    startWebRTC();
+
+    // Cleanup on component unmount
+    return () => {
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+      }
+      if (peerConnection) {
+        peerConnection.close();
+      }
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, []);
 
 
   const rejectCallFunc = (data) => {
@@ -295,118 +389,97 @@ export const ChatContextProvider = ({ children, user }) => {
     console.log("rejectcall", rejectCall);
   }
 
-  useEffect(() => {
-    if (callAccepted) {
-      navigator.mediaDevices.getUserMedia({video: true, audio: true})
-        .then((currentStream) => {
-          setStream(currentStream);
-          myVideo.current.srcObject = currentStream;
-        })
-    } else {
-      if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-        if (myVideo.current) {
+  // useEffect(() => {
+  //   if (callAccepted) {
+  //     navigator.mediaDevices.getUserMedia({video: true, audio: true})
+  //       .then((currentStream) => {
+  //         setStream(currentStream);
+  //         myVideo.current.srcObject = currentStream;
+  //       })
+  //   } else {
+  //     if (stream) {
+  //       const tracks = stream.getTracks();
+  //       tracks.forEach(track => track.stop());
+  //       if (myVideo.current) {
 
-          myVideo.current.srcObject = null;
-        }
-        setStream(null);
-      }
-    }
-  }, [callAccepted])
-
-  useEffect(() => {
-    if (callAccepted && stream) {
-      const peer = new Peer({initiator: false, trickle: false, stream});
-      peer.on('signal', (signal) => {
-        socket.emit('answercall', {signal, id: call.data.from})
-      })
-      peer.on('stream', (currentStream) => {
-        userVideo.current.srcObject = currentStream;
-      })
-
-      peer.signal(call.signal);
-    }
-  }, [callAccepted, socket, stream])
-
-  useEffect(() => {
-    if (socket === null) return;
-    socket.on("getcall", (data) => {
-      setCall({received: true, data:data.data, signal: data.signalData});
-      setRejectCall(false);
-    })
-  }, [call, socket])
+  //         myVideo.current.srcObject = null;
+  //       }
+  //       setStream(null);
+  //     }
+  //   }
+  // }, [callAccepted])
 
   // useEffect(() => {
-  //   if (socket === null) return;
-  //   socket.on("callaccepted", (signal) => {
-  //     setReceiveCall(signal);
-  //   })
-  // }, [socket, receiveCall])
-
-
-
-  useEffect(() => {
-    if (socket === null) return;
-    socket.on("getrejectcall", (data) => {
-      setRejectCall(true);
-    })
-  }, [socket, rejectCall])
-
-
-  // useEffect(() => {
-  //   if (socket === null) return;
   //   if (callAccepted && stream) {
-  //     const peer = new Peer({initiator: false, trickle: false, stream})
+  //     const peer = new Peer({initiator: false, trickle: false, stream});
   //     peer.on('signal', (signal) => {
-  //       socket.emit('answercall', {signal, data})
+  //       socket.emit('answercall', {signal, id: call.data.from})
   //     })
   //     peer.on('stream', (currentStream) => {
   //       userVideo.current.srcObject = currentStream;
   //     })
-  //     peer.signal()
 
+  //     peer.signal(call.signal);
   //   }
-  // }, [])
+  // }, [callAccepted, socket, stream])
 
-  useEffect(() => {
-    if (call.sended && !rejectCall) {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
-          .then((currentStream) => {
-            console.log(currentStream);
-            setStream(currentStream);
-            myVideo.current.srcObject = currentStream;
-          })
-      } else if (navigator.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
-          .then((currentStream) => {
-            setStream(currentStream);
-            console.log(currentStream);
-            myVideo.current.srcObject = currentStream;
-          })
-      } else if (navigator.webkitGetUserMedia) {
-        navigator.webkitGetUserMedia({video: true, audio: true})
-          .then((currentStream) => {
-            setStream(currentStream);
-            console.log(currentStream);
-            myVideo.current.srcObject = currentStream;
-          })
-      } else {
-        console.log("that bai");
-      }
-    } else {
-      if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-        if (myVideo.current) {
+  // useEffect(() => {
+  //   if (socket === null) return;
+  //   socket.on("getcall", (data) => {
+  //     setCall({received: true, data:data.data, signal: data.signalData});
+  //     setRejectCall(false);
+  //   })
+  // }, [call, socket])
 
-          myVideo.current.srcObject = null;
-        }
-        setStream(null);
-      }
-    }
-  }, [call, socket, rejectCall])
+
+
+  // useEffect(() => {
+  //   if (socket === null) return;
+  //   socket.on("getrejectcall", (data) => {
+  //     setRejectCall(true);
+  //   })
+  // }, [socket, rejectCall])
+
+  // useEffect(() => {
+  //   if (call.sended && !rejectCall) {
+  //     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  //       navigator.mediaDevices.getUserMedia({video: true, audio: true})
+  //         .then((currentStream) => {
+  //           console.log(currentStream);
+  //           setStream(currentStream);
+  //           myVideo.current.srcObject = currentStream;
+  //         })
+  //     } else if (navigator.getUserMedia) {
+  //       navigator.mediaDevices.getUserMedia({video: true, audio: true})
+  //         .then((currentStream) => {
+  //           setStream(currentStream);
+  //           console.log(currentStream);
+  //           myVideo.current.srcObject = currentStream;
+  //         })
+  //     } else if (navigator.webkitGetUserMedia) {
+  //       navigator.webkitGetUserMedia({video: true, audio: true})
+  //         .then((currentStream) => {
+  //           setStream(currentStream);
+  //           console.log(currentStream);
+  //           myVideo.current.srcObject = currentStream;
+  //         })
+  //     } else {
+  //       console.log("that bai");
+  //     }
+  //   } else {
+  //     if (stream) {
+  //       const tracks = stream.getTracks();
+  //       tracks.forEach(track => track.stop());
+  //       if (myVideo.current) {
+
+  //         myVideo.current.srcObject = null;
+  //       }
+  //       setStream(null);
+  //     }
+  //   }
+  // }, [call, socket, rejectCall])
+
+
 
 
 
@@ -449,7 +522,9 @@ export const ChatContextProvider = ({ children, user }) => {
         acceptCallFunc,
         data,
         callAccepted,
-        userVideo
+        userVideo,
+        localVideoRef,
+        remoteVideoRef
       }}
     >
       {children}
