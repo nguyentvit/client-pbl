@@ -370,7 +370,7 @@ useEffect(() => {
   }, [callAccepted])
 
   useEffect(() => {
-    if (callAccepted && stream) {
+    if (callAccepted && stream && call.received) {
       const peer = new Peer({initiator: false, trickle: false, stream});
       peer.on('signal', (signal) => {
         socket.emit('answercall', {signal, id: call.data.from})
