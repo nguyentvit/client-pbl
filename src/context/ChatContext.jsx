@@ -426,6 +426,7 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
+    setStream(null);
     connectionRef.current.destroy();
   }
 
@@ -439,6 +440,7 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
+    setStream(null);
     connectionRef.current.destroy();
   })
 }, [socket, callEnded])
