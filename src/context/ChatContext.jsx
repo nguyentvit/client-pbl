@@ -43,6 +43,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const [receiveCall, setReceiveCall] = useState(false);
   const [signal, setSignal] = useState(null);
   const [peer, setPeer] = useState(null);
+  const [callSuccess, setCallSuccess] = useState(false);
 
 
 
@@ -317,6 +318,7 @@ export const ChatContextProvider = ({ children, user }) => {
 
       socket.on("callaccepted", (signal) => {
         //setCallAccepted(true);
+        setCallSuccess(true);
         peer.signal(signal);
       })
 
@@ -441,7 +443,8 @@ useEffect(() => {
         acceptCallFunc,
         data,
         callAccepted,
-        userVideo
+        userVideo,
+        callSuccess
       }}
     >
       {children}
