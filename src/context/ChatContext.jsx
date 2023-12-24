@@ -443,7 +443,7 @@ useEffect(() => {
     setStream(null);
     connectionRef.current.destroy();
   })
-}, [socket, callEnded])
+}, [socket])
 
 
 
