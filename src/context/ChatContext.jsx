@@ -247,6 +247,8 @@ export const ChatContextProvider = ({ children, user }) => {
   // }
 
   //test
+
+  // goi
   const sendCall = (data) => {
     setSuccess(true);
     setData(data);
@@ -254,61 +256,99 @@ export const ChatContextProvider = ({ children, user }) => {
     setRejectCall(false);
   }
 
+  // lay stream
+  useEffect(() => {
+    if (call.sended && !rejectCall) {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+          .then((currentStream) => {
+            console.log(currentStream);
+            setStream(currentStream);
+            myVideo.current.srcObject = currentStream;
+          })
+      } else if (navigator.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+          .then((currentStream) => {
+            setStream(currentStream);
+            console.log(currentStream);
+            myVideo.current.srcObject = currentStream;
+          })
+      } else if (navigator.webkitGetUserMedia) {
+        navigator.webkitGetUserMedia({video: true, audio: true})
+          .then((currentStream) => {
+            setStream(currentStream);
+            console.log(currentStream);
+            myVideo.current.srcObject = currentStream;
+          })
+      } else {
+        console.log("that bai");
+      }
+    } else {
+      if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        if (myVideo.current) {
+
+          myVideo.current.srcObject = null;
+        }
+        setStream(null);
+      }
+    }
+  }, [call, socket, rejectCall])
+
+
+// gui di
   useEffect(() => {
     if (success && stream) {
       if (socket === null) return;
-      const newPeer = new Peer({initiator: true, trickle: false, stream});
-      newPeer.on('signal', (signal) => {
-        socket.emit("sendcall", {data, signalData: signal});
-        console.log("signal", signal);
-        console.log("stream", stream);
-        console.log("newPeer", newPeer);
+      const peer = new Peer({
+        initiator: true,
+        trickle: false,
+        stream: stream
       })
-      newPeer.on('stream', (currentStream) => {
-        userVideo.current.srcObject = currentStream;
+
+      peer.on("signal", (signal) => {
+        socket.emit("sendcall", {data, signalData: signal})
       })
-      newPeer.on('callaccepted', (signal) => {
+
+      peer.on("stream", (stream) => {
+        userVideo.current.srcObject = stream;
+      })
+
+      socket.on("callAcceptedTest", (signal) => {
+        setCallAccepted(true);
         peer.signal(signal);
       })
-      connectionRef.current = newPeer;
-      setPeer(newPeer);
+
+      connectionRef.current = peer;
     }
-  }, [success, stream]) 
-
-  const handleCallAccepted = (signal) => {
-    // Thực hiện xử lý khi có tín hiệu chấp nhận cuộc gọi
-    if (signal && peer) {
-      // peer.signal(signal);
-      // connectionRef.current = peer;
-    }
-    
-  }
-  
-  useEffect(() => {
-    if (socket === null) return;
-    socket.on("callaccepted", handleCallAccepted)
-
-    return () => {
-      if (socket) {
-        socket.off("callaccepted", handleCallAccepted)
-      }
-    }
-  }, [socket])
+  }, [success, stream, socket]) 
 
 
+//  gui tu choi
   const rejectCallFunc = (data) => {
     if (socket === null) return;
     socket.emit("rejectcall", data);
     setRejectCall(true);
   }
 
+// nhan tu choi
+useEffect(() => {
+  if (socket === null) return;
+  socket.on("getrejectcall", (data) => {
+    setRejectCall(true);
+  })
+}, [socket, rejectCall])
+
+
+  // dong y goi
   const acceptCallFunc = (data) => {
     setCallAccepted(true);
     setData(data);
-    console.log("call.sended:", call?.sended);
-    console.log("rejectcall", rejectCall);
   }
 
+
+  // lay stream
   useEffect(() => {
     if (callAccepted) {
       navigator.mediaDevices.getUserMedia({video: true, audio: true})
@@ -351,81 +391,6 @@ export const ChatContextProvider = ({ children, user }) => {
     })
   }, [call, socket])
 
-
-
-  useEffect(() => {
-    if (socket === null) return;
-    socket.on("getrejectcall", (data) => {
-      setRejectCall(true);
-    })
-  }, [socket, rejectCall])
-
-
-  // useEffect(() => {
-  //   if (socket === null) return;
-  //   if (callAccepted && stream) {
-  //     const peer = new Peer({initiator: false, trickle: false, stream})
-  //     peer.on('signal', (signal) => {
-  //       socket.emit('answercall', {signal, data})
-  //     })
-  //     peer.on('stream', (currentStream) => {
-  //       userVideo.current.srcObject = currentStream;
-  //     })
-  //     peer.signal()
-
-  //   }
-  // }, [])
-
-  useEffect(() => {
-    if (call.sended && !rejectCall) {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
-          .then((currentStream) => {
-            console.log(currentStream);
-            setStream(currentStream);
-            myVideo.current.srcObject = currentStream;
-          })
-      } else if (navigator.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
-          .then((currentStream) => {
-            setStream(currentStream);
-            console.log(currentStream);
-            myVideo.current.srcObject = currentStream;
-          })
-      } else if (navigator.webkitGetUserMedia) {
-        navigator.webkitGetUserMedia({video: true, audio: true})
-          .then((currentStream) => {
-            setStream(currentStream);
-            console.log(currentStream);
-            myVideo.current.srcObject = currentStream;
-          })
-      } else {
-        console.log("that bai");
-      }
-    } else {
-      if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-        if (myVideo.current) {
-
-          myVideo.current.srcObject = null;
-        }
-        setStream(null);
-      }
-    }
-  }, [call, socket, rejectCall])
-
-
-
-
-
-  // const answerCall = () => {
-  //   setCallAccepted(true);
-  //   const peer = new Peer({initiator: false, trickle: false, stream});
-  //   peer.on('signal', (data) => {
-  //     socket.emit('answercall', {signal:})
-  //   })
-  // }
 
 
 
