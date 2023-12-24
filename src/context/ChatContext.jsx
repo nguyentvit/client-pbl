@@ -44,6 +44,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const [signal, setSignal] = useState(null);
   const [peer, setPeer] = useState(null);
   const [callSuccess, setCallSuccess] = useState(false);
+  const [callEnded, setCallEnded] = useState(false);
 
 
 
@@ -413,6 +414,11 @@ useEffect(() => {
     })
   }, [call, socket])
 
+  const leaveCall = () => {
+    setCallEnded(true);
+    connectionRef.current.destroy();
+  }
+
 
 
 
@@ -444,7 +450,9 @@ useEffect(() => {
         data,
         callAccepted,
         userVideo,
-        callSuccess
+        callSuccess,
+        callEnded,
+        leaveCall
       }}
     >
       {children}
