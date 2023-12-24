@@ -55,7 +55,7 @@ const ChatBox = () => {
   };
 
   const handleLeave = () => {
-    leaveCall({id: call.data.from});
+    leaveCall({id: recipientUser?.user?._id,});
   }
 
   useEffect(() => {
