@@ -351,44 +351,42 @@ useEffect(() => {
   // lay stream
   useEffect(() => {
     if (callAccepted && call.received) {
-      navigator.mediaDevices.getUserMedia({video: true, audio: true})
-        .then((currentStream) => {
-          setStream(currentStream);
-          myVideo.current.srcObject = currentStream;
-        })
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+          .then((currentStream) => {
+            console.log(currentStream);
+            setStream(currentStream);
+            myVideo.current.srcObject = currentStream;
+          })
+      } else if (navigator.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+          .then((currentStream) => {
+            setStream(currentStream);
+            console.log(currentStream);
+            myVideo.current.srcObject = currentStream;
+          })
+      } else if (navigator.webkitGetUserMedia) {
+        navigator.webkitGetUserMedia({video: true, audio: true})
+          .then((currentStream) => {
+            setStream(currentStream);
+            console.log(currentStream);
+            myVideo.current.srcObject = currentStream;
+          })
+      } else {
+        console.log("that bai");
+      }
     } 
-    // else {
-    //   if (stream) {
-    //     const tracks = stream.getTracks();
-    //     tracks.forEach(track => track.stop());
-    //     if (myVideo.current) {
+    else {
+      if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        if (myVideo.current) {
 
-    //       myVideo.current.srcObject = null;
-    //     }
-    //     setStream(null);
-    //   }
-    // }
-  }, [callAccepted, socket])
-
-  useEffect(() => {
-    if (callAccepted && call.sended) {
-      navigator.mediaDevices.getUserMedia({video: true, audio: true})
-        .then((currentStream) => {
-          setStream(currentStream);
-          myVideo.current.srcObject = currentStream;
-        })
-    } 
-    // else {
-    //   if (stream) {
-    //     const tracks = stream.getTracks();
-    //     tracks.forEach(track => track.stop());
-    //     if (myVideo.current) {
-
-    //       myVideo.current.srcObject = null;
-    //     }
-    //     setStream(null);
-    //   }
-    // }
+          myVideo.current.srcObject = null;
+        }
+        setStream(null);
+      }
+    }
   }, [callAccepted, socket])
 
   useEffect(() => {
