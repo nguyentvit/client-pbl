@@ -420,7 +420,6 @@ useEffect(() => {
   const leaveCall = (data) => {
     if (socket === null) return;
     socket.emit("leaveCall", data);
-    setCallEnded(true);
     setCall({});
     setRejectCall(false)
     setSuccess(false)
@@ -434,7 +433,6 @@ useEffect(() => {
 useEffect(() => {
   if (socket === null) return;
   socket.on("leaveCall", (data) => {
-    setCallEnded(true);
     setCall({});
     setRejectCall(false)
     setSuccess(false)
@@ -477,7 +475,6 @@ useEffect(() => {
         callAccepted,
         userVideo,
         callSuccess,
-        callEnded,
         leaveCall
       }}
     >

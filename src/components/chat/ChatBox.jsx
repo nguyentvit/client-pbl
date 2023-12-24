@@ -90,7 +90,7 @@ const ChatBox = () => {
             " linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%)",
         }}
       >
-        {call.sended && !rejectCall && !callAccepted && !callEnded && (
+        {call.sended && !rejectCall && !callAccepted && (
           <div>
             <video playsInline muted autoPlay ref={myVideo}></video>
           </div>
@@ -102,7 +102,7 @@ const ChatBox = () => {
             <button onClick={handleReject}>Reject</button>
           </div>
         )}
-        {callAccepted && !callEnded && (
+        {callAccepted && (
           <div>
             <video playsInline muted autoPlay ref={myVideo}></video>
             <video playsInline muted autoPlay ref={userVideo}></video>
@@ -122,7 +122,7 @@ const ChatBox = () => {
             </svg>
           </div>
         )}
-        {callSuccess && !callEnded && (
+        {callSuccess && (
           <div>
             <video playsInline muted autoPlay ref={myVideo}></video>
             <video playsInline muted autoPlay ref={userVideo}></video>
