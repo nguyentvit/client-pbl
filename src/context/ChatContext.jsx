@@ -257,18 +257,17 @@ export const ChatContextProvider = ({ children, user }) => {
   useEffect(() => {
     if (success && stream) {
       if (socket === null) return;
-      const newPeer = new Peer({initiator: true, trickle: false, stream});
-      newPeer.on('signal', (signal) => {
+      const peer = new Peer({initiator: true, trickle: false, stream});
+      peer.on('signal', (signal) => {
         socket.emit("sendcall", {data, signalData: signal});
       })
-      newPeer.on('stream', (currentStream) => {
+      peer.on('stream', (currentStream) => {
         userVideo.current.srcObject = currentStream;
       })
-      newPeer.on('callaccepted', (signal) => {
+      peer.on('callaccepted', (signal) => {
         peer.signal(signal);
       })
-      connectionRef.current = newPeer;
-      setPeer(newPeer);
+      connectionRef.current = peer;
     }
   }, [success, stream]) 
 
