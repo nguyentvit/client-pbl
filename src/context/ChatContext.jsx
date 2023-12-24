@@ -264,7 +264,7 @@ export const ChatContextProvider = ({ children, user }) => {
       peer.on('stream', (currentStream) => {
         userVideo.current.srcObject = currentStream;
       })
-      peer.on('callaccepted', (signal) => {
+      socket.on('callaccepted', (signal) => {
         peer.signal(signal);
       })
       connectionRef.current = peer;
