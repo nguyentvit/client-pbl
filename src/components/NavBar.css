@@ -1,4 +1,18 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&family=Salsa&family=Signika+Negative&display=swap');
+
+.header_logo { 
+    text-decoration: none;
+    color: linear-gradient(90deg, #7ebaca 30%, #030e76 70%)!important;
+    font-size: 1.9rem;
+    font-weight: 600;
+    font-family: 'Salsa', cursive;
+    margin-top: 5px;
+    margin-right: auto;
+    font-weight: 10px ;
+}
 .mb-4 h2 {
 
   font-family: 'Pacifico', cursive;
@@ -23,7 +37,8 @@
 .navbar-links-container a {
   margin-right: 3rem;
   text-decoration: none;
-  color: white;
+  color: rgb(251, 251, 251);
   font-size: 1.1rem;
   font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }

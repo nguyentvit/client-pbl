@@ -41,12 +41,6 @@ const NavBar = () => {
         <Link to="/" className="header_logo ">
           LiveTalk
         </Link>
-
-        {/* {user && (
-          <>
-            <span className="text-warning">Logged in as {user?.name}</span>
-          </>
-        )} */}
         <Nav>
           <Stack direction="horizontal" gap={3}>
           {user && (
@@ -66,11 +60,11 @@ const NavBar = () => {
                     Home
                   </Link>
                   <Link to="/about" className="navbar-links-container">
-                    About
+                    Introduce
                   </Link>
-                  <Link to="/contact" className="navbar-links-container">
+                  {/* <Link to="/footer" className="navbar-links-container">
                     Contact
-                  </Link>
+                  </Link> */}
                 </div>
                 <div className="navbar-links-container">
                   <Link to="/login" className="navbar-links-container">

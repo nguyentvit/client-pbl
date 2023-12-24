@@ -54,9 +54,10 @@ const ChatBox = () => {
       gap={4}
       className="chat-box"
       style={{
-        backgroundColor: "#FFDEE9",
-        backgroundImage:
-          "linear-gradient(0deg, #fbe9ef 0%, #9dfffa 69%, #a6f7ff 100%)",
+        background: "white",
+        // backgroundColor: "#FFDEE9",
+        // backgroundImage:
+        //   "linear-gradient(0deg, #fbe9ef 0%, #9dfffa 69%, #a6f7ff 100%)",
       }}
     >
       <div
@@ -127,7 +128,8 @@ const ChatBox = () => {
         gap={3}
         className="chat-input flex-grow-0"
         style={{
-          background: " linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
+          // background: " linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
+          background: "white",
         }}
       >
         <InputEmoji
@@ -135,13 +137,14 @@ const ChatBox = () => {
           onChange={setTextMessage}
           fontFamily="nunito"
           borderColor="rgba(72, 112, 223, 0.2)"
+          style={{ background: "#ccc" }} 
         />
         <button
           className="send-btn"
           onClick={() =>
             sendTextMessage(textMessage, currentChat._id, setTextMessage, token)
           }
-          style={{ background: "white" }}
+          style={{ background: "#ccc" }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
