@@ -356,17 +356,18 @@ useEffect(() => {
           setStream(currentStream);
           myVideo.current.srcObject = currentStream;
         })
-    } else {
-      if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-        if (myVideo.current) {
+    } 
+    // else {
+    //   if (stream) {
+    //     const tracks = stream.getTracks();
+    //     tracks.forEach(track => track.stop());
+    //     if (myVideo.current) {
 
-          myVideo.current.srcObject = null;
-        }
-        setStream(null);
-      }
-    }
+    //       myVideo.current.srcObject = null;
+    //     }
+    //     setStream(null);
+    //   }
+    // }
   }, [callAccepted, socket])
 
   useEffect(() => {
