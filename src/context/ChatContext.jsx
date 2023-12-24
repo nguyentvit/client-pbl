@@ -371,6 +371,27 @@ useEffect(() => {
   }, [callAccepted, socket])
 
   useEffect(() => {
+    if (callAccepted && call.sended) {
+      navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        .then((currentStream) => {
+          setStream(currentStream);
+          myVideo.current.srcObject = currentStream;
+        })
+    } 
+    // else {
+    //   if (stream) {
+    //     const tracks = stream.getTracks();
+    //     tracks.forEach(track => track.stop());
+    //     if (myVideo.current) {
+
+    //       myVideo.current.srcObject = null;
+    //     }
+    //     setStream(null);
+    //   }
+    // }
+  }, [callAccepted, socket])
+
+  useEffect(() => {
     if (callAccepted && stream && call.received) {
       const peer = new Peer({initiator: false, trickle: false, stream});
       peer.on('signal', (signal) => {
