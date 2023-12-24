@@ -81,8 +81,8 @@ const ChatBox = () => {
         )}
         {callAccepted && (
           <div>
-          <video playsInline muted autoPlay ref={localVideoRef}></video>
-          <video playsInline muted autoPlay ref={remoteVideoRef}></video>
+          <video playsInline muted autoPlay ref={myVideo}></video>
+          <video playsInline muted autoPlay ref={userVideo}></video>
         </div>
         )}
 
