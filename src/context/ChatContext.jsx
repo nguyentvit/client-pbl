@@ -39,10 +39,6 @@ export const ChatContextProvider = ({ children, user }) => {
   const [success, setSuccess] = useState(false);
   const [data, setData] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
-  const [callData, setCallData] = useState({})
-  const [receiveCall, setReceiveCall] = useState(false);
-  const [signal, setSignal] = useState(null);
-  const [peer, setPeer] = useState(null);
   const [callSuccess, setCallSuccess] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
 
@@ -425,6 +421,12 @@ useEffect(() => {
     if (socket === null) return;
     socket.emit("leaveCall", data);
     setCallEnded(true);
+    setCall({});
+    setRejectCall(false)
+    setSuccess(false)
+    setData({})
+    setCallAccepted(false)
+    setCallSuccess(false)
     connectionRef.current.destroy();
   }
 
@@ -433,6 +435,12 @@ useEffect(() => {
   if (socket === null) return;
   socket.on("leaveCall", (data) => {
     setCallEnded(true);
+    setCall({});
+    setRejectCall(false)
+    setSuccess(false)
+    setData({})
+    setCallAccepted(false)
+    setCallSuccess(false)
     connectionRef.current.destroy();
   })
 }, [socket, callEnded])
