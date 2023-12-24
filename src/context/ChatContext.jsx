@@ -40,12 +40,9 @@ export const ChatContextProvider = ({ children, user }) => {
   const [data, setData] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
   const [callData, setCallData] = useState({})
-  const [receiveCall, setReceiveCall] = useState({});
+  const [receiveCall, setReceiveCall] = useState(false);
   const [signal, setSignal] = useState(null);
   const [peer, setPeer] = useState(null);
-  const [localStream, setLocalStream] = useState(null);
-  const [remoteStream, setRemoteStream] = useState(null);
-  const [peerConnection, setPeerConnection] = useState(null);
 
 
 
@@ -53,8 +50,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const [stream, setStream] = useState(null);
   const myVideo = useRef();
   const userVideo = useRef();
-  const localVideoRef = useRef();
-  const remoteVideoRef = useRef();
+  const connectionRef = useRef();
 
   useEffect(() => {
     const newSocket = openSocket(`${baseUrl}`);
@@ -243,6 +239,12 @@ export const ChatContextProvider = ({ children, user }) => {
     setNotifications(mNotifications)
   })
 
+  // const sendCall = (data) => {
+  //   if (socket === null) return;
+  //   socket.emit("sendcall", {data, stream});
+  //   setCall({sended: true})
+  //   setRejectCall(false);
+  // }
 
   //test
   const sendCall = (data) => {
@@ -251,6 +253,48 @@ export const ChatContextProvider = ({ children, user }) => {
     setCall({sended: true});
     setRejectCall(false);
   }
+
+  useEffect(() => {
+    if (success && stream) {
+      if (socket === null) return;
+      const newPeer = new Peer({initiator: true, trickle: false, stream});
+      newPeer.on('signal', (signal) => {
+        socket.emit("sendcall", {data, signalData: signal});
+        console.log("signal", signal);
+        console.log("stream", stream);
+        console.log("newPeer", newPeer);
+      })
+      newPeer.on('stream', (currentStream) => {
+        userVideo.current.srcObject = currentStream;
+      })
+      newPeer.on('callaccepted', (signal) => {
+        peer.signal(signal);
+      })
+      connectionRef.current = newPeer;
+      setPeer(newPeer);
+    }
+  }, [success, stream]) 
+
+  const handleCallAccepted = (signal) => {
+    // Thực hiện xử lý khi có tín hiệu chấp nhận cuộc gọi
+    if (signal && peer) {
+      // peer.signal(signal);
+      // connectionRef.current = peer;
+    }
+    
+  }
+  
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("callaccepted", handleCallAccepted)
+
+    return () => {
+      if (socket) {
+        socket.off("callaccepted", handleCallAccepted)
+      }
+    }
+  }, [socket])
+
 
   const rejectCallFunc = (data) => {
     if (socket === null) return;
@@ -316,6 +360,22 @@ export const ChatContextProvider = ({ children, user }) => {
     })
   }, [socket, rejectCall])
 
+
+  // useEffect(() => {
+  //   if (socket === null) return;
+  //   if (callAccepted && stream) {
+  //     const peer = new Peer({initiator: false, trickle: false, stream})
+  //     peer.on('signal', (signal) => {
+  //       socket.emit('answercall', {signal, data})
+  //     })
+  //     peer.on('stream', (currentStream) => {
+  //       userVideo.current.srcObject = currentStream;
+  //     })
+  //     peer.signal()
+
+  //   }
+  // }, [])
+
   useEffect(() => {
     if (call.sended && !rejectCall) {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -357,6 +417,18 @@ export const ChatContextProvider = ({ children, user }) => {
 
 
 
+
+
+  // const answerCall = () => {
+  //   setCallAccepted(true);
+  //   const peer = new Peer({initiator: false, trickle: false, stream});
+  //   peer.on('signal', (data) => {
+  //     socket.emit('answercall', {signal:})
+  //   })
+  // }
+
+
+
   return (
     <ChatContext.Provider
       value={{
@@ -384,9 +456,7 @@ export const ChatContextProvider = ({ children, user }) => {
         acceptCallFunc,
         data,
         callAccepted,
-        userVideo,
-        localVideoRef,
-        remoteVideoRef
+        userVideo
       }}
     >
       {children}
