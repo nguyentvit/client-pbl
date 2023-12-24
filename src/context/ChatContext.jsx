@@ -350,7 +350,7 @@ useEffect(() => {
 
   // lay stream
   useEffect(() => {
-    if (callAccepted && call.received) {
+    if (callAccepted) {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true, audio: true})
           .then((currentStream) => {
