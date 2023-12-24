@@ -367,7 +367,7 @@ useEffect(() => {
         setStream(null);
       }
     }
-  }, [callAccepted, socket])
+  }, [callAccepted, socket, call])
 
   useEffect(() => {
     if (callAccepted && stream && call.received) {
