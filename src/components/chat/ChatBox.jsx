@@ -86,7 +86,7 @@ const ChatBox = () => {
             " linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%)",
         }}
       >
-        {call.sended && !rejectCall && !callAccepted && (
+        {call.sended && !rejectCall && !callAccepted && !callEnded && (
           <div>
             <video playsInline muted autoPlay ref={myVideo}></video>
           </div>
