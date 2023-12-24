@@ -315,7 +315,7 @@ export const ChatContextProvider = ({ children, user }) => {
         userVideo.current.srcObject = stream;
       })
 
-      socket.on("callAcceptedTest", (signal) => {
+      socket.on("callaccepted", (signal) => {
         setCallAccepted(true);
         peer.signal(signal);
       })
@@ -381,7 +381,7 @@ useEffect(() => {
 
       peer.signal(call.signal);
     }
-  }, [callAccepted, socket, stream])
+  }, [callAccepted, stream])
 
   useEffect(() => {
     if (socket === null) return;
