@@ -79,12 +79,19 @@ const ChatBox = () => {
             <button onClick={handleReject}>Reject</button>
           </div>
         )}
-        {callAccepted || callSuccess && (
+        {callAccepted && (
           <div>
           <video playsInline muted autoPlay ref={myVideo}></video>
           <video playsInline muted autoPlay ref={userVideo}></video>
         </div>
         )}
+        {callSuccess && (
+          <div>
+          <video playsInline muted autoPlay ref={myVideo}></video>
+          <video playsInline muted autoPlay ref={userVideo}></video>
+        </div>
+        )}
+
 
         <strong>{recipientUser?.user?.name}</strong>
         <strong>
