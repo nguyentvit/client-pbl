@@ -92,7 +92,7 @@ const ChatBox = () => {
       >
         {call.sended && !rejectCall && !callAccepted && (
           <div>
-            <video playsInline muted autoPlay ref={myVideo}></video>
+            <video playsInline autoPlay ref={myVideo}></video>
           </div>
         )}
         {call.received && !rejectCall && !callAccepted && (
@@ -104,8 +104,8 @@ const ChatBox = () => {
         )}
         {callAccepted && (
           <div>
-            <video playsInline muted autoPlay ref={myVideo}></video>
-            <video playsInline muted autoPlay ref={userVideo}></video>
+            <video playsInline autoPlay ref={myVideo}></video>
+            <video playsInline autoPlay ref={userVideo}></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -124,8 +124,8 @@ const ChatBox = () => {
         )}
         {callSuccess && (
           <div>
-            <video playsInline muted autoPlay ref={myVideo}></video>
-            <video playsInline muted autoPlay ref={userVideo}></video>
+            <video playsInline autoPlay ref={myVideo}></video>
+            <video playsInline autoPlay ref={userVideo}></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
