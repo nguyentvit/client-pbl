@@ -1,18 +1,38 @@
 /* ChatBox.css */
 .chat-box {
-  background: white;
+  background: white !important;
 /*    
   background-color: #FFDEE9;
 background-Image: linear-gradient(0deg, #fbe9ef 0%, #9dfffa 69%, #1b2121 100%); */
 width: 100vh;
 height: 1000px;
+border: solid 0.4px #c8d5d5;
 }
 
 .chat-box .chat-header {
 /* background:linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%); */
-background: rgb(253, 255, 255);
+background: rgb(87, 181, 244) !important;
 border: solid 0.4px #c8d5d5;
+
 }
+.avatar_chat
+{
+  margin-right:680px;
+  display: flex;
+}
+.username_chat
+{
+  margin-top: 10px;
+  margin-left: 8px;
+  color: white;
+  }
+.avatar_chat img {
+  border-radius: 50%; /* Để hình ảnh tròn */
+width: 35px;
+height: 35px;
+
+}
+
 
 .message.self.align-self-end.flex-grow-0 {
 color: rgb(255, 255, 255); /* Màu chữ */
@@ -39,7 +59,7 @@ gap: 30px;
 }
 
 /* Thiết lập định dạng cho các phần tử bên trong user-card */
-.user-card img {
+.user-card  img {
 border-radius: 50%; /* Để hình ảnh tròn */
 width: 50px;
 height: 50px;
@@ -81,3 +101,5 @@ max-height: 300px;
 
 margin-right: 12px;
 }
+
+.send_btn
