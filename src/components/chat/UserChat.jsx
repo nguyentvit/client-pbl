@@ -18,7 +18,7 @@ const UserChat = ({ chat, user }) => {
     (n) => n.senderId == recipientUser?._id
   );
   const isOnline = onlineUsers?.some(
-    (user) => user?.userId === recipientUser?._id
+    (user) => user?.userId === recipientUser?.user?._id
   );
 
   const truncateText = (text) =>
