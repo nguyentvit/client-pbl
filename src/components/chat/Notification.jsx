@@ -55,7 +55,7 @@ const Notification = () => {
                 <div
                   key={index}
                   className={
-                    n.isRead ? "notification" : "notification not-read"
+                    n.isRead ? "notification" : "notificationnot-read"
                   }
                   onClick={() => {
                     markNotificationAsRead(n, userChats, user, notifications);
@@ -63,6 +63,7 @@ const Notification = () => {
                   }}
                 >
                   <span>{`${n.postedByUser.name} send you a new message`}</span>
+                  <br />
                   <span className="notification-time">
                     {moment(n.date).calendar()}
                   </span>

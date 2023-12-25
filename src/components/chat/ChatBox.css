@@ -102,4 +102,12 @@ max-height: 300px;
 margin-right: 12px;
 }
 
-.send_btn
+.notificationnot-read
+{
+  border: 1px solid #d0f6ff;
+  background-color: rgb(116, 238, 226) !important;
+}
+.notification-time
+{
+  color: black !important;
+}

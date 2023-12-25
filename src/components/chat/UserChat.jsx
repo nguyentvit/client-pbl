@@ -1,37 +1,72 @@
 import { Container, Stack } from "react-bootstrap";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
-import avatar from "../../assets/avatar.svg"
-import "./ChatBox.css"
+import moment from "moment";
+import avatar from "../../assets/avatar.svg";
+import "./ChatBox.css";
 import { useContext } from "react";
 import { ChatContext } from "../../context/ChatContext";
+import { unreadNotificationsFunc } from "../../utils/unreadNotifications";
+import { useFecthLatestMessage } from "../../hooks/useFetchLatestMessage";
 
-const UserChat = ({chat, user}) => {
-    const { recipientUser } = useFetchRecipientUser(chat, user);
-    const {onlineUsers} = useContext(ChatContext);
+const UserChat = ({ chat, user }) => {
+  const { recipientUser } = useFetchRecipientUser(chat, user);
+  const { onlineUsers, notifications, markThisUserNotificationsAsRead  } = useContext(ChatContext);
 
-    const isOnline = onlineUsers?.some((user) => user?.userId === recipientUser?.user?._id);
+  const {latestMessage} = useFecthLatestMessage(chat)
+  const unreadNotifications = unreadNotificationsFunc(notifications);
+  const thisUserNotifications = unreadNotifications?.filter(
+    (n) => n.senderId == recipientUser?._id
+  );
+  const isOnline = onlineUsers?.some(
+    (user) => user?.userId === recipientUser?._id
+  );
 
-    return  <Stack direction="horizontal"  className="user-card " role="button">
-        <div className="d-flex">
-            <div className="me-2">
-                <img src={avatar} />
-            </div>
-            <div className="text-content">
-                <div className="name">{recipientUser?.user.name}</div>
-                <div className="text">Text Message</div>
-            </div>
-        </div>
-        <div className="d-flex flex-column align-items-end">
-            <div className="date">
-                12/12/2022
-            </div>
-            <div className="this-user-notifications">
-                2
-            </div>
-            <span className={isOnline ? "user-online" : ""}></span>
-        </div>
-    </Stack> 
-    
+  const truncateText = (text) =>
+  {
+    let shortText = text.substring(0, 20);
+    if (text.length > 20)
+    {
+    shortText = shortText + "...";}
+    return shortText;
 }
- 
+
+  return (
+    <Stack direction="horizontal" className="user-card " role="button"
+    onClick={() => 
+    {
+        if (thisUserNotifications?.length !==0)
+        {
+        markThisUserNotificationsAsRead(thisUserNotifications, notifications);}
+    }}>
+      <div className="d-flex">
+        <div className="me-2">
+          <img src={avatar} />
+        </div>
+        <div className="text-content">
+          <div className="name">{recipientUser?.user.name}</div>
+          <div className="text">{
+          latestMessage?.text && (
+            <span>{truncateText()} </span>)
+          }
+          
+          </div>
+        </div>
+      </div>
+      <div className="d-flex flex-column align-items-end">
+        <div className="date">{moment (latestMessage?.createAt).calendar()}</div>
+        <div
+          className={
+            thisUserNotifications?.length > 0 ? "this-user-notifications" : ""
+          }
+        >
+          {thisUserNotifications?.length > 0
+            ? thisUserNotifications?.length
+            : ''}
+        </div>
+        <span className={isOnline ? "user-online" : ""}></span>
+      </div>
+    </Stack>
+  );
+};
+
 export default UserChat;

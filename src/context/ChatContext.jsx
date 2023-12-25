@@ -465,8 +465,27 @@ useEffect(() => {
       setStream(null);
     }
   })
-}, [socket])
+}, [socket]);
 
+const markThisUserNotificationsAsRead = useCallback((thisUserNotifications, notifications) =>
+{ // mark notifications as read
+
+  const mNotifications = notifications.map(el =>
+    {
+      let notification;
+
+      thisUserNotifications.forEach(n => 
+        {
+        if (n.senderId === el.senderId) {
+          notification = {...n, isRead: true}
+        } else
+        {
+        notification = el}
+    });
+    return notification;
+});
+setNotifications(mNotifications);
+}, []);
 
 
 
@@ -489,6 +508,7 @@ useEffect(() => {
         allUsers,
         markAllNotificationsAsRead,
         markNotificationAsRead,
+        markThisUserNotificationsAsRead,
         sendCall,
         call,
         rejectCallFunc,
