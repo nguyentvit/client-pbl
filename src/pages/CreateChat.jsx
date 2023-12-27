@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 //import "./CreateChat.css";
+import "./Chat.css";
 import { ChatContext } from "../context/ChatContext";
 import { AuthContext } from "../context/AuthContext";
 

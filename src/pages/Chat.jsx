@@ -3,10 +3,8 @@ import { ChatContext } from "../context/ChatContext";
 import { Container, Stack } from "react-bootstrap";
 import UserChat from "../components/chat/UserChat";
 import { AuthContext } from "../context/AuthContext";
-import PotentialChats from "../components/chat/PotentialChats";
 import ChatBox from "../components/chat/ChatBox";
 import "../pages/Chat.css";
-import "../pages/CreateChat.css"
 import { FcPlus } from "react-icons/fc";
 import { IoIosSearch } from "react-icons/io";
 import CreateChat from "./CreateChat";
