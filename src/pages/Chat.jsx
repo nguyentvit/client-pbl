@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import PotentialChats from "../components/chat/PotentialChats";
 import ChatBox from "../components/chat/ChatBox";
 import "../pages/Chat.css";
+import "../pages/CreateChat.css"
 import { FcPlus } from "react-icons/fc";
 import { IoIosSearch } from "react-icons/io";
 import CreateChat from "./CreateChat";
@@ -38,7 +39,6 @@ const Chat = () => {
       }}
 
     >
-      <PotentialChats />
       {userChats?.length < 1 ? null : (
         <Stack direction="horizontal" gap={4} className="align-items-start">
           <Stack className="messages-box flex-grow-0 pe-3" gap={3}>
