@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ChatContext } from "../context/ChatContext";
 import { Container, Stack } from "react-bootstrap";
 import UserChat from "../components/chat/UserChat";
@@ -8,10 +8,21 @@ import ChatBox from "../components/chat/ChatBox";
 import "../pages/Chat.css";
 import { FcPlus } from "react-icons/fc";
 import { IoIosSearch } from "react-icons/io";
+import CreateChat from "./CreateChat";
 const Chat = () => {
   const { user, token } = useContext(AuthContext);
   const { userChats, isUserChatsLoading, updateCurrentChat } =
     useContext(ChatContext);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
   return (
     <Container
       style={{
@@ -35,8 +46,14 @@ const Chat = () => {
             <Stack className="userchat_containers">
               <div className="userchat_header">
               <h4>Chat</h4>
-              <FcPlus style={{height: "30px", width: "40px"}} />
+              <FcPlus style={{height: "30px", width: "40px"}} onClick={openModal}/>
+              
               </div>
+              {isModalOpen && (
+              <div>
+                <CreateChat onClose={closeModal}/>
+              </div>)}
+              
              
               <div className="searchUser">
                 {/* Thanh tìm kiếm */}
