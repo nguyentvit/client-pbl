@@ -1,11 +1,9 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { baseUrl, postRequest } from "../utils/services";
-import {useHistory} from "react-router-dom"
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
-    const history = useHistory();
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [registerError, setRegisterError] = useState({});
@@ -54,7 +52,8 @@ export const AuthContextProvider = ({children}) => {
         if(response.error) {
             return setRegisterError({response, message: "Loi"});
         }
-        history.push('/registersuccess');
+
+        
         
         // localStorage.setItem("User", JSON.stringify(response));
         // setUser(response);
