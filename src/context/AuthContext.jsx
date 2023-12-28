@@ -7,7 +7,7 @@ export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [registerError, setRegisterError] = useState({});
-
+    const [registerSuccess, setRegisterSuccess] = useState(false);
     // register
     const [isRegisterLoading, setIsRegisterLoading] = useState(false);
     const [registerInfo, setRegisterInfo] = useState({
@@ -42,7 +42,7 @@ export const AuthContextProvider = ({children}) => {
         const token = localStorage.getItem("Token");
         setToken(JSON.parse(token));
     }, [])
-
+ 
     const registerUser = useCallback(async (e) => {
         e.preventDefault();
         setIsRegisterLoading(true);
@@ -50,8 +50,9 @@ export const AuthContextProvider = ({children}) => {
         const response = await postRequest(`${baseUrl}/users`, JSON.stringify(registerInfo));
         setIsRegisterLoading(false);
         if(response.error) {
-            return setRegisterError({response, message: "Loi"});
+            return setRegisterError({response, message: "Tài khoản không hợp lệ! Nhập mới thông tin."});
         }
+        setRegisterSuccess(true);
 
         
         

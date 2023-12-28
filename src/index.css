@@ -214,9 +214,71 @@ body {
 
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
+  
   width: 30%;
 }
+.button-close
+{
+  color: red;
+  font-size: 20px;
+  margin-left: 410px;
+}
+.modal-content .modal-title {
+  font-weight: 100px;
+  background-color: rgb(89, 135, 252);
+  border-radius: 100px;
+  border:solid 0.5px #56a1bd;
+}
+.modal-title h5{
+  
+  margin-left: 160px;
+  color: #ffffff;
+  margin-top: 5px;
+}
+.user-list
+{
+  margin-left: -28px;
+  margin-top: 10px;
+ 
+  background-color: rgb(160, 229, 241);
+  border: solid 1px #56a1bd;
+  border-radius: 5px;
+  box-shadow: 1px 1px #00bd9b;
+  transition: background-color 0.3s ease;
+}
+.user-list :hover
+{
+  background-color: #0333b5;
+}
+.user-list li {
+  background-color: rgb(160, 229, 241);
+  color: #181d31;
+  display: flex;
+  /* transition: background-color 0.3s ease; Thêm hiệu ứng transition */
+}
+
+/* .user-list li:hover {
+  background-color: #aed4e6; /* Màu nền khi hover }*/
+
+
+.button-add
+{
+  color: #ffffff;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #5bbaed;
+  border: solid 1px #56a1bd;
+  border-radius: 5px;
+  box-shadow: 1px 1px #00bd9b;
+ 
+}
+.user-list img {
+  height: 30px;
+  width: 30px;
+  margin-top: -8px;
+ }
+
 
 

@@ -51,7 +51,7 @@ const Login = () => {
             
             </Button>
             {loginError?.response?.error === true && 
-              <div>
+              <div className="login_error">
                 {loginError?.message}
               </div>}
             <div className="title-register">

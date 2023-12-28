@@ -1,34 +1,139 @@
 .profile-box {
-    position: absolute;
-    top: 45px; /* Điều chỉnh vị trí theo cần thiết */
-     /* Điều chỉnh vị trí theo cần thiết */
-     background-color: #d0f6ff;
-     border-radius: 7px;
-     color: #1b2121;
-     width: 230px;
-     height: 150px;
-     margin-top: 9px;
-  }
-  .profile-dropdown {
-    position: relative;
-    display: flex;
-    align-items: center; 
-  }
-  .Username {
-    margin-right: 100px; /* Căn chỉnh username theo trục dọc */
-  }
-  
-.profile-icon {
-    margin-right: 10px; /* Khoảng cách giữa icon và username */
-  }
-  .profile-context
-  {
-    padding: 20px;
-    line-Height: 2.3rem;
-    margin-bottom: 10px;
+  position: absolute;
+  top: 45px;
+  /* Điều chỉnh vị trí theo cần thiết */
+  /* Điều chỉnh vị trí theo cần thiết */
+  background-color: #d0f6ff;
+  border-radius: 7px;
+  color: #1b2121;
+  width: 230px;
+  height: 150px;
+  margin-top: 9px;
 }
-.logout,.profile_title,.setting_title 
-{
+
+.profile-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.Username {
+  margin-right: 100px;
+  /* Căn chỉnh username theo trục dọc */
+}
+
+.profile-icon {
+  margin-right: 10px;
+  /* Khoảng cách giữa icon và username */
+}
+
+.profile-context {
+  padding: 20px;
+  line-Height: 2.3rem;
+  margin-bottom: 10px;
+}
+
+.logout,
+.profile_title,
+.setting_title {
   text-decoration: none;
   color: black;
+}
+
+.Username .text-warning {
+  color: #024242 !important;
+}
+
+/* .profile-box .profile-header
+{
+  border: solid #1b2121!important;
+} */
+.profile-header
+{
+  /* background-color: azure;
+  width: 100%; */
+}
+.user-avatar {
+  display: flex !important;
+  
+}
+
+.divider {
+  width: 100%;
+  margin-top: 5px;
+  border: solid 0.5px black !important;
+}
+
+.mail-icon {
+  margin-left: 40px;
+  margin-top: -20px;
+}
+
+.user-avatar h5 {
+  margin-left: 10px;
+}
+
+.user-mail {
+  margin-top: 14px;
+  width: 300px;
+  display: flex;
+}
+
+
+
+.user-mail h6 {
+  margin-top: -17px;
+  font-size: 10px;
+  margin-left: 8px;
+
+}
+
+.setting-profile {
+  display: flex !important;
+}
+
+.edit-profile,
+.logout-content {
+  font-size: 12px;
+  width: 100px;
+
+}
+
+.editProfile {
+  font-weight: 50px;
+  color: black;
+  text-decoration: none !important;
+}
+
+.edit-divider {
+  width: 1px;
+  height: 60px;
+  background-color: #1b2121;
+  border: solid 1px black !important;
+  margin-top: -9px;
+}
+.profile-infor
+{
+  padding: 10px;
+  
+}
+.username-update input
+{
+    width: 400px;
+    border: solid 0.7px black !important;
+    border-radius: 5px;
+}
+.email-update input
+{
+    width: 400px;
+    margin-top: 15px;
+    border: solid 0.7px black !important;
+    border-radius: 5px;
+}
+.btn-save
+{
+  width: 400px;
+  margin-left: 10px;
+  margin-top: 15px;
+  border-radius: 5px;
 }

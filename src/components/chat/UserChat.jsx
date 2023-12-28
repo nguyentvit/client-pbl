@@ -39,7 +39,7 @@ const UserChat = ({ chat, user }) => {
         markThisUserNotificationsAsRead(thisUserNotifications, notifications);}
     }}>
       <div className="d-flex">
-        <div className="me-2">
+        <div className="user-chat">
           <img src={avatar} />
         </div>
         <div className="text-content">

@@ -3,6 +3,7 @@ import "./login.css";
 import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import Loginimg from "../img/register.jpg";
+import VerifyEmailNotification from './VerifyRegister';
 const Register = () => {
   const {
     registerInfo,
@@ -10,6 +11,7 @@ const Register = () => {
     registerUser,
     registerError,
     isRegisterLoading,
+    registerSuccess,
   } = useContext(AuthContext);
 
   console.log(registerError);
@@ -62,15 +64,16 @@ const Register = () => {
               <Button variant="primary" type="submit" className="login">
                 {isRegisterLoading ? "Creating your account" : "Register"}
               </Button>
-
+              
               {registerError?.response?.error === true && 
-              <div>
+              <div className="register_error">
                 {registerError?.message}
                 </div>}
             </Stack>
           </Col>
         </Row>
       </Form>
+      {registerSuccess && <VerifyEmailNotification />}
     </>
   );
 };
