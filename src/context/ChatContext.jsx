@@ -41,6 +41,8 @@ export const ChatContextProvider = ({ children, user }) => {
   const [callAccepted, setCallAccepted] = useState(false);
   const [callSuccess, setCallSuccess] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
+  const [newRoom, setNewRoom] = useState(null);
+  const [userIdCreateChat, setUserIdCreateChat] = useState(null);
 
 
 
@@ -208,7 +210,27 @@ export const ChatContextProvider = ({ children, user }) => {
       return console.log("Error creating chat", response);
     }
     setUserChats((prev) => [...prev, response.room]);
+    setNewRoom(response.room);
+    setUserIdCreateChat(memberId);
   }, []);
+
+  useEffect(() => {
+    if (socket === null) return;
+    if (!userIdCreateChat) return;
+
+    socket.emit("createChat", { ...newRoom, recipientId: userIdCreateChat});
+  }, [newRoom, userIdCreateChat])
+
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("getNewChat", (res) => {
+      setUserChats((prev) => [...prev, res])
+    })
+    return () => {
+      socket.off("getNewChat");
+    };
+
+  }, [socket])
 
   const markAllNotificationsAsRead = useCallback((notifications) => {
     const mNofications = notifications.map(n => {

@@ -16,3 +16,30 @@
 
 }
 
+
+.user {
+  margin: 8px 0;
+  background-color:aquamarine;
+  border-radius: 2px;
+  padding: 4px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  cursor: pointer;
+  padding: 8px;
+  margin: 4px 0;
+}
+
+li.selected {
+  background-color: #e0e0e0;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}

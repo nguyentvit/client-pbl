@@ -13,6 +13,7 @@ const Login = () => {
     isLoginLoading,
   } = useContext(AuthContext);
 
+  console.log(loginError);
 
   return (
     
@@ -49,11 +50,10 @@ const Login = () => {
               {isLoginLoading ? "Getting you in..." : "Login"}
             
             </Button>
-            {loginError?.error && (
-              <Alert variant="danger">
-                <p>{loginError?.message}</p>
-              </Alert>
-            )}
+            {loginError?.response?.error === true && 
+              <div>
+                {loginError?.message}
+              </div>}
             <div className="title-register">
             <p>Don't have an account? </p>
             <Link to="/register" className="register">Register</Link>

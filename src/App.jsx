@@ -15,6 +15,7 @@ import About from "./pages/About";
 import Forgetpass from "./pages/Resetpass";
 import Footer from "./pages/Footer";
 import "./App.css";
+import RegisterSuccess from "./pages/RegisterSuccess";
 
 const Mainpage = () => {
   return (

@@ -1,12 +1,14 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { baseUrl, postRequest } from "../utils/services";
+import {useHistory} from "react-router-dom"
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
+    const history = useHistory();
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
-    const [registerError, setRegisterError] = useState(null);
+    const [registerError, setRegisterError] = useState({});
 
     // register
     const [isRegisterLoading, setIsRegisterLoading] = useState(false);
@@ -17,7 +19,7 @@ export const AuthContextProvider = ({children}) => {
     });
 
     // login
-    const [loginError, setLoginError] = useState(null);
+    const [loginError, setLoginError] = useState({});
     const [isLoginLoading, setIsLoginLoading] = useState(false);
     const [loginInfo, setLoginInfo] = useState({
         email: "",
@@ -48,10 +50,12 @@ export const AuthContextProvider = ({children}) => {
         setIsRegisterLoading(true);
         setRegisterError(null);
         const response = await postRequest(`${baseUrl}/users`, JSON.stringify(registerInfo));
-        if(response.error) {
-            return setRegisterError(response);
-        }
         setIsRegisterLoading(false);
+        if(response.error) {
+            return setRegisterError({response, message: "Loi"});
+        }
+        history.push('/registersuccess');
+        
         // localStorage.setItem("User", JSON.stringify(response));
         // setUser(response);
 
@@ -75,7 +79,7 @@ export const AuthContextProvider = ({children}) => {
 
         setIsLoginLoading(false);
         if (response.error) {
-            return setLoginError(response);
+            return setLoginError({response, message: 'Thông tin đăng nhập không chính xác'});
         }
         localStorage.setItem("User", JSON.stringify(response.user));
         setUser(response.user);
