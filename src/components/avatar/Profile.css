@@ -112,28 +112,77 @@
   border: solid 1px black !important;
   margin-top: -9px;
 }
+@media (min-width: 768px) {
+   .username-update input,
+  .email-update input {
+    width: 300px; /* Cỡ cố định cho màn hình lớn hơn 768px */
+  }
+}
+.modal-content
+{
+ 
+  background-color: #ffdee9 !important;
+  background-image: linear-gradient(0deg,
+      #fbe9ef 15%,
+      #9dfffa 69%,
+      #a6f7ff 100%)!important;
+}
 .profile-infor
 {
   padding: 10px;
   
 }
+.avatar-edit img
+{
+  border-radius: 100%;
+  height: 140px;
+  width: 140px;
+  margin-left: 150px ;
+}
+.edit-img
+{
+  background-color: ;
+  width: 30px;
+  height: 30px;
+  margin-left: 260px;
+  margin-top: -60px;
+}
 .username-update input
 {
+  margin-top: -20px;
+    font-size: 15px;
+    margin-left: 6px;
     width: 400px;
-    border: solid 0.7px black !important;
+    border: solid 1.5px rgb(44, 103, 220) !important;
     border-radius: 5px;
+    padding: 5px;
+    box-shadow: 3px 3px 4px rgb(4, 121, 200);
 }
 .email-update input
 {
+    font-size: 15px;
+    margin-left: 6px;
     width: 400px;
     margin-top: 15px;
-    border: solid 0.7px black !important;
+    border: solid 1.5px rgb(34, 88, 214) !important; 
     border-radius: 5px;
+    padding: 5px;
+    box-shadow: 3px 3px 4px rgb(4, 121, 200);
 }
 .btn-save
 {
+  
+  font-size: 15px;
+  color:white !important;
   width: 400px;
-  margin-left: 10px;
+  margin-left: 16px;
   margin-top: 15px;
+  margin-bottom: 30px;
   border-radius: 5px;
+  border: solid 0.7px rgb(169, 211, 249) !important;
+  background-color: rgb(32, 105, 239);
+  box-shadow: 3px 3px 4px rgb(4, 121, 200);
+  transition: background-color 0.3s ease;
 }
+.btn-save:hover{
+  background-color: #0009b7; }

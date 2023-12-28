@@ -6,6 +6,8 @@ import { Stack } from "react-bootstrap";
 import moment from "moment";
 import InputEmoji from "react-input-emoji";
 import "./ChatBox.css";
+import avatar from "../../assets/avatar.svg"
+import { IoVideocam } from "react-icons/io5";
 
 const ChatBox = () => {
   const { user, token } = useContext(AuthContext);
@@ -90,6 +92,8 @@ const ChatBox = () => {
             " linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%)",
         }}
       >
+        <div className="avatar_chat">
+          <img src={avatar}  /></div>
         {call.sended && !rejectCall && !callAccepted && (
           <div>
             <video playsInline autoPlay ref={myVideo}></video>
@@ -106,6 +110,8 @@ const ChatBox = () => {
           <div>
             <video playsInline autoPlay ref={myVideo}></video>
             <video playsInline autoPlay ref={userVideo}></video>
+          
+
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -143,22 +149,10 @@ const ChatBox = () => {
           </div>
         )}
 
-        <strong>{recipientUser?.user?.name}</strong>
+        <div className="user-name"><strong>{recipientUser?.user?.name}</strong></div>
         <strong>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-camera-video-fill"
-            viewBox="0 0 16 16"
-            onClick={handleCall}
-          >
-            <path
-              fillRule="evenodd"
-              d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2z"
-            />
-          </svg>
+        <IoVideocam style={{color:"white", height: "32px", width: "32px"}} onClick={handleCall}/>
+         
         </strong>
       </div>
       <Stack gap={3} className="messages">
@@ -185,6 +179,7 @@ const ChatBox = () => {
         gap={3}
         className="chat-input flex-grow-0"
         style={{
+          border:"solid 1px   #e1dfdf",
           // background: " linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
           background: "white",
         }}
@@ -194,7 +189,8 @@ const ChatBox = () => {
           onChange={setTextMessage}
           fontFamily="nunito"
           borderColor="rgba(72, 112, 223, 0.2)"
-          style={{ background: "#ccc" }}
+          
+          style={{  border:"solid 1px    #908f8f",background: "#ccc" }}
         />
         <button
           className="send-btn"

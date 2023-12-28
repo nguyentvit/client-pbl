@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { IoCloseCircle } from "react-icons/io5";
 import avatar from "../../assets/avatar.svg";
@@ -7,15 +7,14 @@ import "./Profile.css";
 
 const EditProfile = ({ onClose }) => {
   const { user } = useContext(AuthContext);
+  const fileInputRef = useRef(null);
 
-  // State để lưu các thông tin chỉnh sửa
   const [editedProfile, setEditedProfile] = useState({
     name: user.name,
     email: user.email,
-    // Thêm các trường thông tin cần thiết khác ở đây
+    avatar: user.avatar, 
   });
 
-  // Xử lý thay đổi giá trị trong trường thông tin
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedProfile({
@@ -24,11 +23,27 @@ const EditProfile = ({ onClose }) => {
     });
   };
 
-  // Xử lý khi nhấn nút Lưu
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0]; 
+    if (file) {
+      const reader = new FileReader(); 
+      reader.onloadend = () => {
+        setEditedProfile({
+          ...editedProfile,
+          avatar: reader.result, 
+        });
+      };
+      reader.readAsDataURL(file); 
+    }
+  };
+
   const handleSave = () => {
-    // Gửi thông tin chỉnh sửa đến server (cần xử lý logic gửi dữ liệu)
-    // Sau khi gửi thành công, có thể đóng form
-    // onClose();
+    // Xử lý lưu thông tin và ảnh đã chọn
+  };
+
+  const handleEditImageClick = () => {
+    
+    fileInputRef.current.click();
   };
 
   return (
@@ -36,18 +51,8 @@ const EditProfile = ({ onClose }) => {
       <div className="modal-content">
         <IoCloseCircle className="button-close" onClick={onClose} />
         <div className="avatar-edit">
-          <img
-            src={avatar}
-            style={{ height: "70px", width: "70px", display: "flex", marginLeft: "180px" }}
-          />
-          <MdOutlineEdit
-            style={{
-              width: "20px",
-              height: "20px",
-              marginLeft: "240px",
-              marginTop: "-60px",
-            }}
-          />
+          <img src={editedProfile.avatar || avatar} alt="Avatar" />
+          <MdOutlineEdit className="edit-img" onClick={handleEditImageClick} />
         </div>
         <div className="profile-infor">
           <form className="username-update">
@@ -56,20 +61,27 @@ const EditProfile = ({ onClose }) => {
               name="name"
               value={editedProfile.name}
               onChange={handleInputChange}
-              
-            /> </form> 
-            <form className="email-update">
+            />
+          </form>
+          <form className="email-update">
             <input
               type="email"
               name="email"
               value={editedProfile.email}
               onChange={handleInputChange}
             />
-            </form>
-            {/* Thêm các trường thông tin khác cần chỉnh sửa */}
-         </div>
-          <button onClick={handleSave} className="btn-save">Save</button>
-       
+          </form>
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileInputChange}
+          />
+        </div>
+        <button onClick={handleSave} className="btn-save">
+          Save
+        </button>
       </div>
     </div>
   );
