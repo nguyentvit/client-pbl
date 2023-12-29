@@ -221,20 +221,22 @@ body {
 }
 .button-close
 {
-  color: red;
+  color: rgb(9, 5, 220);
   font-size: 20px;
   margin-left: 410px;
+  
 }
 .modal-content .modal-title {
+  margin-bottom: 20px;
   font-weight: 100px;
-  background-color: rgb(89, 135, 252);
+  background-color:#47B5FF;
   border-radius: 100px;
   border:solid 0.5px #56a1bd;
 }
 .modal-title h5{
   
   margin-left: 160px;
-  color: #ffffff;
+  color: #0312ef;
   margin-top: 5px;
 }
 .user-list
@@ -251,6 +253,7 @@ body {
 .user-list :hover
 {
   background-color: #0333b5;
+  color: white;
 }
 .user-list li {
   background-color: rgb(160, 229, 241);
@@ -269,11 +272,16 @@ body {
   color: #ffffff;
   height: 40px;
   border-radius: 5px;
-  background-color: #5bbaed;
+  background-color: #ff8a1c;
   border: solid 1px #56a1bd;
   border-radius: 5px;
   box-shadow: 1px 1px #00bd9b;
+  transition: background-color 0.3s ease;
  
+}
+.button-add:hover
+{
+  background-color: #eb3e24; 
 }
 .user-list img {
   height: 30px;

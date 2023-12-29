@@ -23,7 +23,31 @@ export const AuthContextProvider = ({children}) => {
         email: "",
         password: ""
     });
-
+    // update password
+    const [changePasswordError, setChangePasswordError] = useState(null);
+    const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
+    const changePassword = useCallback(async (oldPassword, newPassword) => {
+        try {
+          // Gọi API để thay đổi mật khẩu
+          const response = await postRequest(`${baseUrl}/changePassword`, {
+            oldPassword,
+            newPassword,
+          });
+      
+          if (response.error) {
+            setChangePasswordError({ message: 'Không thể thay đổi mật khẩu' });
+            return;
+          }
+      
+          // Nếu thành công, cập nhật state và thông báo thành công
+          setChangePasswordError(null);
+          setChangePasswordSuccess(true);
+        } catch (error) {
+          // Xử lý lỗi khi gọi API
+          setChangePasswordError({ message: 'Đã xảy ra lỗi khi thay đổi mật khẩu' });
+        }
+      }, []);
+      
     //active register
     const [activeError, setActiveError] = useState(null);
     const [isActiveLoading, setIsActiveLoading] = useState(false);
@@ -111,6 +135,9 @@ export const AuthContextProvider = ({children}) => {
         loginInfo,
         updateLoginInfo,
         isLoginLoading,
+        changePassword,
+        changePasswordError,
+        changePasswordSuccess,
         
     }}>
         {children}

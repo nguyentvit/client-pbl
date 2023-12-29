@@ -97,6 +97,9 @@ const EditProfile = ({ onClose }) => {
             style={{ display: "none" }}
             onChange={handleFileInputChange}
           />
+           <button onClick={handleSave} className="btn-save">
+          Save
+        </button>
         </div>
         {errorChangeInfo && (
           <div>Loi toe</div>
@@ -104,9 +107,7 @@ const EditProfile = ({ onClose }) => {
         {!errorChangeInfo && successChangeInfo && (
           <div>Thay đổi thông tin thành công</div>
         )}
-        <button onClick={handleSave} className="btn-save">
-          Save
-        </button>
+       
       </div>
     </div>
   );

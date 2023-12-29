@@ -3,12 +3,13 @@
   top: 45px;
   /* Điều chỉnh vị trí theo cần thiết */
   /* Điều chỉnh vị trí theo cần thiết */
-  background-color: #d0f6ff;
+  background-color: #f6f6f6;
   border-radius: 7px;
   color: #1b2121;
   width: 230px;
-  height: 150px;
+  height: 220px;
   margin-top: 9px;
+  border: solid 1px #ececec;
 }
 
 .profile-dropdown {
@@ -88,18 +89,44 @@
 
 }
 
+
 .setting-profile {
-  display: flex !important;
+  /* display: flex !important; */
+  /* margin-left: 30px; */
+  background-color: white;
+  /* padding-left: 30px; */
+  width: 100%;
+  border-radius: 4px;
 }
 
 .edit-profile,
-.logout-content {
-  font-size: 12px;
-  width: 100px;
+.logout-content, .change-pass {
+  font-size: 13px;
+  width: 100%;
+  /* border: solid 1px black; */
+  border-radius: 4px;
+  margin-bottom: 0.2px;
+  transition: background-color 0.3s ease;
 
+}
+.edit-profile:hover,
+.logout-content:hover, .change-pass:hover
+{
+  background-color: #aed8f6; 
+  border-radius: 4px;
 }
 
 .editProfile {
+  font-weight: 50px;
+  color: black;
+  text-decoration: none !important;
+  margin-left: 10px;
+  
+}
+
+.changePass
+{
+  font-size: 13px;
   font-weight: 50px;
   color: black;
   text-decoration: none !important;
@@ -130,7 +157,7 @@
 .profile-infor
 {
   padding: 10px;
-  
+  width: 100%;
 }
 .avatar-edit img
 {
@@ -147,42 +174,96 @@
   margin-left: 260px;
   margin-top: -60px;
 }
-.username-update input
+.username-update, .old-password input
 {
   margin-top: -20px;
     font-size: 15px;
-    margin-left: 6px;
-    width: 400px;
+    margin-left: 2px;
+    width:100%;
     border: solid 1.5px rgb(44, 103, 220) !important;
     border-radius: 5px;
     padding: 5px;
     box-shadow: 3px 3px 4px rgb(4, 121, 200);
 }
-.email-update input
+.email-update, .new-password  input
 {
     font-size: 15px;
-    margin-left: 6px;
-    width: 400px;
+    margin-left: 2px;
+    /* width: 400px; */
+    width:100%;
     margin-top: 15px;
     border: solid 1.5px rgb(34, 88, 214) !important; 
     border-radius: 5px;
     padding: 5px;
     box-shadow: 3px 3px 4px rgb(4, 121, 200);
 }
+.confirm-password input
+{
+  font-size: 15px;
+  margin-left: 2px;
+  /* width: 400px; */
+  width:100%;
+  margin-top: 15px;
+  border: solid 1.5px rgb(34, 88, 214) !important; 
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 3px 3px 4px rgb(4, 121, 200);
+}
 .btn-save
 {
   
   font-size: 15px;
-  color:white !important;
-  width: 400px;
-  margin-left: 16px;
+  color:rgb(17, 15, 15) !important;
+  
+  width:100%;
+  margin-left: 2px;
   margin-top: 15px;
   margin-bottom: 30px;
   border-radius: 5px;
   border: solid 0.7px rgb(169, 211, 249) !important;
-  background-color: rgb(32, 105, 239);
+  background-color: #FFD93D;
   box-shadow: 3px 3px 4px rgb(4, 121, 200);
   transition: background-color 0.3s ease;
 }
 .btn-save:hover{
-  background-color: #0009b7; }
+  background-color: #eb3e24; }
+
+.change-title
+{
+  
+
+}
+.change-title .icon-lock
+{
+  border: solid 1px black; 
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  margin-left: 20px;
+  
+}
+.iconlock
+{
+  margin-bottom: 10px;
+  margin-left: 8px;
+  
+}
+.change-title h5{
+  font-weight: 50px;
+  margin-left: 60px;
+  margin-top: -35px;
+  /* margin-bottom: 30px; */
+}
+.title-low
+{
+  margin-left: 60px;
+  margin-top: -20px;
+  
+}
+.divider-title
+{
+  margin-left: 20px;
+  width: 400px;
+  margin-bottom: 20px;
+}
