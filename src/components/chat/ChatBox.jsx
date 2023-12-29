@@ -32,12 +32,6 @@ const ChatBox = () => {
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
   const scroll = useRef();
-  console.log("call:", call);
-
-  console.log("data:", data);
-
-  console.log("myvideo", myVideo);
-  console.log("uservideo", userVideo);
 
   const handleCall = () => {
     sendCall({

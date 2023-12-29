@@ -14,6 +14,7 @@ const CreateChat = ({ onClose }) => {
 
     const handleUserClick = (userId) => {
         setSelectedUser(userId === selectedUser ? null : userId);
+        console.log(selectedUser);
     }
     const handleAdd = () => {
         if (selectedUser) {
@@ -34,37 +35,21 @@ const CreateChat = ({ onClose }) => {
         </div>
       
         <div>
-            <ul >
-
-        {potentialChats &&
-          potentialChats.map((u, index) => {
-            return (
-              <div className = "user-list">
-                
-                {/* <div className="avatar_chat">
-          
-        </div> */}
-              <li
-                className={selectedUser === u._id ? 'user selected' : 'user'}
-                key={index}
-                onClick={() => handleUserClick(u._id)}
-              >
-         <img src={avatar} />
-                {u.name}
-                <span
+            <ul className="user-list">
+              {potentialChats && potentialChats.map((u, index) => {
+                return (
+                <li className={selectedUser === u._id ? 'selected' : ''} key={index} onClick={() => handleUserClick(u._id)}>
+                  <img src={avatar} />
+                  {u.name}
+                  <span
                   className={
                     onlineUsers?.some((user) => user?.userId === u?._id)
                       ? "user-online"
                       : ""
                   }
                 ></span>
-              </li>
-              </div>
-
-             
-              
-            );
-          })}
+                </li>)
+              }) }
             </ul>
         </div>
         <button  className="button-add" onClick={handleAdd}>Add</button>

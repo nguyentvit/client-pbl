@@ -9,11 +9,12 @@ import { TbLogout } from "react-icons/tb";
 import { IoIosMail } from "react-icons/io";
 import { MdOutlineEdit } from "react-icons/md";
 import EditProfle from "./ProfileInfor";
+import { ChatContext } from "../../context/ChatContext";
 // import logoImg from '../img/logo.png';
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logoutUser } = useContext(AuthContext); // Accessing user and logout function from AuthContext
-
+  const {userInfo} = useContext(ChatContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -46,7 +47,7 @@ const Profile = () => {
       <div className="Username">
         {user && (
           <>
-            <span className="text-warning"> Hi, {user?.name}</span>
+            <span className="text-warning"> Hi, {userInfo?.name || user?.name}</span>
           </>
         )}
       </div>
@@ -61,7 +62,7 @@ const Profile = () => {
                   src={avatar}
                   alt="circled-user-male-skin-type-3--v1"
                 />
-                <h5 className="username-header">{user?.name}</h5>
+                <h5 className="username-header">{userInfo?.name || user?.name}</h5>
               </div>
               <div className="user-mail">
                 <IoIosMail className="mail-icon" />

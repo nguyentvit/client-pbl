@@ -239,14 +239,14 @@ body {
 }
 .user-list
 {
-  margin-left: -28px;
-  margin-top: 10px;
- 
+  margin-top: 8px;
   background-color: rgb(160, 229, 241);
   border: solid 1px #56a1bd;
   border-radius: 5px;
   box-shadow: 1px 1px #00bd9b;
   transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 0;
 }
 .user-list :hover
 {
@@ -256,6 +256,7 @@ body {
   background-color: rgb(160, 229, 241);
   color: #181d31;
   display: flex;
+  width: 100%;
   /* transition: background-color 0.3s ease; Thêm hiệu ứng transition */
 }
 
@@ -280,5 +281,12 @@ body {
   margin-top: -8px;
  }
 
+li.selected {
+  background-color: #00bd9b;
+}
+
+.search-input {
+  padding: 0 12px;
+}
 
 

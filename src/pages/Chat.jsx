@@ -12,9 +12,8 @@ const Chat = () => {
   const { user, token } = useContext(AuthContext);
   const { userChats, isUserChatsLoading, updateCurrentChat } =
     useContext(ChatContext);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [keySearch, setKeySearch] = useState(null);
     const openModal = () => {
       setIsModalOpen(true);
     };
@@ -22,6 +21,11 @@ const Chat = () => {
     const closeModal = () => {
       setIsModalOpen(false);
     };
+
+    const handleSearch = (e) => {
+      setKeySearch(e.target.value)
+    }
+
   return (
     <Container
       style={{
@@ -58,7 +62,8 @@ const Chat = () => {
                 <input
                   className="search-input"
                   type="text"
-                  placeholder="  Search users..."
+                  placeholder="Search users..."
+                  onChange={handleSearch}
                 /> <IoIosSearch />
                
               </div>

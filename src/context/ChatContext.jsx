@@ -16,10 +16,12 @@ import { AuthContext } from "./AuthContext";
 import { io } from "socket.io-client";
 import openSocket from "socket.io-client";
 import Peer from "simple-peer";
+import { useFetchRecipientUser } from "../hooks/useFetchRecipient";
 export const ChatContext = createContext();
 
 export const ChatContextProvider = ({ children, user }) => {
   const [userChats, setUserChats] = useState(null);
+  const [userChatsSearch, setUserChatsSearch] = useState([]);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState(false);
   const [userChatsError, setUserChatsError] = useState(null);
   const [potentialChats, setPotentialChats] = useState([]);
@@ -43,6 +45,15 @@ export const ChatContextProvider = ({ children, user }) => {
   const [callEnded, setCallEnded] = useState(false);
   const [newRoom, setNewRoom] = useState(null);
   const [userIdCreateChat, setUserIdCreateChat] = useState(null);
+  const [changeInfoSuccess, setChangeInfoSuccess] = useState(false);
+  const [newInfo, setNewInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    _id: user?._id,
+    email: user?.email,
+    imageUrl: user?.imageUrl,
+    name: user?.name,
+    password: user?.password
+  })
 
 
 
@@ -151,6 +162,23 @@ export const ChatContextProvider = ({ children, user }) => {
     getUserChats();
   }, [user]);
 
+  const getUserById = async (id) => {
+    const response = await getRequest(`${baseUrl}/users/find/${id}`, token);
+    if(response.error) {
+      return console.log("loi");
+  }
+    return response;
+  }
+
+  useEffect(() => {
+    if(userChats) {
+      const newArray = userChats.map((userChat, index) => {
+        console.log(getUserById(userChat.userIds.find(id => id !== user?._id)))
+      })
+
+    }
+  }, [userChats])
+
   useEffect(() => {
     const getMessage = async () => {
       setIsMessagesLoading(true);
@@ -213,6 +241,30 @@ export const ChatContextProvider = ({ children, user }) => {
     setNewRoom(response.room);
     setUserIdCreateChat(memberId);
   }, []);
+
+  const changeInfo = useCallback(async (userId, name, imageUrl, token, password) => {
+    const response = await postRequestWithToken(
+      `${baseUrl}/users/change`,
+      token,
+      JSON.stringify({
+        userId,
+        name,
+        password,
+        imageUrl
+      })
+    );
+    if (response.error) {
+      return console.log("Error change info");
+    }
+    setChangeInfoSuccess(true);
+    setUserInfo({name:name})
+  }, [])
+  useEffect(() => {
+    if (changeInfoSuccess) {
+      console.log("name:", userInfo.name);
+      setChangeInfoSuccess(false);
+    }
+  }, [changeInfoSuccess])
 
   useEffect(() => {
     if (socket === null) return;
@@ -541,7 +593,9 @@ setNotifications(mNotifications);
         callAccepted,
         userVideo,
         callSuccess,
-        leaveCall
+        leaveCall,
+        changeInfo,
+        userInfo
       }}
     >
       {children}

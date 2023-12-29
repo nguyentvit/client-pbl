@@ -4,16 +4,20 @@ import { IoCloseCircle } from "react-icons/io5";
 import avatar from "../../assets/avatar.svg";
 import { MdOutlineEdit } from "react-icons/md";
 import "./Profile.css";
+import { ChatContext } from "../../context/ChatContext";
 
 const EditProfile = ({ onClose }) => {
-  const { user } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
+  const {changeInfo, userInfo} = useContext(ChatContext);
   const fileInputRef = useRef(null);
 
   const [editedProfile, setEditedProfile] = useState({
-    name: user.name,
+    name: userInfo.name || user.name,
     email: user.email,
-    avatar: user.avatar, 
+    avatar: userInfo.avatar, 
   });
+  const [errorChangeInfo, setErrorChangeInfo] = useState(false);
+  const [successChangeInfo, setSuccessChangeInfo] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +43,16 @@ const EditProfile = ({ onClose }) => {
 
   const handleSave = () => {
     // Xử lý lưu thông tin và ảnh đã chọn
+    if (editedProfile.name === "") {
+      setErrorChangeInfo(true);
+    }
+    else {
+      changeInfo(user?._id, editedProfile.name, editedProfile.avatar, token, null);
+      setErrorChangeInfo(false);
+      setSuccessChangeInfo(true);
+      console.log(user?._id)
+
+    }
   };
 
   const handleEditImageClick = () => {
@@ -46,10 +60,15 @@ const EditProfile = ({ onClose }) => {
     fileInputRef.current.click();
   };
 
+  const close = () => {
+    setSuccessChangeInfo(false);
+    onClose();
+  }
+
   return (
     <div className="modal">
       <div className="modal-content">
-        <IoCloseCircle className="button-close" onClick={onClose} />
+        <IoCloseCircle className="button-close" onClick={close} />
         <div className="avatar-edit">
           <img src={editedProfile.avatar || avatar} alt="Avatar" />
           <MdOutlineEdit className="edit-img" onClick={handleEditImageClick} />
@@ -68,7 +87,7 @@ const EditProfile = ({ onClose }) => {
               type="email"
               name="email"
               value={editedProfile.email}
-              onChange={handleInputChange}
+              readOnly
             />
           </form>
           <input
@@ -79,6 +98,12 @@ const EditProfile = ({ onClose }) => {
             onChange={handleFileInputChange}
           />
         </div>
+        {errorChangeInfo && (
+          <div>Loi toe</div>
+        )}
+        {!errorChangeInfo && successChangeInfo && (
+          <div>Thay đổi thông tin thành công</div>
+        )}
         <button onClick={handleSave} className="btn-save">
           Save
         </button>
