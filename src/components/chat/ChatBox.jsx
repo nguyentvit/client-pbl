@@ -33,26 +33,26 @@ const ChatBox = () => {
   const [textMessage, setTextMessage] = useState("");
   const scroll = useRef();
 
-  const handleCall = () => {
-    sendCall({
-      id: recipientUser?.user?._id,
-      name: user?.name,
-      from: user?._id,
-    });
-  };
+  // const handleCall = () => {
+  //   sendCall({
+  //     id: recipientUser?.user?._id,
+  //     name: user?.name,
+  //     from: user?._id,
+  //   });
+  // };
 
-  const handleAnswer = () => {
-    acceptCallFunc({ id: 1 });
-  };
+  // const handleAnswer = () => {
+  //   acceptCallFunc({ id: 1 });
+  // };
 
-  const handleReject = () => {
-    //sendCall({sended: false})
-    rejectCallFunc({ id: call.data.from });
-  };
+  // const handleReject = () => {
+  //   //sendCall({sended: false})
+  //   rejectCallFunc({ id: call.data.from });
+  // };
 
-  const handleLeave = () => {
-    leaveCall({id: recipientUser?.user?._id,});
-  }
+  // const handleLeave = () => {
+  //   leaveCall({id: recipientUser?.user?._id,});
+  // }
 
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
@@ -88,7 +88,7 @@ const ChatBox = () => {
       >
         <div className="avatar_chat">
           <img src={avatar}  /></div>
-        {call.sended && !rejectCall && !callAccepted && (
+        {/* {call.sended && !rejectCall && !callAccepted && (
           <div>
             <video playsInline autoPlay ref={myVideo}></video>
           </div>
@@ -141,7 +141,7 @@ const ChatBox = () => {
               />
             </svg>
           </div>
-        )}
+        )} */}
 
         <div className="user-name"><strong>{recipientUser?.user?.name}</strong></div>
         <strong>

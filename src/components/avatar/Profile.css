@@ -174,7 +174,7 @@
   margin-left: 260px;
   margin-top: -60px;
 }
-.username-update, .old-password input
+.username-update input, .old-password input
 {
   margin-top: -20px;
     font-size: 15px;
@@ -185,7 +185,7 @@
     padding: 5px;
     box-shadow: 3px 3px 4px rgb(4, 121, 200);
 }
-.email-update, .new-password  input
+.email-update input, .new-password  input
 {
     font-size: 15px;
     margin-left: 2px;

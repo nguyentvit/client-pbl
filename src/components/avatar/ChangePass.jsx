@@ -18,31 +18,43 @@ const ChangePass = ({ onClose }) => {
   const [successChangePass, setSuccessChangePass] = useState(false);
 
   const handleInputChange = (e) => {
-    const { password, value } = e.target;
+    const { name, value } = e.target;
     setChangePass({
       ...changePass,
-      [password]: value,
+      [name]: value,
     });
   };
+  // const bcrypt = require("bcrypt");
 
   const handleSave = async () => {
     const { oldPassword, newPassword, confirmPassword } = changePass;
-
-    if (newPassword !== confirmPassword) {
-      setErrorChangePass(true);
-      return;
-    }
-
+  
     try {
-      const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
-      changeInfo(user?._id, hashedNewPassword, null, token, oldPassword);
+      // Truy xuất mật khẩu được lưu trữ trong cơ sở dữ liệu
+      // Ở đây giả sử user.password chứa mật khẩu đã được mã hóa trong cơ sở dữ liệu
+      // Thực tế, bạn cần truy xuất mật khẩu từ cơ sở dữ liệu
+      const hashedPasswordFromDB = user.password;
+  
+      // So sánh mật khẩu nhập vào với mật khẩu đã mã hóa trong cơ sở dữ liệu
+      const passwordMatch = await bcrypt.compare(oldPassword, hashedPasswordFromDB);
+  
+      if (!passwordMatch || newPassword !== confirmPassword) {
+        setErrorChangePass(true);
+        return;
+      }
+  
+      // Nếu mật khẩu cũ khớp và mật khẩu mới khớp với nhau
+      // Tiến hành thay đổi mật khẩu trong cơ sở dữ liệu
+      // Và sau đó set các trạng thái Error và Success tùy theo kết quả thực hiện
+      changeInfo(user?._id, null, null, token, newPassword);
       setErrorChangePass(false);
       setSuccessChangePass(true);
     } catch (error) {
       setErrorChangePass(true);
     }
   };
-
+  
+  
   const close = () => {
     setSuccessChangePass(false);
     onClose();
@@ -95,9 +107,9 @@ const ChangePass = ({ onClose }) => {
             Save
           </button>
         </div>
-        {errorChangePass && <div>Password change failed</div>}
+        {errorChangePass && <div className="error-title" style={{marginLeft: "120px", color: "red", marginTop: "-18px", fontSize: "15px"}}>Password change failed</div>}
         {!errorChangePass && successChangePass && (
-          <div>Password changed successfully</div>
+          <div className="success-title" style={{marginLeft: "90px", color: "red", marginTop: "-18px", fontSize: "15px"}}>Password changed successfully</div>
         )}
       </div>
     </div>
