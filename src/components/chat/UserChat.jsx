@@ -18,7 +18,7 @@ const UserChat = ({ chat, user }) => {
     (n) => n.senderId == recipientUser?._id
   );
   const isOnline = onlineUsers?.some(
-    (user) => user?.userId === recipientUser?._id
+    (user) => user?.userId === recipientUser?.user?._id
   );
 
   const truncateText = (text) =>
@@ -39,7 +39,7 @@ const UserChat = ({ chat, user }) => {
         markThisUserNotificationsAsRead(thisUserNotifications, notifications);}
     }}>
       <div className="d-flex">
-        <div className="me-2">
+        <div className="user-chat">
           <img src={avatar} />
         </div>
         <div className="text-content">

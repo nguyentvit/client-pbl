@@ -8,7 +8,11 @@ width: 100vh;
 height: 1000px;
 border: solid 0.4px #c8d5d5;
 }
-
+.user-name strong
+{
+  margin-left: -750px;
+  color: white !important;
+}
 .chat-box .chat-header {
 /* background:linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%); */
 background: rgb(87, 181, 244) !important;
@@ -17,7 +21,7 @@ border: solid 0.4px #c8d5d5;
 }
 .avatar_chat
 {
-  margin-right:680px;
+  margin-right:760px;
   display: flex;
 }
 .username_chat
@@ -74,7 +78,7 @@ flex: 1; /* Chia tỷ lệ không gian cho phần nội dung văn bản */
 border-radius: 0.5rem;
 width: 23.6rem;
 height: 2rem;
-border: 1px solid #ccc;
+border: solid 1px  #c2c2c2;
 }
 .userchat_header
 {

@@ -22,22 +22,25 @@
   margin-top: -150px;
   width: 240px;
 }
+
 .login-container p {
   width: 400px;
   margin-left: -75px;
   color: black;
 }
+
 .username-input {
   width: 350px !important;
   height: 40px !important;
   margin-left: -70px !important;
-  
+
 }
 
 .login {
   width: 350px !important;
   margin-left: -70px !important;
 }
+
 .forget_pass {
   text-decoration: none;
   color: black !important;
@@ -45,37 +48,42 @@
   width: 200px;
   font-size: 15px;
 }
+
 .title-register {
   display: flex;
-  padding: 10px;
-  margin-left: 40px;
+  margin-left: 70px;
   width: 700px;
+  margin-top: -10px;
 }
+
 .title-register p {
   /* margin-left: 2px; */
 
   width: 170px;
 }
+
 .title-register .register {
   width: 100px;
   text-decoration: none !important;
   color: black;
+}
+.login-container h2{
+  margin-left: -14px;
 }
 .login-container {
   height: 60vh;
   width: 60vh;
   justify-content: center;
   background-color: #ffdee9;
-  background-image: linear-gradient(
-    0deg,
-    #fbe9ef 0%,
-    #9dfffa 69%,
-    #a6f7ff 100%
-  );
+  background-image: linear-gradient(0deg,
+      #fbe9ef 0%,
+      #9dfffa 69%,
+      #a6f7ff 100%);
   border-radius: 8px;
   padding-top: 200px;
-  
+
 }
+
 .login-container {
   vertical-align: middle;
   -webkit-transform: translateZ(0);
@@ -101,17 +109,13 @@
   height: 52px;
   width: 95%;
   opacity: 0.5;
-  background: -webkit-radial-gradient(
-    center,
-    ellipse,
-    rgba(0, 0, 0, 0.16) 0%,
-    rgba(0, 0, 0, 0) 80%
-  );
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 0, 0, 0.18) 0%,
-    rgba(0, 0, 0, 0) 80%
-  );
+  background: -webkit-radial-gradient(center,
+      ellipse,
+      rgba(0, 0, 0, 0.16) 0%,
+      rgba(0, 0, 0, 0) 80%);
+  background: radial-gradient(ellipse at center,
+      rgba(0, 0, 0, 0.18) 0%,
+      rgba(0, 0, 0, 0) 80%);
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
   -webkit-transition-property: transform, opacity;
@@ -124,8 +128,22 @@
 
 .login-container:active {
 
-  transform: translateY(-5px); /* Khi hover, focus hoặc active, container sẽ di chuyển lên 5px */
+  transform: translateY(-5px);
+  /* Khi hover, focus hoặc active, container sẽ di chuyển lên 5px */
 
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); /* Tạo hiệu ứng đổ bóng khi hover, focus hoặc active */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  /* Tạo hiệu ứng đổ bóng khi hover, focus hoặc active */
 
+}
+
+.login_error {
+  color: red;
+  width: 280px;
+  margin-left: -23px;
+}
+
+.register_error {
+  color: red;
+  width: 350px;
+  margin-left: -53px;
 }
