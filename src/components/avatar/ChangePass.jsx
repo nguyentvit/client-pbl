@@ -30,29 +30,28 @@ const ChangePass = ({ onClose }) => {
     const { oldPassword, newPassword, confirmPassword } = changePass;
   
     try {
-      // Truy xuất mật khẩu được lưu trữ trong cơ sở dữ liệu
-      // Ở đây giả sử user.password chứa mật khẩu đã được mã hóa trong cơ sở dữ liệu
-      // Thực tế, bạn cần truy xuất mật khẩu từ cơ sở dữ liệu
       const hashedPasswordFromDB = user.password;
-  
-      // So sánh mật khẩu nhập vào với mật khẩu đã mã hóa trong cơ sở dữ liệu
       const passwordMatch = await bcrypt.compare(oldPassword, hashedPasswordFromDB);
   
-      if (!passwordMatch || newPassword !== confirmPassword) {
-        setErrorChangePass(true);
+      if (!passwordMatch) {
+        setErrorChangePass('Old password does not match'); // Thông báo khi mật khẩu cũ không khớp
         return;
       }
   
-      // Nếu mật khẩu cũ khớp và mật khẩu mới khớp với nhau
-      // Tiến hành thay đổi mật khẩu trong cơ sở dữ liệu
-      // Và sau đó set các trạng thái Error và Success tùy theo kết quả thực hiện
+      if (newPassword !== confirmPassword) {
+        setErrorChangePass('New password and confirm password do not match');
+        return;
+      }
+  
+      // Nếu không có lỗi, thực hiện thay đổi mật khẩu
       changeInfo(user?._id, null, null, token, newPassword);
       setErrorChangePass(false);
       setSuccessChangePass(true);
     } catch (error) {
-      setErrorChangePass(true);
+      setErrorChangePass('An error occurred while changing password');
     }
   };
+  
   
   
   const close = () => {
@@ -107,7 +106,7 @@ const ChangePass = ({ onClose }) => {
             Save
           </button>
         </div>
-        {errorChangePass && <div className="error-title" style={{marginLeft: "120px", color: "red", marginTop: "-18px", fontSize: "15px"}}>Password change failed</div>}
+        {errorChangePass && <div className="error-title" style={{marginLeft: "120px", color: "red", marginTop: "-18px", fontSize: "15px"}}> {errorChangePass}</div>}
         {!errorChangePass && successChangePass && (
           <div className="success-title" style={{marginLeft: "90px", color: "red", marginTop: "-18px", fontSize: "15px"}}>Password changed successfully</div>
         )}
