@@ -242,22 +242,24 @@ body {
 .user-list
 {
   margin-top: 8px;
-  background-color: rgb(160, 229, 241);
-  border: solid 1px #56a1bd;
+  /* background-color: rgb(160, 229, 241); */
+  /* border: solid 1px #56a1bd; */
   border-radius: 5px;
-  box-shadow: 1px 1px #00bd9b;
+  /* box-shadow: 1px 1px #00bd9b; */
   transition: background-color 0.3s ease;
   width: 100%;
   padding: 0;
 }
 .user-list :hover
 {
-  background-color: #0333b5;
+  background-color: #2084cc;
   color: white;
 }
 .user-list li {
   background-color: rgb(160, 229, 241);
   color: #181d31;
+  border: solid 1px #56a1bd;  
+  border-radius:5px;
   display: flex;
   width: 100%;
   /* transition: background-color 0.3s ease; Thêm hiệu ứng transition */

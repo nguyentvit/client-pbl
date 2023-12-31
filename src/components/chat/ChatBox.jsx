@@ -197,14 +197,14 @@ const ChatBox = () => {
         {call.received && !rejectCall && !callAccepted && (
           <div>
             <p>{call.data.name} is calling</p>
-            <button onClick={handleAnswer} style={{height: "100px", width: "100px"}}>Answer</button>
-            <button onClick={handleReject}>Reject</button>
+            <button onClick={handleAnswer} style={{height: "50px", width: "50px"}}>Answer</button>
+            <button onClick={handleReject} style={{height: "50px", width: "50px"}}>Reject</button>
           </div>
         )}
         {callAccepted && (
-          <div>
-            <video playsInline autoPlay ref={myVideo}></video>
-            <video playsInline autoPlay ref={userVideo}></video>
+          <div style={{display: "flex"}}>
+            <video playsInline autoPlay ref={myVideo} style={{height: "300px", width: "300px"}}></video>
+            <video playsInline autoPlay ref={userVideo} style={{height: "300px", width: "300px"}}></video>
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -224,8 +224,8 @@ const ChatBox = () => {
         )}
         {callSuccess && (
           <div>
-            <video playsInline autoPlay ref={myVideo} className="myvideo" style={{height: "10px", width: "10px"}}></video>
-            <video playsInline autoPlay ref={userVideo}></video>
+            <video playsInline autoPlay ref={myVideo} className="myvideo" style={{height: "300px", width: "300px"}}></video>
+            <video playsInline autoPlay ref={userVideo} style={{height: "300px", width: "300px"}}></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
