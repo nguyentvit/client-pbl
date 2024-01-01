@@ -217,13 +217,13 @@ body {
   padding: 10px;
   border-radius: 8px;
   
-  width: 30%;
+  width: 27%;
 }
 .button-close
 {
-  color: rgb(9, 5, 220);
-  font-size: 20px;
-  margin-left: 410px;
+  color: rgb(57, 129, 229);
+  font-size: 25px;
+  margin-left: 420px;
   
 }
 .modal-content .modal-title {

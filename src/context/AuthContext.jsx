@@ -80,6 +80,7 @@ export const AuthContextProvider = ({children}) => {
             return setRegisterError({response, message: "Tài khoản không hợp lệ! Nhập mới thông tin."});
         }
         setRegisterSuccess(true);
+        // setRegisterSuccess({response, message: "Vui lòng check mail của bạn để xác thực tài khoản!"})
         // localStorage.setItem("User", JSON.stringify(response));
         // setUser(response);
 

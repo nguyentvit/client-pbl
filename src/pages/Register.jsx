@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import "./login.css";
 import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import Loginimg from "../img/register.jpg";
-import VerifyEmailNotification from './VerifyRegister';
+import VerifyEmailNotification from "./VerifyRegister";
+
 const Register = () => {
   const {
     registerInfo,
@@ -11,15 +12,22 @@ const Register = () => {
     registerUser,
     registerError,
     isRegisterLoading,
-    registerSuccess,
   } = useContext(AuthContext);
 
-  const handleRegister = () => {
-    console.log(registerInfo);
-  }
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    await registerUser(e);
+    if (!registerError) {
+      // Nếu không có lỗi khi đăng ký, hiển thị thông báo thành công
+      setShowSuccessMessage(true);
+    }
+  };
+
   return (
     <>
-      <Form onSubmit={registerUser} className="login-form">
+      <Form onSubmit={handleRegister} className="login-form">
         <img
           src={Loginimg}
           alt=""
@@ -63,19 +71,27 @@ const Register = () => {
                   })
                 }
               />
+
               <Button variant="primary" type="submit" className="login">
                 {isRegisterLoading ? "Creating your account" : "Register"}
               </Button>
-              
-              {registerError?.response?.error === true && 
-              <div className="register_error">
-                {registerError?.message}
-                </div>}
+
+              {registerError && (
+                <div className="register_error">{registerError.message}</div>
+              )}
+
+              {showSuccessMessage && (
+                <div
+                  className="register_success"
+                  style={{ backgroundColor: "" , color: "red" }}
+                >
+                 <p style={{marginLeft: "-63px" , color: "red" }}>Please check your email for verify your account.</p>
+                </div>
+              )}
             </Stack>
           </Col>
         </Row>
       </Form>
-      {registerSuccess && <VerifyEmailNotification />}
     </>
   );
 };
