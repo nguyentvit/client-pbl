@@ -41,13 +41,6 @@ const CreateChat = ({ onClose }) => {
                 <li className={selectedUser === u._id ? 'selected' : ''} key={index} onClick={() => handleUserClick(u._id)}>
                   <img src={avatar} />
                   {u.name}
-                  <span
-                  className={
-                    onlineUsers?.some((user) => user?.userId === u?._id)
-                      ? "user-online"
-                      : ""
-                  }
-                ></span>
                 </li>)
               }) }
             </ul>

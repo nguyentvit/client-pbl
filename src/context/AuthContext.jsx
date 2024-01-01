@@ -47,10 +47,13 @@ export const AuthContextProvider = ({children}) => {
           setChangePasswordError({ message: 'Đã xảy ra lỗi khi thay đổi mật khẩu' });
         }
       }, []);
+
+
       
     //active register
     const [activeError, setActiveError] = useState(null);
     const [isActiveLoading, setIsActiveLoading] = useState(false);
+
 
     const updateRegisterInfo = useCallback((info) => {
         setRegisterInfo(info);
@@ -77,13 +80,19 @@ export const AuthContextProvider = ({children}) => {
             return setRegisterError({response, message: "Tài khoản không hợp lệ! Nhập mới thông tin."});
         }
         setRegisterSuccess(true);
-
-        
-        
         // localStorage.setItem("User", JSON.stringify(response));
         // setUser(response);
 
     }, [registerInfo])
+
+    const activeAccout = useCallback(async (token) => {
+        setIsActiveLoading(true);
+        const response = await postRequest(`${baseUrl}/users/${token}`);
+        setIsActiveLoading(false);
+        if (response.error) {
+            return setActiveError({response, message: "Lỗi toe bộ đái"})
+        }
+    }, [])
 
     // const activeRegisterUser = useCallback(async (e) => {
     //     e.preventDefault();
@@ -138,6 +147,7 @@ export const AuthContextProvider = ({children}) => {
         changePassword,
         changePasswordError,
         changePasswordSuccess,
+        activeAccout
         
     }}>
         {children}

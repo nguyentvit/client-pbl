@@ -56,6 +56,7 @@ function App() {
           <Route path = "/about" element={<About />} />
           <Route path = "/footer" element={<Footer />} />
           <Route path = "/forgetpass" element={<Forgetpass />} />
+          <Route path ="/active/:token" element={<RegisterSuccess/>}/>
         
         </Routes>
       </Container>  

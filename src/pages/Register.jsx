@@ -14,7 +14,9 @@ const Register = () => {
     registerSuccess,
   } = useContext(AuthContext);
 
-  console.log(registerError);
+  const handleRegister = () => {
+    console.log(registerInfo);
+  }
   return (
     <>
       <Form onSubmit={registerUser} className="login-form">
