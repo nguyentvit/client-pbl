@@ -12,11 +12,12 @@ const UserChat = ({ chat, user }) => {
   const { recipientUser } = useFetchRecipientUser(chat, user);
   const { onlineUsers, notifications, markThisUserNotificationsAsRead  } = useContext(ChatContext);
 
-  const {latestMessage} = useFecthLatestMessage(chat)
+  const {latestMessage} = useFecthLatestMessage(chat);
   const unreadNotifications = unreadNotificationsFunc(notifications);
   const thisUserNotifications = unreadNotifications?.filter(
     (n) => n.senderId == recipientUser?._id
   );
+ 
   const isOnline = onlineUsers?.some(
     (user) => user?.userId === recipientUser?.user?._id
   );
@@ -46,7 +47,7 @@ const UserChat = ({ chat, user }) => {
           <div className="name">{recipientUser?.user.name}</div>
           <div className="text">{
           latestMessage?.text && (
-            <span>{truncateText()} </span>)
+            <span>{truncateText(latestMessage?.text)} </span>)
           }
           
           </div>
@@ -61,7 +62,7 @@ const UserChat = ({ chat, user }) => {
         >
           {thisUserNotifications?.length > 0
             ? thisUserNotifications?.length
-            : ''}
+            : ""}
         </div>
         <span className={isOnline ? "user-online" : ""}></span>
       </div>
