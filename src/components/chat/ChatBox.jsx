@@ -35,13 +35,7 @@ const ChatBox = () => {
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
   const scroll = useRef();
-
-  const openVideoCall = () => {
-    setIsOpenVideoCall(true);
-  };
-  const closeVideoCall = () => {
-    setIsOpenVideoCall(false);
-  };
+  
   const handleCall = () => {
     sendCall({
       id: recipientUser?.user?._id,
@@ -171,7 +165,8 @@ const ChatBox = () => {
         </strong>
       </div>
       {/* <div style={{height:"200px", width:"100%"}}> */}
-      {call.sended && !rejectCall && !callAccepted && !callSuccess &&(
+      {/* && !callSuccess */}
+      {call.sended && !rejectCall && !callAccepted &&(
           <div>
             <video playsInline autoPlay ref={myVideo}style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
           </div>
@@ -205,7 +200,8 @@ const ChatBox = () => {
             </svg>
           </div>
         )}
-        {callSuccess && !rejectCall && !callAccepted &&  (
+        {/* {callSuccess && !rejectCall && !callAccepted && */}
+        {callSuccess &&  (
           <div style={{display: "flex"}}>
              <video playsInline autoPlay ref={myVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
             <video playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
