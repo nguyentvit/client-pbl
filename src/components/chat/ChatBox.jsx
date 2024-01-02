@@ -203,8 +203,8 @@ const ChatBox = () => {
         {/* {callSuccess && !rejectCall && !callAccepted && */}
         {callSuccess &&  (
           <div style={{display: "flex"}}>
-             <video playsInline autoPlay ref={myVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
-            <video playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
+             {/* <video playsInline autoPlay ref={myVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video> */}
+              <video playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
