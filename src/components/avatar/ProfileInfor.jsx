@@ -105,7 +105,7 @@ const EditProfile = ({ onClose }) => {
           <div>Loi toe</div>
         )}
         {!errorChangeInfo && successChangeInfo && (
-          <div>Thay đổi thông tin thành công</div>
+          <div  style={{marginLeft: "115px", color: "red", marginTop: "-18px", fontSize: "15px"}}>Change Your Infor Successfully</div>
         )}
        
       </div>

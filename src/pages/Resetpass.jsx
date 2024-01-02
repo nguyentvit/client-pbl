@@ -14,6 +14,15 @@ const Forgetpass = () => {
   } = useContext(AuthContext);
 
 
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const handleReset = async (e) => {
+    e.preventDefault();
+    await resetUser(e);
+    if (!resetError) {
+      // Nếu không có lỗi khi đăng ký, hiển thị thông báo thành công
+      setShowSuccessMessage(true);
+    }
+  };
   return (
     
     <Form onSubmit={loginUser} className="login-form">

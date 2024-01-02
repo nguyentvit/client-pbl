@@ -83,9 +83,11 @@ const Register = () => {
               {showSuccessMessage && (
                 <div
                   className="register_success"
-                  style={{ backgroundColor: "" , color: "red" }}
+                  style={{ backgroundColor: "", color: "red" }}
                 >
-                 <p style={{marginLeft: "-63px" , color: "red" }}>Please check your email for verify your account.</p>
+                  <p style={{ marginLeft: "-63px", color: "red" }}>
+                    Please check your email for verify your account.
+                  </p>
                 </div>
               )}
             </Stack>

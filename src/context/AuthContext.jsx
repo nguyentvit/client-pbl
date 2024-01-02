@@ -102,6 +102,11 @@ export const AuthContextProvider = ({children}) => {
     //     const response = await postRequest()
 
     // })
+// resetpassword
+    const [resetInfo, setResetInfo] = useState({
+        email: "",
+        password: "",
+    });
 
     const loginUser = useCallback(async (e) => {
         e.preventDefault();

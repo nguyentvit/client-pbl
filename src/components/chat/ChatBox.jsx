@@ -171,6 +171,11 @@ const ChatBox = () => {
         </strong>
       </div>
       {/* <div style={{height:"200px", width:"100%"}}> */}
+      {call.sended && !rejectCall && !callAccepted && (
+          <div>
+            <video playsInline autoPlay ref={myVideo}style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
+          </div>
+        )}
       {call.received && !rejectCall && !callAccepted && (
           <div>
             <p style={{color: "black", marginLeft: "100px"}}>{call.data.name} is calling</p>
@@ -202,8 +207,8 @@ const ChatBox = () => {
         )}
         {callSuccess && (
           <div>
-            <video playsInline autoPlay ref={myVideo} className="myvideo" style={{height: "300px", width: "300px", border:"solid 1px black"}}></video>
-            <video playsInline autoPlay ref={userVideo} style={{height: "300px", width: "300px", border:"solid 1px black"}}></video>
+            <video playsInline autoPlay ref={myVideo} className="myvideo" style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
+            <video playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -240,12 +245,12 @@ const ChatBox = () => {
               
             </Stack>
           ))}
-            {call.sended && !rejectCall && !callAccepted && (
+            {/* {call.sended && !rejectCall && !callAccepted && (
           <div>
             <video playsInline autoPlay ref={myVideo} style={{height: "370px", width: "500px", border:"solid 1px black"}}></video>
           </div>
         )}
-       
+        */}
       </Stack>
     
     
