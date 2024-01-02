@@ -166,7 +166,7 @@ const ChatBox = () => {
       </div>
       {/* <div style={{height:"200px", width:"100%"}}> */}
       {/* && !callSuccess */}
-      {call.sended && !rejectCall && !callAccepted && !callSuccess && (
+      {call.sended && !rejectCall && !callAccepted && (
           <div>
             <video playsInline autoPlay ref={myVideo}style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
           </div>
