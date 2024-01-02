@@ -12,6 +12,7 @@ const Register = () => {
     registerUser,
     registerError,
     isRegisterLoading,
+    registerSuccess
   } = useContext(AuthContext);
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -80,12 +81,12 @@ const Register = () => {
                 <div className="register_error">{registerError.message}</div>
               )}
 
-              {showSuccessMessage && (
+              {registerSuccess && (
                 <div
                   className="register_success"
                   style={{ backgroundColor: "", color: "red" }}
                 >
-                  <p style={{ marginLeft: "-63px", color: "red" }}>
+                  <p style={{ marginLeft: "-63px", color: "blue" }}>
                     Please check your email for verify your account.
                   </p>
                 </div>

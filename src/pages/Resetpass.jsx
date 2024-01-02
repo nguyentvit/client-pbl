@@ -1,31 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
 import "./login.css"; 
 import ResetPass from "../img/resetpass.jpg";
 const Forgetpass = () => {
-  const {
-    loginUser,
-    loginError,
-    loginInfo,
-    updateLoginInfo,
-    isLoginLoading,
+  const {resetError,
+    isResetLoading,
+    updateResetInfo,
+    resetPassword,
+    resetInfo,
+    resetSuccess
   } = useContext(AuthContext);
 
-
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const handleReset = async (e) => {
     e.preventDefault();
-    await resetUser(e);
-    if (!resetError) {
-      // Nếu không có lỗi khi đăng ký, hiển thị thông báo thành công
-      setShowSuccessMessage(true);
-    }
+    resetPassword(resetInfo);
   };
   return (
     
-    <Form onSubmit={loginUser} className="login-form">
+    <Form onSubmit={handleReset} className="login-form">
       {/* <div className=""> */}
       <img src={ResetPass } alt="" style={{width :"600px" , height: "650px", marginRight: "140px", marginTop: "-40px"}}/>
       <Row className="login-container">
@@ -38,36 +31,22 @@ const Forgetpass = () => {
               type="email"
               placeholder="Email"
               onChange={(e) =>
-                updateLoginInfo({ ...loginInfo, email: e.target.value })
-              }
-            />
-            
-            <Form.Control
-            className="username-input"
-              type="password"
-              placeholder="New Password"
-              onChange={(e) =>
-                updateLoginInfo({ ...loginInfo, password: e.target.value })
-              }
-            />
-              <Form.Control
-            className="username-input"
-              type="password"
-              placeholder="Confirm Password"
-              onChange={(e) =>
-                updateLoginInfo({ ...loginInfo, password: e.target.value })
+                updateResetInfo({...resetInfo, email: e.target.value})
               }
             />
              
             <Button variant="primary" type="submit" className="login">
-              {isLoginLoading ? "Getting you in..." : "Reset"}
+              {isResetLoading ? "Getting you in..." : "Reset"}
              
             </Button>
-            {loginError?.error && (
-              <Alert variant="danger">
-                <p>{loginError?.message}</p>
-              </Alert>
-            )}
+            {resetError?.response?.error === true && 
+              <div className="login_error">
+                {resetError?.message}
+              </div>}
+            {resetSuccess && 
+            <div className="login_error">
+              Link thay đổi mật khẩu đã gửi về email của bạn
+              </div>}
            
           </Stack>
         </Col>

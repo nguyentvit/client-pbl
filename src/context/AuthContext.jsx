@@ -23,6 +23,14 @@ export const AuthContextProvider = ({children}) => {
         email: "",
         password: ""
     });
+
+    // reset password
+    const [resetError, setResetError] = useState(false);
+    const [isResetLoading, setIsResetLoading] = useState(false);
+    const [resetInfo, setResetInfo] = useState({
+        email: ""
+    })
+    const [resetSuccess, setResetSuccess] = useState(false);
     // update password
     const [changePasswordError, setChangePasswordError] = useState(null);
     const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
@@ -63,6 +71,10 @@ export const AuthContextProvider = ({children}) => {
         setLoginInfo(info);
     }, [])
 
+    const updateResetInfo = useCallback((info) => {
+        setResetInfo(info);
+    }, [])
+
     useEffect(() => {
         const user = localStorage.getItem("User");
         setUser(JSON.parse(user));
@@ -95,6 +107,17 @@ export const AuthContextProvider = ({children}) => {
         }
     }, [])
 
+    const resetPassword = useCallback(async (resetInfo) => {
+        setIsResetLoading(true);
+        const response = await postRequest(`${baseUrl}/users/reset`, JSON.stringify(resetInfo));
+        setIsResetLoading(false);
+        if(response.error) {
+            return setResetError({response, message: "Không tìm thấy email"})
+        }
+        setResetSuccess(true);
+        setResetError(false);
+    }, [])
+
     // const activeRegisterUser = useCallback(async (e) => {
     //     e.preventDefault();
     //     setIsActiveLoading(true);
@@ -103,10 +126,6 @@ export const AuthContextProvider = ({children}) => {
 
     // })
 // resetpassword
-    const [resetInfo, setResetInfo] = useState({
-        email: "",
-        password: "",
-    });
 
     const loginUser = useCallback(async (e) => {
         e.preventDefault();
@@ -153,7 +172,14 @@ export const AuthContextProvider = ({children}) => {
         changePassword,
         changePasswordError,
         changePasswordSuccess,
-        activeAccout
+        activeAccout,
+        registerSuccess,
+        resetError,
+isResetLoading,
+resetInfo,
+updateResetInfo,
+resetPassword,
+resetSuccess
         
     }}>
         {children}
