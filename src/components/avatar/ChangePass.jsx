@@ -106,7 +106,7 @@ const ChangePass = ({ onClose }) => {
             Save
           </button>
         </div>
-        {errorChangePass && <div className="error-title" style={{marginLeft: "120px", color: "red", marginTop: "-18px", fontSize: "15px"}}> {errorChangePass}</div>}
+        {errorChangePass && <div className="error-title" style={{marginLeft: "40px", color: "red", marginTop: "-18px", fontSize: "15px", width: "350px"}}> {errorChangePass}</div>}
         {!errorChangePass && successChangePass && (
           <div className="success-title" style={{marginLeft: "90px", color: "red", marginTop: "-18px", fontSize: "15px"}}>Password changed successfully</div>
         )}

@@ -171,7 +171,7 @@ const ChatBox = () => {
         </strong>
       </div>
       {/* <div style={{height:"200px", width:"100%"}}> */}
-      {call.sended && !rejectCall && !callAccepted && (
+      {call.sended && !rejectCall && !callAccepted && !callSuccess &&(
           <div>
             <video playsInline autoPlay ref={myVideo}style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
           </div>
@@ -205,9 +205,9 @@ const ChatBox = () => {
             </svg>
           </div>
         )}
-        {callSuccess && (
-          <div>
-            <video playsInline autoPlay ref={myVideo} className="myvideo" style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
+        {callSuccess && !rejectCall && !callAccepted &&  (
+          <div style={{display: "flex"}}>
+             <video playsInline autoPlay ref={myVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
             <video playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -217,6 +217,7 @@ const ChatBox = () => {
               className="bi bi-telephone-x-fill"
               viewBox="0 0 16 16"
               onClick={handleLeave}
+              style={{marginLeft: "10px", marginTop: "180px", color:"blue"}}
             >
               <path
                 fillRule="evenodd"
@@ -247,10 +248,15 @@ const ChatBox = () => {
           ))}
             {/* {call.sended && !rejectCall && !callAccepted && (
           <div>
-            <video playsInline autoPlay ref={myVideo} style={{height: "370px", width: "500px", border:"solid 1px black"}}></video>
+            <video playsInline autoPlay ref={myVideo} style={{height: "370px", width: "500px", border:S"solid 1px black"}}></video>
           </div>
         )}
         */}
+            {/* {call.sended && !rejectCall && !callAccepted && !callSuccess &&(
+          <div>
+            <video playsInline autoPlay ref={myVideo}style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
+          </div>
+        )} */}
       </Stack>
     
     
