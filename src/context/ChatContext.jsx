@@ -54,6 +54,7 @@ export const ChatContextProvider = ({ children, user }) => {
     name: user?.name,
     password: user?.password
   })
+  const [testWithName, setTestWithName] = useState([]);
 
 
 
@@ -171,13 +172,20 @@ export const ChatContextProvider = ({ children, user }) => {
   }
 
   useEffect(() => {
-    if(userChats) {
-      const newArray = userChats.map((userChat, index) => {
-        console.log(getUserById(userChat.userIds.find(id => id !== user?._id)))
+    if(userChats && allUsers) {
+      const test = userChats.map((chat) => {
+        return {idChat: chat._id, idRecipient: chat.userIds.find(id => id !== user?._id)}
       })
+      const testWithName = test.map((t) => {
+        const user = allUsers.find(u => u._id === t.idRecipient);
+        if (user) {
+          return {...t, name: user.name};
+        }
+      })
+      setTestWithName(testWithName);
 
     }
-  }, [userChats])
+  }, [userChats, allUsers])
 
   useEffect(() => {
     const getMessage = async () => {
@@ -595,7 +603,8 @@ setNotifications(mNotifications);
         callSuccess,
         leaveCall,
         changeInfo,
-        userInfo
+        userInfo,
+        testWithName
       }}
     >
       {children}

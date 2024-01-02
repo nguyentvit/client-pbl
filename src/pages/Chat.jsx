@@ -10,20 +10,25 @@ import { IoIosSearch } from "react-icons/io";
 import CreateChat from "./CreateChat";
 const Chat = () => {
   const { user, token } = useContext(AuthContext);
-  const { userChats, isUserChatsLoading, updateCurrentChat } =
+  const { userChats, isUserChatsLoading, updateCurrentChat,  testWithName} =
     useContext(ChatContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [keySearch, setKeySearch] = useState(null);
+    const [keySearch, setKeySearch] = useState([]);
+    const [start, setStart] = useState(true);
     const openModal = () => {
       setIsModalOpen(true);
     };
+    console.log(keySearch)
   
     const closeModal = () => {
       setIsModalOpen(false);
     };
 
     const handleSearch = (e) => {
-      setKeySearch(e.target.value)
+      
+      const kq = testWithName.filter(user => user?.name.startsWith(e.target.value));
+      setKeySearch(kq);
+      setStart(false);
     }
 
   return (
@@ -64,21 +69,32 @@ const Chat = () => {
                   type="text"
                   placeholder="Search users..."
                   onChange={handleSearch}
-                /> <IoIosSearch />
+                />
                
               </div>
-              {userChats?.map((chat, index) => {
-                return (
-                  <div
+              {start && userChats?.map((chat, index) => {
+                return (<div
+                  key={index}
+                  onClick={() => {
+                    updateCurrentChat(chat);
+                  }}
+                >
+                  <UserChat chat={chat} user={user} token={token} />
+                </div>)
+              })}
+              {!start && userChats?.map((chat, index) => {
+                {if(keySearch?.some(k => k.idChat === chat._id)) {
+                  return (<div
                     key={index}
                     onClick={() => {
                       updateCurrentChat(chat);
                     }}
                   >
                     <UserChat chat={chat} user={user} token={token} />
-                  </div>
-                );
+                  </div>)
+                }}
               })}
+              
             </Stack>
           </Stack>
           <ChatBox />
