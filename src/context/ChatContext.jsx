@@ -509,6 +509,7 @@ useEffect(() => {
     setCallAccepted(false)
     setCallSuccess(false)
     connectionRef.current.destroy();
+    connectionRef.current = null;
     // myVideo.current.destroy();
     // userVideo.current.destroy();
   }
