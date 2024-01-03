@@ -509,8 +509,8 @@ useEffect(() => {
     setCallAccepted(false)
     setCallSuccess(false)
     connectionRef.current.destroy();
-    myVideo.current.destroy();
-    userVideo.current.destroy();
+    // myVideo.current.destroy();
+    // userVideo.current.destroy();
   }
 
 // nhan tu choi
@@ -523,9 +523,9 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
-    connectionRef.current.destroy();
-    myVideo.current.destroy();
-    userVideo.current.destroy();
+    // connectionRef.current.destroy();
+    // myVideo.current.destroy();
+    // userVideo.current.destroy();
   })
 }, [socket]);
 
