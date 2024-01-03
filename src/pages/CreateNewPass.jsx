@@ -1,55 +1,38 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { IoCloseCircle } from "react-icons/io5";
-import "../components/avatar/Profile.css";
+import "./login.css";
+import { Link } from "react-router-dom";
 import { ChatContext } from "../context/ChatContext";
 import { RiLockPasswordLine } from "react-icons/ri";
 
-
 const CreateNewPass = ({ onClose }) => {
-  const { user, token } = useContext(AuthContext);
-  const { changeInfo } = useContext(ChatContext);
-  const [changePass, setChangePass] = useState({
-    newPassword: '',
-    confirmPassword: '',
-  });
-  const [errorChangePass, setErrorChangePass] = useState(false);
-  const [successChangePass, setSuccessChangePass] = useState(false);
+  const{newPassword, newPasswordError, newPasswordSuccess,
+  updateNewPassword, saveNewPassword} = useContext(AuthContext);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setChangePass({
-      ...changePass,
-      [name]: value,
-    });
-  };
-  // const bcrypt = require("bcrypt");
-
-  const handleSave = async () => {
-    const {  newPassword, confirmPassword } = changePass;
   
-    try {
-      
-      if (newPassword !== confirmPassword) {
-        setErrorChangePass('New password and confirm password do not match');
-        return;
+  const handleSave =  () => {
+    if(newPassword.password === '' )
+    { 
+      return console.log("newPasswordError"); 
+      if(newPassword.password === newPassword.confirmPassword )
+      {
+        return console.log("Trung Pass");
+
       }
-  
-      // Nếu không có lỗi, thực hiện thay đổi mật khẩu
-      changeInfo(user?._id, null, null, token, newPassword);
-      setErrorChangePass(false);
-      setSuccessChangePass(true);
-    } catch (error) {
-      setErrorChangePass('An error occurred while changing password');
+      else {
+        return console.log("newPasswordError");
+        
+      }
     }
+    
+
+       console.log("newPasswordSuccess");
   };
   
   
   
-  const close = () => {
-    setSuccessChangePass(false);
-    onClose();
-  };
+ 
 
 
   return (
@@ -57,7 +40,7 @@ const CreateNewPass = ({ onClose }) => {
       
       <div className="modal-content">
      
-        <IoCloseCircle className="button-close" onClick={close} />
+        {/* <IoCloseCircle className="button-close" onClick={close} /> */}
         <div className="change-title">
           <div className="icon-lock">
           <RiLockPasswordLine className="iconlock"/>
@@ -72,8 +55,8 @@ const CreateNewPass = ({ onClose }) => {
           <input
             type="password"
             name="newPassword"
-            value={changePass.newPassword}
-            onChange={handleInputChange}
+        
+            onChange={(e) =>{updateNewPassword({...newPassword, password: e.target.value});}}
             placeholder="New Password"
           />
         </form>
@@ -81,19 +64,17 @@ const CreateNewPass = ({ onClose }) => {
           <input
             type="password"
             name="confirmPassword"
-            value={changePass.confirmPassword}
-            onChange={handleInputChange}
+            onChange={(e) =>{updateNewPassword({...newPassword, confirmPassword: e.target.value});}}
             placeholder="Confirm Password"
           />
         </form>
+        {/* <Link to="/login" > */}
         <button onClick={handleSave} className="btn-save">
             Save
           </button>
+          {/* </Link> */}
         </div>
-        {errorChangePass && <div className="error-title" style={{marginLeft: "40px", color: "red", marginTop: "-18px", fontSize: "15px", width: "350px"}}> {errorChangePass}</div>}
-        {!errorChangePass && successChangePass && (
-          <div className="success-title" style={{marginLeft: "90px", color: "red", marginTop: "-18px", fontSize: "15px"}}>Password changed successfully</div>
-        )}
+        
       </div>
     </div>
   );

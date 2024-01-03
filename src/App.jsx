@@ -17,7 +17,7 @@ import Footer from "./pages/Footer";
 import "./App.css";
 import RegisterSuccess from "./pages/RegisterSuccess";
 import CreateNewPass from "./pages/CreateNewPass";
-
+import ResetPassSuccess from "./pages/VerifyPass";
 const Mainpage = () => {
   return (
     <Container className="container" style={{maxWidth: '250vw', color: "white"}}>   <Home />
@@ -61,7 +61,7 @@ function App() {
           <Route path = "/footer" element={<Footer />} />
           <Route path = "/forgetpass" element={<Forgetpass />} />
           <Route path ="/active/:token" element={<RegisterSuccess/>}/>
-        
+          <Route path ="/reset/:token" element={<CreateNewPass/>} />
         </Routes>
       </Container>  
     </ChatContextProvider>
