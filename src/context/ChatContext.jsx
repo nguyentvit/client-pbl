@@ -522,11 +522,11 @@ useEffect(() => {
     }
     if (myVideo.current) {
       myVideo.current.destroy();
-      myVideo.current = null;
+      myVideo.current.srcObject = null;
     }
     if (userVideo.current) {
       userVideo.current.destroy();
-      userVideo.current = null;
+      userVideo.current.srcObject = null;
     }
     // myVideo.current.destroy();
     // userVideo.current.destroy();
@@ -559,11 +559,11 @@ useEffect(() => {
     }
     if (myVideo.current) {
       myVideo.current.destroy();
-      myVideo.current = null;
+      myVideo.current.srcObject = null;
     }
     if (userVideo.current) {
       userVideo.current.destroy();
-      userVideo.current = null;
+      userVideo.current.srcObject = null;
     }
   })
 }, [socket]);
