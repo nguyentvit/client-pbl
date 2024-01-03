@@ -128,6 +128,8 @@ export const AuthContextProvider = ({ children }) => {
     setResetError(false);
   }, []);
 
+
+
   const [newPassword, setNewPassword] = useState({
     password: "",
     confirmPassword: "",
