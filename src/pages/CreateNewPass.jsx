@@ -2,32 +2,24 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { IoCloseCircle } from "react-icons/io5";
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ChatContext } from "../context/ChatContext";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 const CreateNewPass = ({ onClose }) => {
   const{newPassword, newPasswordError, newPasswordSuccess,
-  updateNewPassword, saveNewPassword} = useContext(AuthContext);
+  updateNewPassword, saveNewPassword, newPasswordLoading} = useContext(AuthContext);
+  const {token} = useParams();
 
   
   const handleSave =  () => {
-    if(newPassword.password === '' )
-    { 
-      return console.log("newPasswordError"); 
-      if(newPassword.password === newPassword.confirmPassword )
-      {
-        return console.log("Trung Pass");
-
-      }
-      else {
-        return console.log("newPasswordError");
-        
-      }
+    if (newPassword.password === "") {
+      return console.log("loi toe");
     }
-    
-
-       console.log("newPasswordSuccess");
+    if (newPassword.password !== newPassword.confirmPassword) {
+      return console.log("deo trung");
+    }
+    saveNewPassword(newPassword.password, token);
   };
   
   
@@ -70,9 +62,13 @@ const CreateNewPass = ({ onClose }) => {
         </form>
         {/* <Link to="/login" > */}
         <button onClick={handleSave} className="btn-save">
-            Save
+            {!newPasswordLoading ? "Save": "Loading"}
           </button>
           {/* </Link> */}
+          {newPasswordSuccess && 
+          <div>
+            Thay đổi mật khẩu thành công
+            </div>}
         </div>
         
       </div>
