@@ -16,6 +16,7 @@ import Forgetpass from "./pages/Resetpass";
 import Footer from "./pages/Footer";
 import "./App.css";
 import RegisterSuccess from "./pages/RegisterSuccess";
+import CreateNewPass from "./pages/CreateNewPass";
 
 const Mainpage = () => {
   return (
@@ -51,7 +52,10 @@ function App() {
             path="/login"
             element={user ? <Chat token={token} /> : <Login />}
           />
-
+          <Route
+            path="/createnewPass"
+            element={user ? <Chat token={token} /> : <CreateNewPass />}
+          />
           <Route path="*" element={<Mainpage />} />
           <Route path = "/about" element={<About />} />
           <Route path = "/footer" element={<Footer />} />

@@ -44,8 +44,8 @@ const Forgetpass = () => {
                 {resetError?.message}
               </div>}
             {resetSuccess && 
-            <div className="login_error">
-              Link thay đổi mật khẩu đã gửi về email của bạn
+            <div className="login_error" style={{marginLeft: "-75px", width: "450px"}}>
+              Please check your email for change your password.
               </div>}
            
           </Stack>

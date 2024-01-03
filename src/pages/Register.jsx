@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import "./login.css";
-import { Alert, Button, Form, Row, Col, Stack } from "react-bootstrap";
+import {  Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import Loginimg from "../img/register.jpg";
 import VerifyEmailNotification from "./VerifyRegister";

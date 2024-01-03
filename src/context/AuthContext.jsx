@@ -103,7 +103,7 @@ export const AuthContextProvider = ({children}) => {
         const response = await postRequest(`${baseUrl}/users/${token}`);
         setIsActiveLoading(false);
         if (response.error) {
-            return setActiveError({response, message: "Lỗi toe bộ đái"})
+            return setActiveError({response, message: "Lỗi không xác thực"})
         }
     }, [])
 
