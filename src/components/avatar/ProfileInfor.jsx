@@ -71,7 +71,7 @@ const EditProfile = ({ onClose }) => {
         <IoCloseCircle className="button-close" onClick={close} />
         <div className="avatar-edit">
           <img src={editedProfile.avatar || avatar} alt="Avatar" />
-          <MdOutlineEdit className="edit-img" onClick={handleEditImageClick} />
+          {/* <MdOutlineEdit className="edit-img" onClick={handleEditImageClick} /> */}
         </div>
         <div className="profile-infor">
           <form className="username-update">

@@ -11,12 +11,13 @@ import { useFecthLatestMessage } from "../../hooks/useFetchLatestMessage";
 const UserChat = ({ chat, user }) => {
   const { recipientUser } = useFetchRecipientUser(chat, user);
   const { onlineUsers, notifications, markThisUserNotificationsAsRead  } = useContext(ChatContext);
-
   const {latestMessage} = useFecthLatestMessage(chat);
   const unreadNotifications = unreadNotificationsFunc(notifications);
-  const thisUserNotifications = unreadNotifications?.filter(
-    (n) => n.senderId == recipientUser?._id
-  );
+  const thisUserNotifications = unreadNotifications?.filter((n) => {
+    return n.postedByUser._id === recipientUser?.user._id;
+  });
+
+
  
   const isOnline = onlineUsers?.some(
     (user) => user?.userId === recipientUser?.user?._id
@@ -46,15 +47,15 @@ const UserChat = ({ chat, user }) => {
         <div className="text-content">
           <div className="name">{recipientUser?.user.name}</div>
           <div className="text">{
-          latestMessage?.text && (
-            <span>{truncateText(latestMessage?.text)} </span>)
+          latestMessage?.message?.messageText && (
+            <span>{truncateText(latestMessage?.message?.messageText)} </span>)
           }
           
           </div>
         </div>
       </div>
       <div className="d-flex flex-column align-items-end">
-        <div className="date">{moment (latestMessage?.createAt).calendar()}</div>
+        <div className="date">{moment(latestMessage?.createdAt).calendar()}</div>
         <div
           className={
             thisUserNotifications?.length > 0 ? "this-user-notifications" : ""

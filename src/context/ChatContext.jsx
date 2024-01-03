@@ -508,7 +508,6 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
-    setStream(null);
     connectionRef.current.destroy();
     myVideo.current.destroy();
     userVideo.current.destroy();
@@ -533,7 +532,6 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
-    setStream(null);
     connectionRef.current.destroy();
     myVideo.current.destroy();
     userVideo.current.destroy();
