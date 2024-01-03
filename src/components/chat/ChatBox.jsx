@@ -166,7 +166,8 @@ const ChatBox = () => {
       </div>
       {/* <div style={{height:"200px", width:"100%"}}> */}
       {/* && !callSuccess */}
-      {call.sended && !rejectCall && !callAccepted && (
+     
+     <div style={{display:"flex"}}> {call.sended && !rejectCall && !callAccepted && (
           <div>
             <video playsInline autoPlay ref={myVideo}style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
           </div>
@@ -180,8 +181,8 @@ const ChatBox = () => {
         )}
         {callAccepted && (
           <div style={{display: "flex"}}>
-            <video playsInline autoPlay ref={myVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
-            <video playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"100px"}}></video>
+            <video className="myVideo-accept" playsInline autoPlay ref={myVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
+            <video  className="userVideo-accept" playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"100px"}}></video>
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -202,9 +203,9 @@ const ChatBox = () => {
         )}
         {/* {callSuccess && !rejectCall && !callAccepted && */}
         {callSuccess &&  (
-          <div style={{display: "flex"}}>
+          <div>
              {/* <video playsInline autoPlay ref={myVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video> */}
-              <video playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
+              <video   className="myVideo-success" playsInline autoPlay ref={userVideo} style={{height: "200px", width: "300px", border:"solid 1px black", marginLeft:"50px"}}></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -213,7 +214,7 @@ const ChatBox = () => {
               className="bi bi-telephone-x-fill"
               viewBox="0 0 16 16"
               onClick={handleLeave}
-              style={{marginLeft: "10px", marginTop: "180px", color:"blue"}}
+              style={{marginLeft: "10px", marginTop: "-10px", color:"blue"}}
             >
               <path
                 fillRule="evenodd"
@@ -222,6 +223,7 @@ const ChatBox = () => {
             </svg>
           </div>
         )}
+        </div>
       {/* </div> */}
       <Stack gap={3} className="messages">
         {messages &&

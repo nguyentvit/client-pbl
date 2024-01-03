@@ -55,7 +55,7 @@ const handleCall = () => {
   }
 
   return (
-    <div className="video-call">
+    <div className="video-call" style={{display:"inline"}}>
         {call.sended && !rejectCall && !callAccepted && (
           <div>
             <video playsInline autoPlay ref={myVideo} className="Videosend"></video>
@@ -69,8 +69,8 @@ const handleCall = () => {
           </div>
         )}
         {callAccepted && (
-          <div>
-            <video playsInline autoPlay ref={myVideo} className="myVideo-accept"></video>
+          <div className="" >
+            <video playsInline autoPlay ref={myVideo} className="myVideo-accept" ></video>
             <video playsInline autoPlay ref={userVideo} className="userVideo-accept"></video>
           
 
@@ -91,8 +91,8 @@ const handleCall = () => {
           </div>
         )}
         {callSuccess && (
-          <div>
-            <video playsInline autoPlay ref={myVideo} className="myVideo-success"></video>
+          <div style={{display:"flex"}}>
+            <video playsInline autoPlay ref={myVideo} className="myVideo-success" ></video>
             <video playsInline autoPlay ref={userVideo} className="userVideo-success"></video>
             <svg
               xmlns="http://www.w3.org/2000/svg"
