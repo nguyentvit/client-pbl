@@ -509,7 +509,13 @@ useEffect(() => {
     setCallAccepted(false)
     setCallSuccess(false)
     connectionRef.current.destroy();
-    connectionRef.current = null;
+    if (connectionRef.current) {
+      connectionRef.current.srcObject = null;
+    }
+    userVideo.current.destroy();
+    if (userVideo.current) {
+      userVideo.current.srcObject = null;
+    }
     // myVideo.current.destroy();
     // userVideo.current.destroy();
   }
@@ -524,6 +530,14 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
+    connectionRef.current.destroy();
+    if (connectionRef.current) {
+      connectionRef.current.srcObject = null;
+    }
+    userVideo.current.destroy();
+    if (userVideo.current) {
+      userVideo.current.srcObject = null;
+    }
     // connectionRef.current.destroy();
     // myVideo.current.destroy();
     // userVideo.current.destroy();
