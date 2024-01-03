@@ -511,15 +511,6 @@ useEffect(() => {
     connectionRef.current.destroy();
     myVideo.current.destroy();
     userVideo.current.destroy();
-    if (stream) {
-      const tracks = stream.getTracks();
-      tracks.forEach(track => track.stop());
-      if (myVideo.current) {
-
-        myVideo.current.srcObject = null;
-      }
-      setStream(null);
-    }
   }
 
 // nhan tu choi
@@ -535,15 +526,6 @@ useEffect(() => {
     connectionRef.current.destroy();
     myVideo.current.destroy();
     userVideo.current.destroy();
-    if (stream) {
-      const tracks = stream.getTracks();
-      tracks.forEach(track => track.stop());
-      if (myVideo.current) {
-
-        myVideo.current.srcObject = null;
-      }
-      setStream(null);
-    }
   })
 }, [socket]);
 
