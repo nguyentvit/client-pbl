@@ -128,8 +128,6 @@ export const AuthContextProvider = ({ children }) => {
     setResetError(false);
   }, []);
 
-
-
   const [newPassword, setNewPassword] = useState({
     password: "",
     confirmPassword: "",
@@ -144,16 +142,15 @@ export const AuthContextProvider = ({ children }) => {
   const saveNewPassword = useCallback(async (password, token) => {
     setNewPasswordLoading(true);
     const response = await postRequest(
-        `${baseUrl}/users/reset/${token}`,
-        JSON.stringify({password: password})
-      );
+      `${baseUrl}/users/reset/${token}`,
+      JSON.stringify({ password: password })
+    );
     setNewPasswordLoading(false);
     if (response.error) {
-        return setNewPasswordError({response, message:"loi toe"})
+      return setNewPasswordError({ response, message: "loi toe" });
     }
     setNewPasswordSuccess(true);
     setNewPasswordError(false);
-
   }, []);
 
   const loginUser = useCallback(
@@ -222,7 +219,7 @@ export const AuthContextProvider = ({ children }) => {
         newPasswordSuccess,
         updateNewPassword,
         saveNewPassword,
-        newPasswordLoading
+        newPasswordLoading,
       }}
     >
       {children}

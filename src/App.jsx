@@ -17,7 +17,6 @@ import Footer from "./pages/Footer";
 import "./App.css";
 import RegisterSuccess from "./pages/RegisterSuccess";
 import CreateNewPass from "./pages/CreateNewPass";
-import ResetPassSuccess from "./pages/VerifyPass";
 const Mainpage = () => {
   return (
     <Container className="container" style={{maxWidth: '250vw', color: "white"}}>   <Home />
