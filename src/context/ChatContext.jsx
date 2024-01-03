@@ -520,6 +520,14 @@ useEffect(() => {
       connectionRef.current.destroy(); // hoặc connectionRef.current.close();
       connectionRef.current = null;
     }
+    if (myVideo.current) {
+      myVideo.current.destroy();
+      myVideo.current = null;
+    }
+    if (userVideo.current) {
+      userVideo.current.destroy();
+      userVideo.current = null;
+    }
     // myVideo.current.destroy();
     // userVideo.current.destroy();
   }
@@ -548,6 +556,14 @@ useEffect(() => {
     if (connectionRef.current) {
       connectionRef.current.destroy(); // hoặc connectionRef.current.close();
       connectionRef.current = null;
+    }
+    if (myVideo.current) {
+      myVideo.current.destroy();
+      myVideo.current = null;
+    }
+    if (userVideo.current) {
+      userVideo.current.destroy();
+      userVideo.current = null;
     }
   })
 }, [socket]);
