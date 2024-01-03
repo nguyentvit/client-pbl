@@ -9,19 +9,18 @@ import { MdOutlineEdit } from "react-icons/md";
 import EditProfle from "./ProfileInfor";
 import ChangePass from "./ChangePass";
 import { ChatContext } from "../../context/ChatContext";
-// import logoImg from '../img/logo.png';
 import { RiLockPasswordLine } from "react-icons/ri";
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logoutUser } = useContext(AuthContext); // Accessing user and logout function from AuthContext
+  const { user, logoutUser } = useContext(AuthContext);
   const {userInfo} = useContext(ChatContext);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isChangePassModalOpen, setIsChangePassModalOpen] = useState(false);
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
-    setIsChangePassModalOpen(false); // Đóng modal ChangePass khi mở modal Edit
+    setIsChangePassModalOpen(false);
   };
 
   const closeEditModal = () => {
@@ -30,7 +29,7 @@ const Profile = () => {
 
   const openChangePassModal = () => {
     setIsChangePassModalOpen(true);
-    setIsEditModalOpen(false); // Đóng modal Edit khi mở modal ChangePass
+    setIsEditModalOpen(false);
   };
 
   const closeChangePassModal = () => {
@@ -41,7 +40,7 @@ const Profile = () => {
       <div className="profile-icon" onClick={() => setIsOpen(!isOpen)}>
         {user && user.avatar ? (
           <img
-            src={avatar} // Assume 'avatar' is the property containing the user's image URL
+            src={avatar}
             alt="User Avatar"
             width="20"
             height="20"
@@ -103,7 +102,6 @@ const Profile = () => {
                   </div>
                 )}
               </div>
-              {/* <hr className="edit-divider" /> */}
               <div className="change-pass">
                 <Link className="changePass" onClick={openChangePassModal}>
                 <RiLockPasswordLine 

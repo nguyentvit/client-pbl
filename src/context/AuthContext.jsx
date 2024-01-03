@@ -98,9 +98,6 @@ export const AuthContextProvider = ({ children }) => {
         });
       }
       setRegisterSuccess(true);
-      // setRegisterSuccess({response, message: "Vui lòng check mail của bạn để xác thực tài khoản!"})
-      // localStorage.setItem("User", JSON.stringify(response));
-      // setUser(response);
     },
     [registerInfo]
   );

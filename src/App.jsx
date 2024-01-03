@@ -1,5 +1,4 @@
-
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Chat from "./pages/Chat";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -9,7 +8,6 @@ import NavBar from "./components/NavBar";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import { ChatContextProvider } from "./context/ChatContext";
-// import {Mainpage} from "./pages/Mainpage";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Forgetpass from "./pages/Resetpass";
@@ -19,10 +17,13 @@ import RegisterSuccess from "./pages/RegisterSuccess";
 import CreateNewPass from "./pages/CreateNewPass";
 const Mainpage = () => {
   return (
-    <Container className="container" style={{maxWidth: '250vw', color: "white"}}>   <Home />
-
+    <Container
+      className="container"
+      style={{ maxWidth: "250vw", color: "white" }}
+    >
+      {" "}
+      <Home />
       <About />
-
       <Footer />
     </Container>
   );
@@ -35,13 +36,8 @@ function App() {
     <ChatContextProvider user={user} token={token}>
       <NavBar />
 
-      <Container className="text-secondary" style={{maxWidth: '500vw'}}>
+      <Container className="text-secondary" style={{ maxWidth: "500vw" }}>
         <Routes>
-          {/* <Route
-            path="/login1"
-            element={user ? <Chat token={token} /> : <Login />}
-          /> */}
-
           <Route
             path="/register"
             element={user ? <Chat token={token} /> : <Register />}
@@ -56,13 +52,13 @@ function App() {
             element={user ? <Chat token={token} /> : <CreateNewPass />}
           />
           <Route path="*" element={<Mainpage />} />
-          <Route path = "/about" element={<About />} />
-          <Route path = "/footer" element={<Footer />} />
-          <Route path = "/forgetpass" element={<Forgetpass />} />
-          <Route path ="/active/:token" element={<RegisterSuccess/>}/>
-          <Route path ="/reset/:token" element={<CreateNewPass/>} />
+          <Route path="/about" element={<About />} />
+          <Route path="/footer" element={<Footer />} />
+          <Route path="/forgetpass" element={<Forgetpass />} />
+          <Route path="/active/:token" element={<RegisterSuccess />} />
+          <Route path="/reset/:token" element={<CreateNewPass />} />
         </Routes>
-      </Container>  
+      </Container>
     </ChatContextProvider>
   );
 }

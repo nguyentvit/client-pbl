@@ -1,4 +1,4 @@
-import { useContext ,  useRef, useEffect, useState } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 import { Container, Nav, Navbar, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -27,10 +27,10 @@ const NavBar = () => {
       }
     };
 
-    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener("click", handleDocumentClick);
 
     return () => {
-      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener("click", handleDocumentClick);
     };
   }, []);
   return (
@@ -43,16 +43,16 @@ const NavBar = () => {
         </Link>
         <Nav>
           <Stack direction="horizontal" gap={3}>
-          {user && (
-          <>
-            <div ref={notificationRef}>
-              <Notification />
-            </div>
-            <div ref={profileRef}>
-              <Profile />
-            </div>
-          </>
-        )}
+            {user && (
+              <>
+                <div ref={notificationRef}>
+                  <Notification />
+                </div>
+                <div ref={profileRef}>
+                  <Profile />
+                </div>
+              </>
+            )}
             {!user && (
               <>
                 <div className="navbar-links-container">
@@ -62,9 +62,6 @@ const NavBar = () => {
                   <Link to="/about" className="navbar-links-container">
                     Introduce
                   </Link>
-                  {/* <Link to="/footer" className="navbar-links-container">
-                    Contact
-                  </Link> */}
                 </div>
                 <div className="navbar-links-container">
                   <Link to="/login" className="navbar-links-container">

@@ -6,45 +6,37 @@ import { AuthContext } from "../context/AuthContext";
 import ChatBox from "../components/chat/ChatBox";
 import "../pages/Chat.css";
 import { FcPlus } from "react-icons/fc";
-import { IoIosSearch } from "react-icons/io";
 import CreateChat from "./CreateChat";
 const Chat = () => {
   const { user, token } = useContext(AuthContext);
-  const { userChats, isUserChatsLoading, updateCurrentChat,  testWithName} =
+  const { userChats, isUserChatsLoading, updateCurrentChat, testWithName } =
     useContext(ChatContext);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [keySearch, setKeySearch] = useState([]);
-    const [start, setStart] = useState(true);
-    const openModal = () => {
-      setIsModalOpen(true);
-    };
-    console.log(keySearch)
-  
-    const closeModal = () => {
-      setIsModalOpen(false);
-    };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [keySearch, setKeySearch] = useState([]);
+  const [start, setStart] = useState(true);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  console.log(keySearch);
 
-    const handleSearch = (e) => {
-      
-      const kq = testWithName.filter(user => user?.name.startsWith(e.target.value));
-      setKeySearch(kq);
-      setStart(false);
-    }
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSearch = (e) => {
+    const kq = testWithName.filter((user) =>
+      user?.name.startsWith(e.target.value)
+    );
+    setKeySearch(kq);
+    setStart(false);
+  };
 
   return (
     <Container
       style={{
-      //   display: "flex", // Sắp xếp các user chat theo hàng ngang
-      //   flexDirection: "column", // Dàn layout theo chiều dọc
-      //   gap: "10px", // Khoảng cách giữa các user chat
-      //   padding: "10px", // Padding cho khung lớn
-      //   border: "1px solid #ccc", // Khung viền
-      //   borderRadius: "8px", // Độ cong góc
-      //   background: " azure",
-      width: "1320px",
-           height: "700px"
+        width: "1320px",
+        height: "700px",
       }}
-
     >
       {userChats?.length < 0 ? null : (
         <Stack direction="horizontal" gap={4} className="align-items-start">
@@ -52,16 +44,18 @@ const Chat = () => {
             {isUserChatsLoading && <p>Loading chats...</p>}
             <Stack className="userchat_containers">
               <div className="userchat_header">
-              <h4>Chat</h4>
-              <FcPlus style={{height: "30px", width: "40px"}} onClick={openModal}/>
-              
+                <h4>Chat</h4>
+                <FcPlus
+                  style={{ height: "30px", width: "40px" }}
+                  onClick={openModal}
+                />
               </div>
               {isModalOpen && (
-              <div>
-                <CreateChat onClose={closeModal}/>
-              </div>)}
-              
-             
+                <div>
+                  <CreateChat onClose={closeModal} />
+                </div>
+              )}
+
               <div className="searchUser">
                 {/* Thanh tìm kiếm */}
                 <input
@@ -70,31 +64,37 @@ const Chat = () => {
                   placeholder="Search users..."
                   onChange={handleSearch}
                 />
-               
               </div>
-              {start && userChats?.map((chat, index) => {
-                return (<div
-                  key={index}
-                  onClick={() => {
-                    updateCurrentChat(chat);
-                  }}
-                >
-                  <UserChat chat={chat} user={user} token={token} />
-                </div>)
-              })}
-              {!start && userChats?.map((chat, index) => {
-                {if(keySearch?.some(k => k.idChat === chat._id)) {
-                  return (<div
-                    key={index}
-                    onClick={() => {
-                      updateCurrentChat(chat);
-                    }}
-                  >
-                    <UserChat chat={chat} user={user} token={token} />
-                  </div>)
-                }}
-              })}
-              
+              {start &&
+                userChats?.map((chat, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        updateCurrentChat(chat);
+                      }}
+                    >
+                      <UserChat chat={chat} user={user} token={token} />
+                    </div>
+                  );
+                })}
+              {!start &&
+                userChats?.map((chat, index) => {
+                  {
+                    if (keySearch?.some((k) => k.idChat === chat._id)) {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => {
+                            updateCurrentChat(chat);
+                          }}
+                        >
+                          <UserChat chat={chat} user={user} token={token} />
+                        </div>
+                      );
+                    }
+                  }
+                })}
             </Stack>
           </Stack>
           <ChatBox />

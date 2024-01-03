@@ -3,7 +3,7 @@ import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const PotentialChats = () => {
-  const { user, token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const { potentialChats, createChat, onlineUsers } = useContext(ChatContext);
   return (
     <>

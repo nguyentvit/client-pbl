@@ -1,11 +1,6 @@
 /* Login.css */
 
 .login-form {
-  /* background-image: url('D:\StudySpace\client\vite-project\src\img\login1 rmbgr.png');
- 
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat;  */
   justify-content: center;
   display: flex;
   /* align-items: center; */
@@ -33,7 +28,6 @@
   width: 350px !important;
   height: 40px !important;
   margin-left: -70px !important;
-
 }
 
 .login {
@@ -67,7 +61,7 @@
   text-decoration: none !important;
   color: black;
 }
-.login-container h2{
+.login-container h2 {
   margin-left: -14px;
 }
 .login-container {
@@ -75,13 +69,14 @@
   width: 60vh;
   justify-content: center;
   background-color: #ffdee9;
-  background-image: linear-gradient(0deg,
-      #fbe9ef 0%,
-      #9dfffa 69%,
-      #a6f7ff 100%);
+  background-image: linear-gradient(
+    0deg,
+    #fbe9ef 0%,
+    #9dfffa 69%,
+    #a6f7ff 100%
+  );
   border-radius: 8px;
   padding-top: 200px;
-
 }
 
 .login-container {
@@ -109,13 +104,17 @@
   height: 52px;
   width: 95%;
   opacity: 0.5;
-  background: -webkit-radial-gradient(center,
-      ellipse,
-      rgba(0, 0, 0, 0.16) 0%,
-      rgba(0, 0, 0, 0) 80%);
-  background: radial-gradient(ellipse at center,
-      rgba(0, 0, 0, 0.18) 0%,
-      rgba(0, 0, 0, 0) 80%);
+  background: -webkit-radial-gradient(
+    center,
+    ellipse,
+    rgba(0, 0, 0, 0.16) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
   -webkit-transition-property: transform, opacity;
@@ -123,17 +122,13 @@
 }
 
 .login-container:hover,
-
 .login-container:focus,
-
 .login-container:active {
-
   transform: translateY(-5px);
   /* Khi hover, focus hoặc active, container sẽ di chuyển lên 5px */
 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   /* Tạo hiệu ứng đổ bóng khi hover, focus hoặc active */
-
 }
 
 .login_error {
@@ -147,59 +142,52 @@
   width: 350px;
   margin-left: -53px;
 }
-.icon-lock .iconlock
-{
+.icon-lock .iconlock {
   margin-top: 5px;
   margin-left: 7px;
 }
-.change-title .title-low
-{
+.change-title .title-low {
   margin-top: -4px;
 }
 
-.modal-content
-{
-  
+.modal-content {
 }
- .modal-content .new-password  input
-{
-    font-size: 15px;
-    margin-left: 2px;
-    /* width: 400px; */
-    width:100%;
-    margin-top: 5px;
-    border: solid 1.5px rgb(34, 88, 214) !important; 
-    border-radius: 5px;
-    padding: 5px;
-    box-shadow: 3px 3px 4px rgb(4, 121, 200);
-}
-.confirm-password input
-{
+.modal-content .new-password input {
   font-size: 15px;
   margin-left: 2px;
   /* width: 400px; */
-  width:100%;
-  margin-top: 10px;
-  border: solid 1.5px rgb(34, 88, 214) !important; 
+  width: 100%;
+  margin-top: 5px;
+  border: solid 1.5px rgb(34, 88, 214) !important;
   border-radius: 5px;
   padding: 5px;
   box-shadow: 3px 3px 4px rgb(4, 121, 200);
 }
-.btn-save
-{
-  
+.confirm-password input {
   font-size: 15px;
-  color:rgb(17, 15, 15) !important;
-  width:100%;
+  margin-left: 2px;
+  /* width: 400px; */
+  width: 100%;
+  margin-top: 10px;
+  border: solid 1.5px rgb(34, 88, 214) !important;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 3px 3px 4px rgb(4, 121, 200);
+}
+.btn-save {
+  font-size: 15px;
+  color: rgb(17, 15, 15) !important;
+  width: 100%;
   height: 35px;
   margin-left: 2px;
   margin-top: 15px;
   margin-bottom: 30px;
   border-radius: 5px;
   border: solid 0.7px rgb(169, 211, 249) !important;
-  background-color: #FFD93D;
+  background-color: #ffd93d;
   box-shadow: 3px 3px 4px rgb(4, 121, 200);
   transition: background-color 0.3s ease;
 }
-.btn-save:hover{
-  background-color: #eb3e24; }
+.btn-save:hover {
+  background-color: #eb3e24;
+}

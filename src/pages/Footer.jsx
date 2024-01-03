@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "../img/logo.png";
 import { FaGithub } from "react-icons/fa";
 import { SiLinkedin } from "react-icons/si";
@@ -11,7 +10,7 @@ const Footer = () => {
       <div className="footer-section-one">
         <div className="footer-logo-container">
           <img src={Logo} alt="" />
-          <h4 >LiveTalk</h4>
+          <h4>LiveTalk</h4>
         </div>
         <div className="footer-icons">
           <FaGithub />

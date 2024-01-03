@@ -1,6 +1,4 @@
-.container
-{
-    
+.container {
 }
 .userchat_containers {
   display: flex;
@@ -13,13 +11,11 @@
   margin-left: -40px;
   max-height: 650px;
   overflow-y: auto;
-
 }
-
 
 .user {
   margin: 8px 0;
-  background-color:aquamarine;
+  background-color: aquamarine;
   border-radius: 2px;
   padding: 4px;
 }

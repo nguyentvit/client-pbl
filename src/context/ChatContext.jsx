@@ -21,7 +21,6 @@ export const ChatContext = createContext();
 
 export const ChatContextProvider = ({ children, user }) => {
   const [userChats, setUserChats] = useState(null);
-  const [userChatsSearch, setUserChatsSearch] = useState([]);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState(false);
   const [userChatsError, setUserChatsError] = useState(null);
   const [potentialChats, setPotentialChats] = useState([]);
@@ -42,21 +41,17 @@ export const ChatContextProvider = ({ children, user }) => {
   const [data, setData] = useState({});
   const [callAccepted, setCallAccepted] = useState(false);
   const [callSuccess, setCallSuccess] = useState(false);
-  const [callEnded, setCallEnded] = useState(false);
   const [newRoom, setNewRoom] = useState(null);
   const [userIdCreateChat, setUserIdCreateChat] = useState(null);
   const [changeInfoSuccess, setChangeInfoSuccess] = useState(false);
-  const [newInfo, setNewInfo] = useState({});
   const [userInfo, setUserInfo] = useState({
     _id: user?._id,
     email: user?.email,
     imageUrl: user?.imageUrl,
     name: user?.name,
-    password: user?.password
-  })
+    password: user?.password,
+  });
   const [testWithName, setTestWithName] = useState([]);
-
-
 
   // test
   const [stream, setStream] = useState(null);
@@ -112,7 +107,7 @@ export const ChatContextProvider = ({ children, user }) => {
       if (isChatOpen) {
         setNotifications((prev) => [{ ...res, isRead: true }, ...prev]);
       } else {
-        setNotifications(prev => [res, ...prev])
+        setNotifications((prev) => [res, ...prev]);
       }
     });
 
@@ -165,27 +160,29 @@ export const ChatContextProvider = ({ children, user }) => {
 
   const getUserById = async (id) => {
     const response = await getRequest(`${baseUrl}/users/find/${id}`, token);
-    if(response.error) {
+    if (response.error) {
       return console.log("loi");
-  }
+    }
     return response;
-  }
+  };
 
   useEffect(() => {
-    if(userChats && allUsers) {
+    if (userChats && allUsers) {
       const test = userChats.map((chat) => {
-        return {idChat: chat._id, idRecipient: chat.userIds.find(id => id !== user?._id)}
-      })
+        return {
+          idChat: chat._id,
+          idRecipient: chat.userIds.find((id) => id !== user?._id),
+        };
+      });
       const testWithName = test.map((t) => {
-        const user = allUsers.find(u => u._id === t.idRecipient);
+        const user = allUsers.find((u) => u._id === t.idRecipient);
         if (user) {
-          return {...t, name: user.name};
+          return { ...t, name: user.name };
         }
-      })
+      });
       setTestWithName(testWithName);
-
     }
-  }, [userChats, allUsers])
+  }, [userChats, allUsers]);
 
   useEffect(() => {
     const getMessage = async () => {
@@ -250,274 +247,254 @@ export const ChatContextProvider = ({ children, user }) => {
     setUserIdCreateChat(memberId);
   }, []);
 
-  const changeInfo = useCallback(async (userId, name, imageUrl, token, password) => {
-    const response = await postRequestWithToken(
-      `${baseUrl}/users/change`,
-      token,
-      JSON.stringify({
-        userId,
-        name,
-        password,
-        imageUrl
-      })
-    );
-    if (response.error) {
-      return console.log("Error change info");
-    }
-    setChangeInfoSuccess(true);
-    setUserInfo({name:name})
-  }, [])
+  const changeInfo = useCallback(
+    async (userId, name, imageUrl, token, password) => {
+      const response = await postRequestWithToken(
+        `${baseUrl}/users/change`,
+        token,
+        JSON.stringify({
+          userId,
+          name,
+          password,
+          imageUrl,
+        })
+      );
+      if (response.error) {
+        return console.log("Error change info");
+      }
+      setChangeInfoSuccess(true);
+      setUserInfo({ name: name });
+    },
+    []
+  );
   useEffect(() => {
     if (changeInfoSuccess) {
       console.log("name:", userInfo.name);
       setChangeInfoSuccess(false);
     }
-  }, [changeInfoSuccess])
+  }, [changeInfoSuccess]);
 
   useEffect(() => {
     if (socket === null) return;
     if (!userIdCreateChat) return;
 
-    socket.emit("createChat", { ...newRoom, recipientId: userIdCreateChat});
-  }, [newRoom, userIdCreateChat])
+    socket.emit("createChat", { ...newRoom, recipientId: userIdCreateChat });
+  }, [newRoom, userIdCreateChat]);
 
   useEffect(() => {
     if (socket === null) return;
     socket.on("getNewChat", (res) => {
-      setUserChats((prev) => [...prev, res])
-    })
+      setUserChats((prev) => [...prev, res]);
+    });
     return () => {
       socket.off("getNewChat");
     };
-
-  }, [socket])
+  }, [socket]);
 
   const markAllNotificationsAsRead = useCallback((notifications) => {
-    const mNofications = notifications.map(n => {
-      return {...n, isRead: true}
-    })
+    const mNofications = notifications.map((n) => {
+      return { ...n, isRead: true };
+    });
 
     setNotifications(mNofications);
-  }, [])
+  }, []);
 
-  const markNotificationAsRead = useCallback((n, userChats, user, notifications) => {
-    const desiredChat = userChats.find(chat => {
-      const chatMembers = [user._id, n.postedByUser._id];
-      const isDesiredChat = chat?.userIds.every((userId) => {
-        return chatMembers.includes(userId);
-      })
-      return isDesiredChat;
-    })
-    const mNotifications = notifications.map(el => {
-      if (n.postedByUser._id === el.postedByUser._id) {
-        return {...n, isRead: true}
-      } else {
-        return el
-      }
-    })
-    updateCurrentChat(desiredChat)
-    setNotifications(mNotifications)
-  })
-
-  // const sendCall = (data) => {
-  //   if (socket === null) return;
-  //   socket.emit("sendcall", {data, stream});
-  //   setCall({sended: true})
-  //   setRejectCall(false);
-  // }
-
-  //test
+  const markNotificationAsRead = useCallback(
+    (n, userChats, user, notifications) => {
+      const desiredChat = userChats.find((chat) => {
+        const chatMembers = [user._id, n.postedByUser._id];
+        const isDesiredChat = chat?.userIds.every((userId) => {
+          return chatMembers.includes(userId);
+        });
+        return isDesiredChat;
+      });
+      const mNotifications = notifications.map((el) => {
+        if (n.postedByUser._id === el.postedByUser._id) {
+          return { ...n, isRead: true };
+        } else {
+          return el;
+        }
+      });
+      updateCurrentChat(desiredChat);
+      setNotifications(mNotifications);
+    }
+  );
 
   // goi
   const sendCall = (data) => {
     setSuccess(true);
     setData(data);
-    setCall({sended: true});
+    setCall({ sended: true });
     setRejectCall(false);
-  }
+  };
 
   // lay stream
   useEffect(() => {
     if (call.sended && !rejectCall) {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        navigator.mediaDevices
+          .getUserMedia({ video: true, audio: true })
           .then((currentStream) => {
             console.log(currentStream);
             setStream(currentStream);
             myVideo.current.srcObject = currentStream;
-          })
+          });
       } else if (navigator.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        navigator.mediaDevices
+          .getUserMedia({ video: true, audio: true })
           .then((currentStream) => {
             setStream(currentStream);
             console.log(currentStream);
             myVideo.current.srcObject = currentStream;
-          })
+          });
       } else if (navigator.webkitGetUserMedia) {
-        navigator.webkitGetUserMedia({video: true, audio: true})
+        navigator
+          .webkitGetUserMedia({ video: true, audio: true })
           .then((currentStream) => {
             setStream(currentStream);
             console.log(currentStream);
             myVideo.current.srcObject = currentStream;
-          })
+          });
       } else {
         console.log("that bai");
       }
     } else {
       if (stream) {
         const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
+        tracks.forEach((track) => track.stop());
         if (myVideo.current) {
-
           myVideo.current.srcObject = null;
         }
         setStream(null);
       }
     }
-  }, [call, socket, rejectCall])
+  }, [call, socket, rejectCall]);
 
-
-// gui di
+  // gui di
   useEffect(() => {
     if (success && stream) {
       if (socket === null) return;
       const peer = new Peer({
         initiator: true,
         trickle: false,
-        stream: stream
-      })
+        stream: stream,
+      });
 
       peer.on("signal", (signal) => {
-        socket.emit("sendcall", {data, signalData: signal})
-      })
+        socket.emit("sendcall", { data, signalData: signal });
+      });
 
       peer.on("stream", (stream) => {
         userVideo.current.srcObject = stream;
-      })
+      });
 
       socket.on("callaccepted", (signal) => {
         //setCallAccepted(true);
         setCallSuccess(true);
         peer.signal(signal);
-      })
+      });
 
       connectionRef.current = peer;
     }
-  }, [success, stream, socket]) 
+  }, [success, stream, socket]);
 
-
-//  gui tu choi
+  //  gui tu choi
   const rejectCallFunc = (data) => {
     if (socket === null) return;
     socket.emit("rejectcall", data);
     setRejectCall(true);
-  }
+  };
 
-// nhan tu choi
-useEffect(() => {
-  if (socket === null) return;
-  socket.on("getrejectcall", (data) => {
-    setRejectCall(true);
-  })
-}, [socket, rejectCall])
-
+  // nhan tu choi
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("getrejectcall", (data) => {
+      setRejectCall(true);
+    });
+  }, [socket, rejectCall]);
 
   // dong y goi
   const acceptCallFunc = (data) => {
     setCallAccepted(true);
     setData(data);
-  }
-
+  };
 
   // lay stream
   useEffect(() => {
     if (callAccepted) {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        navigator.mediaDevices
+          .getUserMedia({ video: true, audio: true })
           .then((currentStream) => {
             console.log(currentStream);
             setStream(currentStream);
             myVideo.current.srcObject = currentStream;
-          })
+          });
       } else if (navigator.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        navigator.mediaDevices
+          .getUserMedia({ video: true, audio: true })
           .then((currentStream) => {
             setStream(currentStream);
             console.log(currentStream);
             myVideo.current.srcObject = currentStream;
-          })
+          });
       } else if (navigator.webkitGetUserMedia) {
-        navigator.webkitGetUserMedia({video: true, audio: true})
+        navigator
+          .webkitGetUserMedia({ video: true, audio: true })
           .then((currentStream) => {
             setStream(currentStream);
             console.log(currentStream);
             myVideo.current.srcObject = currentStream;
-          })
+          });
       } else {
         console.log("that bai");
       }
-    } 
-    else {
+    } else {
       if (stream) {
         const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
+        tracks.forEach((track) => track.stop());
         if (myVideo.current) {
-
           myVideo.current.srcObject = null;
         }
         setStream(null);
       }
     }
-  }, [callAccepted, socket])
+  }, [callAccepted, socket]);
 
   useEffect(() => {
     if (callAccepted && stream && call.received) {
-      const peer = new Peer({initiator: false, trickle: false, stream});
-      peer.on('signal', (signal) => {
-        socket.emit('answercall', {signal, id: call.data.from})
-      })
-      peer.on('stream', (currentStream) => {
+      const peer = new Peer({ initiator: false, trickle: false, stream });
+      peer.on("signal", (signal) => {
+        socket.emit("answercall", { signal, id: call.data.from });
+      });
+      peer.on("stream", (currentStream) => {
         userVideo.current.srcObject = currentStream;
-      })
+      });
 
       peer.signal(call.signal);
     }
-  }, [callAccepted, stream])
+  }, [callAccepted, stream]);
 
   useEffect(() => {
     if (socket === null) return;
     socket.on("getcall", (data) => {
-      setCall({received: true, data:data.data, signal: data.signalData});
+      setCall({ received: true, data: data.data, signal: data.signalData });
       setRejectCall(false);
-    })
-  }, [call, socket])
-
-  // const leaveCall = () => {
-  //   setCallEnded(true);
-  //   socket.emit("leaveCall", {id:})
-  //   connectionRef.current.destroy();
-  // }
+    });
+  }, [call, socket]);
 
   //  gui tu choi
   const leaveCall = (data) => {
     if (socket === null) return;
     socket.emit("leaveCall", data);
     setCall({});
-    setRejectCall(false)
-    setSuccess(false)
-    setData({})
-    setCallAccepted(false)
-    setCallSuccess(false)
-    // connectionRef.current.destroy();
-    // if (connectionRef.current) {
-    //   connectionRef.current.srcObject = null;
-    // }
-    // userVideo.current.destroy();
-    // if (userVideo.current) {
-    //   userVideo.current.srcObject = null;
-    // }
+    setRejectCall(false);
+    setSuccess(false);
+    setData({});
+    setCallAccepted(false);
+    setCallSuccess(false);
     if (connectionRef.current) {
-      connectionRef.current.destroy(); // hoặc connectionRef.current.close();
+      connectionRef.current.destroy();
       connectionRef.current = null;
     }
     if (myVideo.current) {
@@ -528,67 +505,53 @@ useEffect(() => {
       userVideo.current.destroy();
       userVideo.current.srcObject = null;
     }
-    // myVideo.current.destroy();
-    // userVideo.current.destroy();
-  }
+  };
 
-// nhan tu choi
-useEffect(() => {
-  if (socket === null) return;
-  socket.on("leaveCall", (data) => {
-    setCall({});
-    setRejectCall(false)
-    setSuccess(false)
-    setData({})
-    setCallAccepted(false)
-    setCallSuccess(false)
-    // connectionRef.current.destroy();
-    // if (connectionRef.current) {
-    //   connectionRef.current.srcObject = null;
-    // }
-    // userVideo.current.destroy();
-    // if (userVideo.current) {
-    //   userVideo.current.srcObject = null;
-    // }
-    // connectionRef.current.destroy();
-    // myVideo.current.destroy();
-    // userVideo.current.destroy();
-    if (connectionRef.current) {
-      connectionRef.current.destroy(); // hoặc connectionRef.current.close();
-      connectionRef.current = null;
-    }
-    if (myVideo.current) {
-      myVideo.current.destroy();
-      myVideo.current.srcObject = null;
-    }
-    if (userVideo.current) {
-      userVideo.current.destroy();
-      userVideo.current.srcObject = null;
-    }
-  })
-}, [socket]);
-
-const markThisUserNotificationsAsRead = useCallback((thisUserNotifications, notifications) =>
-{ // mark notifications as read
-
-  const mNotifications = notifications.map(el =>
-    {
-      let notification;
-
-      thisUserNotifications.forEach(n => 
-        {
-        if (n.senderId === el.senderId) {
-          notification = {...n, isRead: true}
-        } else
-        {
-        notification = el}
+  // nhan tu choi
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("leaveCall", (data) => {
+      setCall({});
+      setRejectCall(false);
+      setSuccess(false);
+      setData({});
+      setCallAccepted(false);
+      setCallSuccess(false);
+      if (connectionRef.current) {
+        connectionRef.current.destroy(); // hoặc connectionRef.current.close();
+        connectionRef.current = null;
+      }
+      if (myVideo.current) {
+        myVideo.current.destroy();
+        myVideo.current.srcObject = null;
+      }
+      if (userVideo.current) {
+        userVideo.current.destroy();
+        userVideo.current.srcObject = null;
+      }
     });
-    return notification;
-});
-setNotifications(mNotifications);
-}, []);
+  }, [socket]);
 
+  const markThisUserNotificationsAsRead = useCallback(
+    (thisUserNotifications, notifications) => {
+      // mark notifications as read
 
+      const mNotifications = notifications.map((el) => {
+        let notification;
+
+        thisUserNotifications.forEach((n) => {
+          if (n.senderId === el.senderId) {
+            notification = { ...n, isRead: true };
+          } else {
+            notification = el;
+          }
+        });
+        return notification;
+      });
+      setNotifications(mNotifications);
+    },
+    []
+  );
 
   return (
     <ChatContext.Provider
@@ -623,7 +586,7 @@ setNotifications(mNotifications);
         leaveCall,
         changeInfo,
         userInfo,
-        testWithName
+        testWithName,
       }}
     >
       {children}

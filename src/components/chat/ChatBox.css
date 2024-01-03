@@ -1,117 +1,104 @@
 /* ChatBox.css */
 .chat-box {
   background: white !important;
-/*    
+  /*    
   background-color: #FFDEE9;
 background-Image: linear-gradient(0deg, #fbe9ef 0%, #9dfffa 69%, #1b2121 100%); */
-width: 100vh;
-height: 1000px;
-border: solid 0.4px #c8d5d5;
+  width: 100vh;
+  height: 1000px;
+  border: solid 0.4px #c8d5d5;
 }
-.user-name strong
-{
+.user-name strong {
   margin-left: -750px;
   color: white !important;
 }
 .chat-box .chat-header {
-/* background:linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%); */
-background: rgb(87, 181, 244) !important;
-border: solid 0.4px #c8d5d5;
-
+  /* background:linear-gradient(90deg, #00d2ff 0%, rgb(58, 161, 213 ) 100%); */
+  background: rgb(87, 181, 244) !important;
+  border: solid 0.4px #c8d5d5;
 }
-.avatar_chat
-{
-  margin-right:760px;
+.avatar_chat {
+  margin-right: 760px;
   display: flex;
 }
-.username_chat
-{
+.username_chat {
   margin-top: 10px;
   margin-left: 8px;
   color: white;
-  }
+}
 .avatar_chat img {
   border-radius: 50%; /* Để hình ảnh tròn */
-width: 35px;
-height: 35px;
-
+  width: 35px;
+  height: 35px;
 }
 
-
 .message.self.align-self-end.flex-grow-0 {
-color: rgb(255, 255, 255); /* Màu chữ */
-background: rgb(0, 170, 255);
-/* background: linear-gradient(90deg, #00d2ff 0%, #535fe7 100%); Màu nền */
+  color: rgb(255, 255, 255); /* Màu chữ */
+  background: rgb(0, 170, 255);
+  /* background: linear-gradient(90deg, #00d2ff 0%, #535fe7 100%); Màu nền */
 }
 
 .message.align-self-start.flex-grow-0 {
-background-color: #eff2f7;
-color: black;
-/* background: linear-gradient(90deg, #ebbdcd 0%, #f1ecdf 100%); */
+  background-color: #eff2f7;
+  color: black;
+  /* background: linear-gradient(90deg, #ebbdcd 0%, #f1ecdf 100%); */
 }
 
 .user-card {
-border: 1px solid #ccc; /* Màu và độ rộng của khung */
-border-radius: 8px; /* Độ cong của các góc */
-/* Khoảng cách giữa nội dung và khung */
-background-color: #f9f9f9; /* Màu nền */
-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
-width: 100px;
-height: 80px;
-gap: 30px;
-
+  border: 1px solid #ccc; /* Màu và độ rộng của khung */
+  border-radius: 8px; /* Độ cong của các góc */
+  /* Khoảng cách giữa nội dung và khung */
+  background-color: #f9f9f9; /* Màu nền */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+  width: 100px;
+  height: 80px;
+  gap: 30px;
 }
 
 /* Thiết lập định dạng cho các phần tử bên trong user-card */
-.user-card  img {
-border-radius: 50%; /* Để hình ảnh tròn */
-width: 50px;
-height: 50px;
-margin-left: 9px;
+.user-card img {
+  border-radius: 50%; /* Để hình ảnh tròn */
+  width: 50px;
+  height: 50px;
+  margin-left: 9px;
 }
 .user-card .text-content {
-flex: 1; /* Chia tỷ lệ không gian cho phần nội dung văn bản */
+  flex: 1; /* Chia tỷ lệ không gian cho phần nội dung văn bản */
 }
 
-.search-input
-{
-border-radius: 0.5rem;
-width: 23.6rem;
-height: 2rem;
-border: solid 1px  #c2c2c2;
+.search-input {
+  border-radius: 0.5rem;
+  width: 23.6rem;
+  height: 2rem;
+  border: solid 1px #c2c2c2;
 }
-.userchat_header
-{
-display: flex;
-gap: 17rem;
+.userchat_header {
+  display: flex;
+  gap: 17rem;
 }
-.userchat_header h4{
-color: black;
+.userchat_header h4 {
+  color: black;
 }
-.userchat_header .new_chat
-{
-border-radius: 100%;
-width: 40px;
-height: 40px;
+.userchat_header .new_chat {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
 }
-.notifications .notifications-box
-{
-background-color: #d0f6ff;
-border-radius: 10px;
-color: #1b2121;
-width: 230px;
-max-height: 300px;
- overflow-y: auto;
+.notifications .notifications-box {
+  background-color: #d0f6ff;
+  border-radius: 10px;
+  color: #1b2121;
+  width: 230px;
+  max-height: 300px;
+  overflow-y: auto;
 
-margin-right: 12px;
+  margin-right: 12px;
 }
 
-.notificationnot-read
-{
+.notificationnot-read {
   border: 1px solid #d0f6ff;
   background-color: rgb(116, 238, 226) !important;
 }
-.notification-time
-{
+.notification-time {
   color: black !important;
 }

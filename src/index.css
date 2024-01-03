@@ -1,7 +1,7 @@
 body {
   color: white;
   font-family: "Nunito", sans-serif;
-  background:  azure;
+  background: azure;
 }
 
 /* All users */
@@ -216,31 +216,27 @@ body {
   background: white;
   padding: 10px;
   border-radius: 8px;
-  
+
   width: 30%;
 }
-.button-close
-{
+.button-close {
   color: rgb(57, 129, 229);
   font-size: 25px;
   margin-left: 400px;
-  
 }
 .modal-content .modal-title {
   margin-bottom: 20px;
   font-weight: 100px;
-  background-color:#47B5FF;
+  background-color: #47b5ff;
   border-radius: 100px;
-  border:solid 0.5px #56a1bd;
+  border: solid 0.5px #56a1bd;
 }
-.modal-title h5{
-  
+.modal-title h5 {
   margin-left: 160px;
   color: #0312ef;
   margin-top: 5px;
 }
-.user-list
-{
+.user-list {
   margin-top: 8px;
   /* background-color: rgb(160, 229, 241); */
   /* border: solid 1px #56a1bd; */
@@ -250,16 +246,15 @@ body {
   width: 100%;
   padding: 0;
 }
-.user-list :hover
-{
+.user-list :hover {
   background-color: #2084cc;
   color: white;
 }
 .user-list li {
   background-color: rgb(160, 229, 241);
   color: #181d31;
-  border: solid 1px #56a1bd;  
-  border-radius:5px;
+  border: solid 1px #56a1bd;
+  border-radius: 5px;
   display: flex;
   width: 100%;
   /* transition: background-color 0.3s ease; Thêm hiệu ứng transition */
@@ -268,9 +263,7 @@ body {
 /* .user-list li:hover {
   background-color: #aed4e6; /* Màu nền khi hover }*/
 
-
-.button-add
-{
+.button-add {
   color: #ffffff;
   height: 40px;
   border-radius: 5px;
@@ -279,17 +272,15 @@ body {
   border-radius: 5px;
   box-shadow: 1px 1px #00bd9b;
   transition: background-color 0.3s ease;
- 
 }
-.button-add:hover
-{
-  background-color: #eb3e24; 
+.button-add:hover {
+  background-color: #eb3e24;
 }
 .user-list img {
   height: 30px;
   width: 30px;
   margin-top: -8px;
- }
+}
 
 li.selected {
   background-color: #00bd9b;
@@ -298,5 +289,3 @@ li.selected {
 .search-input {
   padding: 0 12px;
 }
-
-

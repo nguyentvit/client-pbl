@@ -1,7 +1,5 @@
-// import React from "react";
 import BannerBackground from "../img/home3.png";
 import "./Styles.css";
-// import { FiArrowRight } from "react-icons/fi";
 
 const Home = () => {
   return (
@@ -12,20 +10,15 @@ const Home = () => {
         </div>
         <div className="home-text-section">
           <h1 className="primary-heading">
-           Meeting <br/> Without a Hitch
+            Meeting <br /> Without a Hitch
           </h1>
           <p className="primary-text">
-           Distance doesn't matter, it's the meeting that matter the most</p>
-          <button className="secondary-button">
-            Explored{" "}
-          </button>
+            Distance doesn't matter, it's the meeting that matter the most
+          </p>
+          <button className="secondary-button">Explored </button>
         </div>
-        {/* <div className="home-image-section">
-          <img src={BannerImage} alt="" />
-        </div> */}
       </div>
     </div>
-    
   );
 };
 

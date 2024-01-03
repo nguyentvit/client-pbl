@@ -3,27 +3,29 @@ import { baseUrl, getRequest } from "../utils/services";
 import { AuthContext } from "../context/AuthContext";
 
 export const useFetchRecipientUser = (chat, user) => {
-    const [recipientUser, setRecipientUser] = useState(null);
-    const [error, setError] = useState(null);
-    const {token} = useContext(AuthContext);
+  const [recipientUser, setRecipientUser] = useState(null);
+  const [error, setError] = useState(null);
+  const { token } = useContext(AuthContext);
 
-    const recipientId = chat?.userIds?.find((id) => id !== user?._id);
+  const recipientId = chat?.userIds?.find((id) => id !== user?._id);
 
-    useEffect(() => {
-        const getUser = async() => {
-            if (!recipientId) return null;
+  useEffect(() => {
+    const getUser = async () => {
+      if (!recipientId) return null;
 
-            const response = await getRequest(`${baseUrl}/users/find/${recipientId}`, token);
+      const response = await getRequest(
+        `${baseUrl}/users/find/${recipientId}`,
+        token
+      );
 
-            if(response.error) {
-                return setError(error)
-            }
-            setRecipientUser(response);
-        }
+      if (response.error) {
+        return setError(error);
+      }
+      setRecipientUser(response);
+    };
 
-        getUser();
+    getUser();
+  }, [recipientId]);
 
-    }, [recipientId])
-
-    return {recipientUser};
-}
+  return { recipientUser };
+};

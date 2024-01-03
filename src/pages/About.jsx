@@ -10,7 +10,6 @@ const About = () => {
     <div className="about-section-container">
       <div className="about-section-container-left">
         <div className="about-section-text-container">
-          {/* <p className="primary-subheading">About</p> */}
           <h3 className="about-primary-heading">
             More fun <br /> with effect <br /> filters{" "}
           </h3>
@@ -45,7 +44,7 @@ const About = () => {
                 style={{
                   width: "40px",
                   height: "40px",
-                  color:"white",
+                  color: "white",
                   // boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
               />
@@ -72,20 +71,19 @@ const About = () => {
                 background: "#62C6FF",
                 backdropFilter: "blur(4px)",
                 borderRadius: "100%",
-
               }}
             >
               <LuAlarmClock
                 style={{
                   width: "39px",
                   height: "39px",
-                  color:"white",
+                  color: "white",
                 }}
               />
             </div>
             <h6 className="" style={{ color: "black" }}>
-            Fastly and save your time </h6>
-            
+              Fastly and save your time{" "}
+            </h6>
           </div>
 
           <div
@@ -107,11 +105,11 @@ const About = () => {
                 borderRadius: "100%",
               }}
             >
-              <MdOutlineSecurity style={{ width: "40px", height: "40px" ,color:"white",}} />
+              <MdOutlineSecurity
+                style={{ width: "40px", height: "40px", color: "white" }}
+              />
             </div>
-            <h6 style={{ color: "black" }}>
-              Protect Informations
-            </h6>
+            <h6 style={{ color: "black" }}>Protect Informations</h6>
           </div>
         </div>
         <div className="about-buttons-container">

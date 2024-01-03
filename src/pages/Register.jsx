@@ -1,9 +1,8 @@
 import { useState, useContext } from "react";
 import "./login.css";
-import {  Button, Form, Row, Col, Stack } from "react-bootstrap";
+import { Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import Loginimg from "../img/register.jpg";
-import VerifyEmailNotification from "./VerifyRegister";
 
 const Register = () => {
   const {
@@ -12,7 +11,7 @@ const Register = () => {
     registerUser,
     registerError,
     isRegisterLoading,
-    registerSuccess
+    registerSuccess,
   } = useContext(AuthContext);
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
