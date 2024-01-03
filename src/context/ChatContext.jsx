@@ -508,13 +508,17 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
-    connectionRef.current.destroy();
+    // connectionRef.current.destroy();
+    // if (connectionRef.current) {
+    //   connectionRef.current.srcObject = null;
+    // }
+    // userVideo.current.destroy();
+    // if (userVideo.current) {
+    //   userVideo.current.srcObject = null;
+    // }
     if (connectionRef.current) {
-      connectionRef.current.srcObject = null;
-    }
-    userVideo.current.destroy();
-    if (userVideo.current) {
-      userVideo.current.srcObject = null;
+      connectionRef.current.destroy(); // hoặc connectionRef.current.close();
+      connectionRef.current = null;
     }
     // myVideo.current.destroy();
     // userVideo.current.destroy();
@@ -530,17 +534,21 @@ useEffect(() => {
     setData({})
     setCallAccepted(false)
     setCallSuccess(false)
-    connectionRef.current.destroy();
-    if (connectionRef.current) {
-      connectionRef.current.srcObject = null;
-    }
-    userVideo.current.destroy();
-    if (userVideo.current) {
-      userVideo.current.srcObject = null;
-    }
+    // connectionRef.current.destroy();
+    // if (connectionRef.current) {
+    //   connectionRef.current.srcObject = null;
+    // }
+    // userVideo.current.destroy();
+    // if (userVideo.current) {
+    //   userVideo.current.srcObject = null;
+    // }
     // connectionRef.current.destroy();
     // myVideo.current.destroy();
     // userVideo.current.destroy();
+    if (connectionRef.current) {
+      connectionRef.current.destroy(); // hoặc connectionRef.current.close();
+      connectionRef.current = null;
+    }
   })
 }, [socket]);
 
